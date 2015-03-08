@@ -1,12 +1,16 @@
 <?php 
 	require_once('../models/bootstrap.php');
-		
+	session_start();
+	$_SESSION['logado'] = false;
+	
 	if(isset($_POST['login'])){
 		$mensagem = "";
 		$p = new Professor();
+		//echo $_POST['login']." | ".md5($_POST['senha']).PHP_EOL;
 		$ret = $p->validarAcesso($_POST['login'], $_POST['senha']);
-		echo "bla";
 		if($ret){
+			$_SESSION['idProfessor'] = $ret->getIdProfessor();
+			$_SESSION['logado'] = true;
 			header('Location: inicio.php');
 		} else {
 			$mensagem = "Usuário ou Senha Inválidos!!";
@@ -21,7 +25,7 @@
 <body>
 <div class="row">
 	<div class="row collapse">
-		<br><br>
+		<br>
 		<div class="large-2 medium-2 small-1 columns">&nbsp;</div>
 		<div class="large-8 medium-8 small-10 columns">
 			<div class="large-12 columns">
@@ -40,16 +44,20 @@
 							<label>Senha:</label>
 								<input type="password" name="senha" />
 						</div>
-						<div class="large-6 columns">
+						<div class="large-3 columns">&nbsp;</div>
+						<div class="large-6 columns end">
 							<input type="submit" name="logar" value="Conectar" class="large-12 button"/>
 						</div>
-						<div class="large-12 columns text-center">
+						<div class="large-12 columns text-center" style="color: red">
 							<?php 
 								echo $mensagem;
 							?>
 						</div>
 					</fieldset>
 				</form>
+			</div>
+			<div class="large-12 columns">
+				<center><a href="cadProfessor.php"><img src="./img/cadProfessor.png"></a></center>
 			</div>
 		</div>
 		<div class="large-2 medium-2 small-1 columns">&nbsp;</div>

@@ -7,23 +7,147 @@
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
- * @author     ##NAME## <##EMAIL##>
+ * @author     ##Lucas Amparo Barbosa## <##lucasamparo.ti@gmail.com##>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 class Professor extends BaseProfessor{
-
+	
+	public function getIdProfessor(){
+		return $this->idProfessor;
+	}
+	
 	public function getNome(){
 		return $this->nomeProfessor;
 	}
 	
-	public function getIdProfessor(){
-		return $this->idProfessor;
+	public function getNascimento(){
+		return $this->nascimento;
+	}
+	
+	public function getTituloMax(){
+		return $this->tituloMax;
+	}
+	
+	public function getAreaAtuacao(){
+		return $this->areaAtuacao;
+	}
+	
+	public function getNivelAtuacao(){
+		return $this->nivelAtuacao;
+	}
+	
+	public function getLogradouro(){
+		return $this->logradouro;
+	}
+	
+	public function getNumero(){
+		return $this->numero;
+	}
+	
+	public function getBairro(){
+		return $this->bairro;
+	}
+	
+	public function getCidade(){
+		return $this->cidade;
+	}
+	
+	public function getEstado(){
+		return $this->estado;
+	}
+	
+	public function getPais(){
+		return $this->pais;
+	}
+	
+	public function getCep(){
+		return $this->cep;
+	}
+	
+	public function getEmail(){
+		return $this->email;
+	}
+	
+	public function getTelCel(){
+		return $this->telCel;
+	}
+	
+	public function getLogin(){
+		return $this->login;
+	}
+		
+	public function getSenha(){
+		return $this->senha;
+	}
+	
+	public function setIdProfessor($idProfessor){
+		$this->idProfessor = $idProfessor;
 	}
 	
 	public function setNome($nomeProfessor){
 		$this->nomeProfessor = $nomeProfessor;
 	}
 	
+	public function setNascimento($nascimento){
+		$this->nascimento = $nascimento;
+	}
+	
+	public function setTituloMax($tituloMax){
+		$this->tituloMax = $tituloMax;
+	}
+	
+	public function setAreaAtuacao($areaAtuacao){
+		$this->areaAtuacao = $areaAtuacao;
+	}
+	
+	public function setNivelAtuacao($nivelAtuacao){
+		$this->nivelAtuacao = $nivelAtuacao;
+	}
+	
+	public function setLogradouro($logradouro){
+		$this->logradouro = $logradouro;
+	}
+	
+	public function setNumero($numero){
+		$this->numero = $numero;
+	}
+	
+	public function setBairro($bairro){
+		$this->bairro = $bairro;
+	}
+	
+	public function setCidade($cidade){
+		$this->cidade = $cidade;
+	}
+	
+	public function setEstado($estado){
+		$this->estado = $estado;
+	}
+	
+	public function setPais($pais){
+		$this->pais = $pais;
+	}
+	
+	public function setCep($cep){
+		$this->cep = $cep;
+	}
+	
+	public function setEmail($email){
+		$this->email = $email;
+	}
+	
+	public function setTelCel($telCel){
+		$this->telCel = $telCel;
+	}
+	
+	public function setLogin($login){
+		$this->login = $login;
+	}
+	
+	public function setSenha($senha){
+		$this->senha = $senha;
+	}
+		
 	public function inserirProfessor(){
 		try{
 			$this->save();
@@ -81,9 +205,15 @@ class Professor extends BaseProfessor{
 	}
 	
 	public function validarAcesso($login, $senha){
-		$retorno = $this->getTable('professor')->findBySql('login = '.$login.' AND senha = '.$senha);
+		$retorno = $this->getTable("Professor")->findOneBy('login',$login);
+		echo $retorno->getNome();
 		if($retorno){
-			return true;
+			echo $retorno->getSenha();
+			if($retorno->getSenha() == md5($senha)){
+				return $retorno;
+			} else {
+				return false;
+			}
 		} else {
 			return false;
 		}
