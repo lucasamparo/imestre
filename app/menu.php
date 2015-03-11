@@ -2,7 +2,7 @@
 	echo '<ul class="button-group radius" style="background-color: #008CBA">
 			<button href="#" data-dropdown="professor" aria-controls="professor" aria-expanded="false" class="button dropdown">Professor</button>
 			<ul id="professor" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
-				<li><a href="#" id="perfil">Perfil</a></li>
+				<li><a href="perfilProfessor.php" id="perfil">Perfil</a></li>
 				<li><a href="#" id="curriculo">Currículo</a></li>
 				<li><a href="#" id="areas">Áreas de Atuação</a></li>
 			</ul>

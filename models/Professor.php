@@ -185,7 +185,54 @@ class Professor extends BaseProfessor{
 			$professor = $this->getTable('professor')->find($this->getIdProfessor());
 			if($professor){
 				//Sobrepor os valores
-				$professor->setNome($this->getNome());
+				if(!is_null($this->getNome())){
+					$professor->setNome($this->getNome());
+				}				
+				if(!is_null($this->getNascimento())){
+					$professor->setNascimento($this->getNascimento());					
+				}
+				if(!is_null($this->getTituloMax())){
+					$professor->setTituloMax($this->getTituloMax());
+				}
+				if(!is_null($this->getAreaAtuacao())){
+					$professor->setAreaAtuacao($this->getAreaAtuacao());
+				}
+				if(!is_null($this->getNivelAtuacao())){
+					$professor->setNivelAtuacao($this->getNivelAtuacao());
+				}
+				if(!is_null($this->getLogradouro())){
+					$professor->setLogradouro($this->getLogradouro());
+				}
+				if(!is_null($this->getNumero())){
+					$professor->setNumero($this->getNumero());
+				}
+				if(!is_null($this->getBairro())){
+					$professor->setBairro($this->getBairro());
+				}
+				if(!is_null($this->getCidade())){
+					$professor->setCidade($this->getCidade());
+				}
+				if(!is_null($this->getEstado())){
+					$professor->setEstado($this->getEstado());
+				}
+				if(!is_null($this->getPais())){
+					$professor->setPais($this->getPais());
+				}
+				if(!is_null($this->getCep())){
+					$professor->setCep($this->getCep());
+				}
+				if(!is_null($this->getEmail())){
+					$professor->setEmail($this->getEmail());
+				}
+				if(!is_null($this->getTelCel())){
+					$professor->setTelCel($this->getTelCel());					
+				}
+				if(!is_null($this->getLogin())){
+					$professor->setLogin($this->getLogin());					
+				}
+				if(!is_null($this->getSenha())){
+					$professor->setSenha($this->getSenha());
+				}
 				$professor->save();
 				return true;
 			} else {

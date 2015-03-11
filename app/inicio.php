@@ -112,9 +112,9 @@
 						</tbody>
 					</table>
 				</div>
-			</div>			
+			</div>
+		<hr>			
 		</div>
-		<hr>
 		<div class="large-12 columns">
 			<?php include('footer.php')?>
 		</div>		
