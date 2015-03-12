@@ -39,7 +39,7 @@ abstract class BaseProfessor extends Doctrine_Record
              'fixed' => false,
              'unsigned' => false,
              'primary' => true,
-             'autoincrement' => false,
+             'autoincrement' => true,
              ));
         $this->hasColumn('nomeProfessor', 'string', 100, array(
              'type' => 'string',

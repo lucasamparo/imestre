@@ -31,7 +31,6 @@
 		$salvo = true;
 	}
 ?>
-
 <html>
 <head>
 <title>iMestre :: Editar Perfil - Professor <?php echo $professor->getNome();?></title>
