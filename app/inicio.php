@@ -33,12 +33,7 @@
 	</div>
 	<div class="row"><!-- Linha do Content -->
 		<div class="large-4 columns">
-			<ul class="side-nav" role="navigation" title="Link List">
-			   <li role="menuitem"><a href="#">Link 1</a></li>
-			   <li role="menuitem"><a href="#">Link 2</a></li>
-			   <li role="menuitem"><a href="#">Link 3</a></li>
-			   <li role="menuitem"><a href="#">Link 4</a></li>
-			 </ul>
+			<?php include('sidebar.php');?>
 		</div>
 		<div class="large-8 columns" style="border-left-style: solid; border-width: 1px;">
 			<div class="row collapse">

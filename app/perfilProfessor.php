@@ -39,8 +39,9 @@
 <script language="JScript" src="js/vendor/modernizr.js"></script>
 <script language="JScript" src="js/foundation.min.js"></script>
 <script language="JScript" src='js/jquery.simplemodal.js'></script>
+<script language="JScript" src='js/imestre.js'></script>
 </head>
-<body>
+<body onload="arrumaMenu('perfil')">
 	<div class="row"><!-- Linha do header -->
 		<?php include('header.php');?>
 	</div>

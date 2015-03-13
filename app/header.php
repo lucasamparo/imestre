@@ -1,6 +1,6 @@
 <?php
 	echo '<div class="large-4 columns">
-			<img src="./img/logo.png" width="250">
+			<a href="inicio.php"><img src="./img/logo.png" width="250"></a>
 		</div>
 		<div class="large-5 columns">
 			<div class="large-12">&nbsp;</div>
