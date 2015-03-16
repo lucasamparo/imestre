@@ -10,6 +10,7 @@
 		$ret = $p->validarAcesso($_POST['login'], $_POST['senha']);
 		if($ret){
 			$_SESSION['idProfessor'] = $ret->getIdProfessor();
+			$_SESSION['nomeProfessor'] = $ret->getNome();
 			$_SESSION['logado'] = true;
 			header('Location: inicio.php');
 		} else {

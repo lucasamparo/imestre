@@ -33,7 +33,7 @@
 ?>
 <html>
 <head>
-<title>iMestre :: Editar Perfil - Professor <?php echo $professor->getNome();?></title>
+<title>iMestre :: Editar Perfil - Professor <?php echo $_SESSION['nomeProfessor'];?></title>
 <link rel="stylesheet" type="text/css" href="css/foundation.css">
 <script language="JScript" src="js/vendor/jquery.js"></script>
 <script language="JScript" src="js/vendor/modernizr.js"></script>
@@ -63,7 +63,7 @@
 			 </ul>
 		</div>
 		<div class="large-8 columns" style="border-left-style: solid; border-width: 1px;">
-			<h4 class="text-center">Perfil - Professor <?php echo $professor->getNome();?></h4>
+			<h4 class="text-center">Perfil - Professor <?php echo $_SESSION['nomeProfessor'];?></h4>
 			<div class="large-12 columns">
 				<?php 
 					if($salvo){

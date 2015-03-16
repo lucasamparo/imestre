@@ -8,7 +8,7 @@
 			</ul>
 			<button href="#" data-dropdown="instituicao" aria-controls="instituicao" aria-expanded="false" class="button dropdown">Instituição</button>
 			<ul id="instituicao" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
-				<li><a href="#" id="cadInstituicao">Cadastro</a></li>
+				<li><a href="cadInstituicao.php" id="cadInstituicao">Cadastro</a></li>
 				<li><a href="#" id="listaInstituicao">Listagem</a></li>
 			</ul>
 			<button href="#" data-dropdown="disciplinas" aria-controls="disciplinas" aria-expanded="false" class="button dropdown">Disciplinas</button>

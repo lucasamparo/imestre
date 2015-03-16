@@ -12,7 +12,7 @@
 		<div class="large-3 columns">
 			<div class="row collapse">
 				<div class="large-12 columns">
-					<label class="text-right">Bem Vindo Professor '.$nome[1].'</label>
+					<label class="text-right">Bem Vindo Professor '.explode(" ",$_SESSION['nomeProfessor'])[1].'</label>
 				</div>
 				<div class="large-12 columns">
 					<label class="text-right">X Mensagens</label>

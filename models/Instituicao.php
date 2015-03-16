@@ -10,7 +10,144 @@
  * @author     ##NAME## <##EMAIL##>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-class Instituicao extends BaseInstituicao
-{
-
+class Instituicao extends BaseInstituicao{
+	
+	public function getIdInstituicao(){
+		return $this->idInstituicao;
+	}
+	
+	public function getNomeInstituicao(){
+		return $this->nomeInstituicao;
+	}
+	
+	public function getLogradouro(){
+		return $this->logradouro;
+	}
+	
+	public function getNumero(){
+		return $this->numero;
+	}
+	
+	public function getBairro(){
+		return $this->bairro;
+	}
+	
+	public function getCidade(){
+		return $this->cidade;
+	}
+	
+	public function getTelContato(){
+		return $this->telContato;
+	}
+	
+	public function getMedia(){
+		return $this->media;
+	}
+	
+	public function setIdInstituicao($idInstituicao){
+		$this->idInstituicao = $idInstituicao;
+	}
+	
+	public function setNomeInstituicao($nomeInstituicao){
+		$this->nomeInstituicao = $nomeInstituicao;
+	}
+	
+	public function setLogradouro($logradouro){
+		$this->logradouro = $logradouro;
+	}
+	
+	public function setNumero($numero){
+		$this->numero = $numero;
+	}
+	
+	public function setBairro($bairro){
+		$this->bairro = $bairro;
+	}
+	
+	public function setCidade($cidade){
+		$this->cidade = $cidade;
+	}
+	
+	public function setTelContato($telContato){
+		$this->telContato = $telContato;
+	}
+	
+	public function setMedia($media){
+		$this->media = $media;
+	}
+	
+	public function inserirInstituicao(){
+		try{
+			$this->save();
+			return true;
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function retornaTodasInstituicoes(){
+		try{
+			$rs = $this->getTable("instituicao")->findAll();
+			return $rs;
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function excluirInstituicao(){
+		try{
+			$professor = $this->getTable('instituicao')->find($this->getIdInstituicao());
+			if($professor){
+				$professor->delete();
+				return true;
+			} else {
+				return false;
+			}
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function atualizarInsituicao(){
+		try{
+			$instituicao = $this->getTable('instituicao')->find($this->getIdInstituicao());
+			if($instituicao){
+				if(!is_null($this->getNomeInstituicao())){
+					$instituicao->setNomeInstituicao($this->getNomeInstituicao());
+				}
+				if(!is_null($this->getLogradouro())){
+					$instituicao->setLogradouro($this->getLogradouro());
+				}
+				if(!is_null($this->getNumero())){
+					$instituicao->setNumero($this->getNumero());
+				}
+				if(!is_null($this->getBairro())){
+					$instituicao->setBairro($this->getBairro());
+				}
+				if(!is_null($this->getCidade())){
+					$instituicao->setCidade($this->getCidade());
+				}
+				if(!is_null($this->getTelContato())){
+					$instituicao->setTelContato($this->getTelContato());
+				}
+				if(!is_null($this->getMedia())){
+					$instituicao->setMedia($this->getMedia());
+				}
+				$instituicao->save();
+				return true;
+			} else {
+				return false;
+			}
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function retornaInstituicaoPorId(){
+		try{
+			return $this->getTable("instituicao")->findOneBy('idInstituicao', $this->getIdInstituicao());
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
 }
