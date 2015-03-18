@@ -150,4 +150,18 @@ class Instituicao extends BaseInstituicao{
 			echo $e->getMessage();
 		}
 	}
+	
+	public function getJson(){
+		$array = Array();
+		$array['idInstituicao'] = utf8_encode($this->getIdInstituicao());
+		$array['nomeInstituicao'] = utf8_encode($this->getNomeInstituicao());
+		$array['logradouro'] = utf8_encode($this->getLogradouro());
+		$array['numero'] = utf8_encode($this->getNumero());
+		$array['bairro'] = utf8_encode($this->getBairro());
+		$array['cidade'] = utf8_encode($this->getCidade());
+		$array['telContato'] = utf8_encode($this->getTelContato());
+		$array['media'] = utf8_encode($this->getMedia());
+		
+		return json_encode($array);
+	}
 }
