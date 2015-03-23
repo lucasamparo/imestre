@@ -22,8 +22,8 @@
 			</ul>
 			<button href="#" data-dropdown="alunos" aria-controls="alunos" aria-expanded="false" class="button dropdown">Alunos</button>
 			<ul id="alunos" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
-				<li><a href="#" id="cadAluno">Cadastro</a></li>
-				<li><a href="#" id="listaAluno">Listagem</a></li>
+				<li><a href="cadAluno.php" id="cadAluno">Cadastro</a></li>
+				<li><a href="listaAlunos.php" id="listaAluno">Listagem</a></li>
 			</ul>
 			<button href="#" data-dropdown="comunicacao" aria-controls="comunicacao" aria-expanded="false" class="button dropdown">Comunicação</button>
 			<ul id="comunicacao" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">

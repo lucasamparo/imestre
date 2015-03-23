@@ -30,7 +30,7 @@ abstract class BaseInstituicao extends Doctrine_Record
              'fixed' => false,
              'unsigned' => false,
              'primary' => true,
-             'autoincrement' => false,
+             'autoincrement' => true,
              ));
         $this->hasColumn('nomeInstituicao', 'string', 255, array(
              'type' => 'string',
