@@ -21,7 +21,7 @@
 ?>
 <html>
 <head>
-<title>iMestre :: Cadastro de Instituição - Professor <?php echo $_SESSION['nomeProfessor'];?></title>
+<title>iMestre :: Cadastro de Disciplinas - Professor <?php echo $_SESSION['nomeProfessor'];?></title>
 <link rel="stylesheet" type="text/css" href="css/foundation.css">
 <link rel="stylesheet" type="text/css" href="css/basic_simplemodal.css">
 <script language="JScript" src="js/vendor/jquery.js"></script>

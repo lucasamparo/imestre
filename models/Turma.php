@@ -10,7 +10,148 @@
  * @author     ##NAME## <##EMAIL##>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-class Turma extends BaseTurma
-{
-
+class Turma extends BaseTurma{
+	public function getIdTurma(){
+		return $this->idTurma;
+	}
+	
+	public function getIdInstituicao(){
+		return $this->idInstituicao;
+	}
+	
+	public function getIdDisciplina(){
+		return $this->idDisciplina;
+	}
+	
+	public function getNomeTurma(){
+		return $this->nomeTurma;
+	}
+	
+	public function getCargaHoraria(){
+		return $this->cargaHoraria;
+	}
+	
+	public function getPeriodo(){
+		return $this->periodo;
+	}
+	
+	public function getTurno(){
+		return $this->turno;
+	}
+	
+	public function setIdTurma($idTurma){
+		$this->idTurma = $idTurma;
+	}
+	
+	public function setIdInstituicao($idInstituicao){
+		$this->idInstituicao = $idInstituicao;
+	}
+	
+	public function setIdDisciplina($idDisciplina){
+		$this->idDisciplina = $idDisciplina;
+	}
+	
+	public function setNomeTurma($nomeTurma){
+		$this->nomeTurma = $nomeTurma;
+	}
+	
+	public function setCargaHoraria($cargaHoraria){
+		$this->cargaHoraria = $cargaHoraria;
+	}
+	
+	public function setPeriodo($periodo){
+		$this->periodo = $periodo;
+	}
+	
+	public function setTurno($turno){
+		$this->turno = $turno;
+	}
+	
+	public function inserirTurma(){
+		try{
+			$this->save();
+			return true;
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function retornaTodasTurmas(){
+		try{
+			$rs = $this->getTable("turma")->findAll();
+			return $rs;
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function excluirTurma(){
+		try{
+			$turma = $this->getTable('turma')->find($this->getIdTurma());
+			if($turma){
+				$turma->delete();
+				return true;
+			} else {
+				return false;
+			}
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function atualizaTurma(){
+		try{
+			$turma = $this->getTable('turma')->find($this->getIdTurma());
+			if($turma){
+				if(!is_null($this->getIdTurma())){
+					$turma->setIdTurma($this->getIdTurma());
+				}
+				if(!is_null($this->getIdInstituicao())){
+					$turma->setIdInstituicao($this->getIdInstituicao());
+				}
+				if(!is_null($this->getIdDisciplina())){
+					$turma->setIdDisciplina($this->getIdDisciplina());
+				}
+				if(!is_null($this->getNomeTurma())){
+					$turma->setNomeTurma($this->getNomeTurma());
+				}
+				if(!is_null($this->getCargaHoraria())){
+					$turma->setCargaHoraria($this->getCargaHoraria());
+				}
+				if(!is_null($this->getPeriodo())){
+					$turma->setPeriodo($this->getPeriodo());
+				}
+				if(!is_null($this->getTurno())){
+					$turma->setTurno($this->getTurno());
+				}
+				$turma->save();
+				return true;
+			} else {
+				return false;
+			}
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function retornaTurmaPorId(){
+		try{
+			return $this->getTable("turma")->findOneBy('idTurma', $this->getIdTurma());
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function getJson(){
+		$array = Array();
+		$array['idTurma'] = utf8_encode($this->idTurma);
+		$array['idInstituicao'] = utf8_encode($this->idInstituicao);
+		$array['idDisciplina'] = utf8_encode($this->idDisciplina);
+		$array['nomeTurma'] = utf8_encode($this->nomeTurma);
+		$array['cargaHoraria'] = utf8_encode($this->cargaHoraria);
+		$array['periodo'] = utf8_encode($this->periodo);
+		$array['turno'] = utf8_encode($this->turno);
+		
+		return json_encode($array);
+	}
 }

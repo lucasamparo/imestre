@@ -13,12 +13,12 @@
 			</ul>
 			<button href="#" data-dropdown="disciplinas" aria-controls="disciplinas" aria-expanded="false" class="button dropdown">Disciplinas</button>
 			<ul id="disciplinas" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
-				<li><a href="disciplinas.php" id="cadDisciplina">Cadastro</a></li>
+				<li><a href="disciplinas.php" id="cadDisciplina">Controle</a></li>
 			</ul>
 			<button href="#" data-dropdown="turmas" aria-controls="turmas" aria-expanded="false" class="button dropdown">Turmas</button>
 			<ul id="turmas" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
-				<li><a href="#" id="cadTurma">Cadastro</a></li>
-				<li><a href="#" id="listaTurma">Listagem</a></li>
+				<li><a href="turmas.php" id="cadTurma">Cadastro</a></li>
+				<li><a href="listaTurmas.php" id="listaTurma">Listagem</a></li>
 			</ul>
 			<button href="#" data-dropdown="alunos" aria-controls="alunos" aria-expanded="false" class="button dropdown">Alunos</button>
 			<ul id="alunos" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
