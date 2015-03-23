@@ -108,7 +108,7 @@ class Instituicao extends BaseInstituicao{
 		}
 	}
 	
-	public function atualizarInsituicao(){
+	public function atualizarInstituicao(){
 		try{
 			$instituicao = $this->getTable('instituicao')->find($this->getIdInstituicao());
 			if($instituicao){

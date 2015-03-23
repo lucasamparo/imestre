@@ -4,6 +4,21 @@
 	if(!($_SESSION['logado'])){
 		header('Location: index.php');
 	}
+	
+	if(isset($_POST['nomeInstituicao'])){
+		$inst = new Instituicao();
+		$inst->setNomeInstituicao($_POST['nomeInstituicao']);
+		$media = $_POST['media'];
+		$inst->setMedia($media);
+		$inst->setLogradouro($_POST['logradouro']);
+		$inst->setNumero($_POST['numero']);
+		$inst->setBairro($_POST['bairro']);
+		$inst->setCidade($_POST['cidade']);
+		$inst->setTelContato($_POST['telContato']);
+		$inst->setIdInstituicao($_POST['idInstituicao']);
+		$inst->atualizarInstituicao();
+		header('Location: listaInstituto.php');
+	}
 ?>
 <html>
 <head>
@@ -18,8 +33,26 @@
 <script language="JScript">
 function completaEdicao(codigo){
 	$('#edicao').css('display','inline');
-	retorno = wsGeral('wsInstituicao.php?id='+codigo);
-	alert(retorno);
+	 var retorno;
+	 var req = $.ajax({
+	    url:    "wsInstituicao.php",
+	    type:   "get",
+	    dataType:"json",
+	    data:   "id="+codigo,
+	    async: false,
+
+	    success: function( data ){
+	        retorno = data;           
+	    }
+	});
+	$('#nomeInstituicao').val(retorno.nomeInstituicao);
+	$('#media').val(retorno.media);
+	$('#logradouro').val(retorno.logradouro);
+	$('#numero').val(retorno.numero);
+	$('#bairro').val(retorno.bairro);
+	$('#cidade').val(retorno.cidade);
+	$('#telContato').val(retorno.telContato);
+	$('#idInstituicao').val(retorno.idInstituicao);
 }
 </script>
 </head>
@@ -74,7 +107,7 @@ function completaEdicao(codigo){
 					<fieldset>
 						<div class="large-10 columns">
 							<label>Nome da Instituição:</label>
-								<input type="text" name="nomeInstituicao" id="nomeInsituicao">
+								<input type="text" name="nomeInstituicao" id="nomeInstituicao">
 						</div>
 						<div class="large-2 columns">
 							<label>Média:</label>
@@ -102,6 +135,7 @@ function completaEdicao(codigo){
 						</div>
 						<div class="large-8 columns">&nbsp;</div>
 						<div class="large-4 columns">
+							<input type="hidden" id="idInstituicao" name="idInstituicao">
 							<input type="submit" class="button large-12" value="Atualizar">
 						</div>
 					</fieldset>

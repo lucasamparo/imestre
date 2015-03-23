@@ -10,7 +10,88 @@
  * @author     ##NAME## <##EMAIL##>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-class Disciplina extends BaseDisciplina
-{
-
+class Disciplina extends BaseDisciplina{
+	function getIdDisciplina(){
+		return $this->idDisciplina;
+	}
+	
+	function getNomeDisciplina(){
+		return $this->nomeDisciplina;
+	}
+	
+	function setIdDisciplina($idDisciplina){
+		$this->idDisciplina = $idDisciplina;
+	}
+	
+	function setNomeDisciplina($nomeDisciplina){
+		$this->nomeDisciplina = $nomeDisciplina;
+	}
+	
+	public function inserirDisciplina(){
+		try{
+			$this->save();
+			return true;
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function retornaTodasDisciplinas(){
+		try{
+			$rs = $this->getTable("disciplina")->findAll();
+			return $rs;
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function excluirDisciplina(){
+		try{
+			$disciplina = $this->getTable('disciplina')->find($this->getIdDisciplina());
+			if($disciplina){
+				$disciplina->delete();
+				return true;
+			} else {
+				return false;
+			}
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function atualizarDisciplina(){
+		try{
+			$disciplina = $this->getTable('disciplina')->find($this->getIdDisciplina());
+			if($disciplina){
+				if(!is_null($this->getNomeDisciplina())){
+					$disciplina->setNomeDisciplina($this->getNomeDisciplina());
+				}
+				if(!is_null($this->getIdDisciplina())){
+					$disciplina->setIdDisciplina($this->getIdDisciplina());
+				}
+				$disciplina->save();
+				return true;
+			} else {
+				return false;
+			}
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function retornaDisciplinaPorId(){
+		try{
+			return $this->getTable("disciplina")->findOneBy('idDisciplina', $this->getIdDisciplina());
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	function getJson(){
+		$array = Array();
+		$array['idDisciplina'] = utf8_encode($this->idDisciplina);
+		$array['nomeDisciplina'] = utf8_encode($this->nomeDisciplina);
+		
+		return json_encode($array);
+	}
 }
