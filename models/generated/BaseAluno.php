@@ -25,7 +25,7 @@ abstract class BaseAluno extends Doctrine_Record
              'fixed' => false,
              'unsigned' => false,
              'primary' => true,
-             'autoincrement' => false,
+             'autoincrement' => true,
              ));
         $this->hasColumn('nomeAluno', 'string', 255, array(
              'type' => 'string',

@@ -10,7 +10,164 @@
  * @author     ##NAME## <##EMAIL##>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-class Questao extends BaseQuestao
-{
-
+class Questao extends BaseQuestao{
+	public function getIdQuestao(){
+		return $this->idQuestao;
+	}
+	
+	public function getIdDisciplina(){
+		return $this->idDisciplina;
+	}
+	
+	public function getPrivacidade(){
+		return $this->privacidade;
+	}
+	
+	public function getEnunciado(){
+		return $this->enunciado;
+	}
+	
+	public function getTipo(){
+		return $this->tipo;
+	}
+	
+	public function getResposta(){
+		return $this->resposta;
+	}
+	
+	public function getAlternativas(){
+		return $this->alternativas;
+	}
+	
+	public function setIdQuestao($idQuestao){
+		$this->idQuestao = $idQuestao;
+	}
+	
+	public function setIdDisciplina($idDisciplina){
+		$this->idDisciplina = $idDisciplina;
+	}
+	
+	public function setPrivacidade($privacidade){
+		$this->privacidade = $privacidade;
+	}
+	
+	public function setEnunciado($enunciado){
+		$this->enunciado = $enunciado;
+	}
+	
+	public function setTipo($tipo){
+		$this->tipo = $tipo;
+	}
+	
+	public function setResposta($resposta){
+		$this->resposta = $resposta;
+	}
+	
+	public function setAlternativas($alternativa){
+		$this->alternativas = $alternativa;
+	}
+	
+	public function inserirQuestao(){
+		try{
+			$this->save();
+			return true;
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function retornaTodasQuestoes(){
+		try{
+			$rs = $this->getTable("questao")->findAll();
+			return $rs;
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function excluirQuestao(){
+		try{
+			$questao = $this->getTable('questao')->find($this->getIdQuestao());
+			if($questao){
+				$questao->delete();
+				return true;
+			} else {
+				return false;
+			}
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function atualizarQuestao(){
+		try{
+			$questao = $this->getTable('questao')->find($this->getIdQuestao());
+			if($questao){
+				if(!is_null($this->getIdQuestao())){
+					$questao->setIdQuestao($this->getIdQuestao());
+				}
+				if(!is_null($this->getIdDisciplina())){
+					$questao->setIdDisciplina($this->getIdDisciplina());
+				}
+				if(!is_null($this->getPrivacidade())){
+					$questao->setPrivacidade($this->getPrivacidade());
+				}
+				if(!is_null($this->getEnunciado())){
+					$questao->setEnunciado($this->getEnunciado());
+				}
+				if(!is_null($this->getTipo())){
+					$questao->setTipo($this->getTipo());
+				}
+				if(!is_null($this->getResposta())){
+					$questao->setResposta($this->getResposta());
+				}
+				if(!is_null($this->getAlternativas())){
+					$questao->setAlternativas($this->getAlternativas());
+				}				
+				$questao->save();
+				return true;
+			} else {
+				return false;
+			}
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function retornaQuestaoPorId(){
+		try{
+			return $this->getTable("questao")->findOneBy('idQuestao', $this->getIdQuestao());
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function retornaQuestaoPublica(){
+		try{
+			return $this->getTable("questao")->findBy('privacidade', '0');
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function retornaQuestaoPrivada(){
+		try{
+			return $this->getTable("questao")->findBy('privacidade', '1');
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	function getJson(){
+		$array = Array();
+		$array['idQuestao'] = utf8_encode($this->idQuestao);
+		$array['idDisciplina'] = utf8_encode($this->idDisciplina);
+		$array['privacidade'] = utf8_encode($this->privacidade);
+		$array['enunciado'] = utf8_encode($this->enunciado);
+		$array['tipo'] = utf8_encode($this->tipo);
+		$array['resposta'] = utf8_encode($this->resposta);
+		$array['alternativas'] = utf8_encode($this->alternativas);
+	
+		return json_encode($array);
+	}
 }

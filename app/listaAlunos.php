@@ -4,6 +4,14 @@
 	if(!($_SESSION['logado'])){
 		header('Location: index.php');
 	}
+	
+	if(isset($_POST['nomeAluno'])){
+		$aluno = new Aluno();
+		$aluno->setIdAluno($_POST['idAluno']);
+		$aluno->setNomeAluno($_POST['nomeAluno']);
+		$aluno->setEmailAluno($_POST['emailAluno']);
+		$aluno->atualizarAluno();
+	}
 ?>
 <html>
 <head>
@@ -15,6 +23,15 @@
 <script language="JScript" src="js/foundation.min.js"></script>
 <script language="JScript" src='js/jquery.simplemodal.js'></script>
 <script language="JScript" src='js/imestre.js'></script>
+<script language="JScript">
+function completaEdicao(codigo,nome,email){
+	$('#nomeAluno').val(nome);
+	$('#emailAluno').val(email);
+	$('#idAluno').val(codigo);
+	$('#legenda').html('Editando '+nome);
+	$('#edicao').css('display','inline');
+}
+</script>
 </head>
 <body onload="arrumaMenu('listaAluno')">
 	<div class="row"><!-- Linha do header -->
@@ -48,12 +65,34 @@
 							echo '<tr>';
 								echo '<td>'.$a->getNomeAluno().'</td>';
 								echo '<td>'.$a->getEmailAluno().'</td>';
-								echo '<td class="text-center"><img src="img/editar.png" width="20"></td>';
+								$texto = $a->getIdAluno().","."'".$a->getNomeAluno()."','".$a->getEmailAluno()."'";
+								echo '<td class="text-center"><img src="img/editar.png" width="20" style="cursor: pointer;" onclick="completaEdicao('.$texto.')"></td>';
 							echo '</tr>';
 						}
 					?>
 				</tbody>
 			</table>
+			<div style="display: none" id="edicao">
+				<form id="formEd" method="post">
+					<fieldset>
+						<legend id="legenda">Editando Aluno</legend>
+						<div class="large-12 columns">
+							<label>Nome Completo:</label>
+								<input type="text" name="nomeAluno" id="nomeAluno">
+						</div>
+						<div class="large-12 columns">
+							<label>Email Válido:</label>
+								<input type="email" name="emailAluno" id="emailAluno">
+						</div>
+						<div class="large-4 columns">&nbsp;</div>
+						<div class="large-4 columns">&nbsp;</div>
+						<div class="large-4 columns">
+							<input type="hidden" name="idAluno" id="idAluno">
+							<input type="submit" name="alterar" value="Alterar" class="button large-12">
+						</div>
+					</fieldset>
+				</form>
+			</div>
 		</div>
 		<hr>
 	</div>

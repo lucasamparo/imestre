@@ -27,14 +27,16 @@
 			</ul>
 			<button href="#" data-dropdown="comunicacao" aria-controls="comunicacao" aria-expanded="false" class="button dropdown">Comunicação</button>
 			<ul id="comunicacao" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
-				<li><a href="#" id="blog">Blog</a></li>
-				<li><a href="#" id="disco">Disco Virtual</a></li>
-				<li><a href="#" id="email">e-Mail</a></li>
+				<li><a href="#" id="blog" style="display: none;">Blog</a></li>
+				<li><a href="#" id="disco" style="display: none;">Disco Virtual</a></li>
+				<li><a href="enviarEmail.php" id="email">Email</a></li>
+				<li><a href="#" id="contatos">Contatos</a></li>
 			</ul>
 			<button href="#" data-dropdown="questoes" aria-controls="questoes" aria-expanded="false" class="button dropdown">Questões</button>
 			<ul id="questoes" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
-				<li><a href="#" id="publico">Banco Público</a></li>
-				<li><a href="#" id="privado">Banco Privado</a></li>
+				<li><a href="cadQuestao.php" id="cadQuestao">Cadastro</a></li>
+				<li><a href="bancoPublico.php" id="publico">Banco Público</a></li>
+				<li><a href="bancoPrivado.php" id="privado">Banco Privado</a></li>
 			</ul>
 		</ul>';
 ?>
