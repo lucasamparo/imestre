@@ -53,9 +53,10 @@ function completaEdicao(codigo,nome,email){
 			<h4 class="text-center">Listagem de Alunos Cadastrados</h4>
 			<table class="large-12">
 				<thead>
-					<th width="60%" class="text-center">Nome Completo</th>
+					<th width="50%" class="text-center">Nome Completo</th>
 					<th width="30%" class="text-center">Email</th>
 					<th width="10%" class="text-center"><img src="img/editar.png" width="20"></th>
+					<th width="10%" class="text-center">Boletim</th>
 				</thead>
 				<tbody>
 					<?php 
@@ -67,6 +68,7 @@ function completaEdicao(codigo,nome,email){
 								echo '<td>'.$a->getEmailAluno().'</td>';
 								$texto = $a->getIdAluno().","."'".$a->getNomeAluno()."','".$a->getEmailAluno()."'";
 								echo '<td class="text-center"><img src="img/editar.png" width="20" style="cursor: pointer;" onclick="completaEdicao('.$texto.')"></td>';
+								echo '<td class="text-center"><img src="img/boletim.png" style="cursor: pointer"></td>';
 							echo '</tr>';
 						}
 					?>

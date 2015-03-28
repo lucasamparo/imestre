@@ -142,6 +142,22 @@ class Turma extends BaseTurma{
 		}
 	}
 	
+	public function retornaAlunosDaTurma(){
+		try{
+			$at1 = new Alunoturma();
+			$alunoTurmas = $at1->retornaAlunosDeTurma($this->getIdTurma());
+			$alunos = null;
+			foreach($alunoTurmas as $at){
+				$a = new Aluno();
+				$a->setIdAluno($at->getIdAluno());
+				$alunos[] = $a->retornaAlunoPorId();
+			}
+			return $alunos;
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
 	public function getJson(){
 		$array = Array();
 		$array['idTurma'] = utf8_encode($this->idTurma);

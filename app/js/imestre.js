@@ -15,3 +15,10 @@ function sleep(milliseconds) {
 function wsGeral(pagina, parametros){
 	//fazer depois
 }
+
+function abrirJanela(url, largura, altura, topo, recuo){
+	window.open(url,'janela', 'width='+largura+', height='+altura+','+
+					'top='+topo+', left='+recuo+', scrollbars=yes, status=no,'+
+					'toolbar=no, location=no, directories=no, menubar=no, resizable=no,'+
+					'fullscreen=no');
+}

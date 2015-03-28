@@ -74,11 +74,12 @@ function completaEdicao(codigo){
 			<div class="large-12 columns">
 				<table class="large-12">
 					<thead>
-						<th class="text-center">Nome</th>
-						<th class="text-center">C. Horária</th>
-						<th class="text-center">Turno</th>
-						<th class="text-center">Instituição</th>
-						<th class="text-center"><img src="img/editar.png" width="20"></th>
+						<th class="text-center" width="17%">Nome</th>
+						<th class="text-center" width="13%">C. Horária</th>
+						<th class="text-center" width="10%">Turno</th>
+						<th class="text-center" width="20%">Instituição</th>
+						<th class="text-center" width="10%">Alunos</th>
+						<th class="text-center" width="10%"><img src="img/editar.png" width="20"></th>
 					</thead>
 					<tbody>
 						<?php 
@@ -88,7 +89,7 @@ function completaEdicao(codigo){
 							foreach($turmas as $t){
 								echo '<tr>';
 									echo '<td>'.$t->getNomeTurma().'</td>';
-									echo '<td>'.$t->getCargaHoraria().' Horas</td>';
+									echo '<td>'.$t->getCargaHoraria().' H</td>';
 									$turno = $t->getTurno();
 									if($turno == 0){
 										$turno = 'Matutino';
@@ -102,6 +103,7 @@ function completaEdicao(codigo){
 									echo '<td>'.$turno.'</td>';
 									$i->setIdInstituicao($t->getIdInstituicao());
 									echo '<td>'.$i->retornaInstituicaoPorId()->getNomeInstituicao().'</td>';
+									echo '<td class="text-center"><a href="alunosEmTurmas.php"><img src="img/alunos.jpg" width="25px"></a></td>';
 									echo '<td class="text-center"><img src="img/editar.png" style="cursor: pointer;" onclick="completaEdicao('.$t->getIdTurma().')" width="20"></td>';
 								echo '</tr>';
 							}
