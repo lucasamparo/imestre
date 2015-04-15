@@ -11,44 +11,37 @@
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 class Itemcurriculo extends BaseItemcurriculo{
-	public function getIdItemCurriculo(){
-		return $this->idItemCurriculo;
+public function setIdProfessor($idProfessor) {
+		$this->idProfessor = $idProfessor;
+		return $this;
 	}
-	
-	public function getProfessor(){
-		return $this->idProfessor;
-	}
-	
-	public function getTitulo(){
+	public function getTitulo() {
 		return $this->titulo;
 	}
-	
-	public function getConteudo(){
+	public function setTitulo($titulo) {
+		$this->titulo = $titulo;
+		return $this;
+	}
+	public function getConteudo() {
 		return $this->conteudo;
 	}
-	
-	public function getAno(){
+	public function setConteudo($conteudo) {
+		$this->conteudo = $conteudo;
+		return $this;
+	}
+	public function getAno() {
 		return $this->ano;
 	}
-	
-	public function setIdItemCurriculo($idItemCurriculo){
-		$this->idItemCurriculo = $idItemCurriculo;
-	}
-	
-	public function setProfessor($idProfessor){
-		$this->idProfessor = $idProfessor;
-	}
-	
-	public function setTitulo($titulo){
-		$this->titulo = $titulo;
-	}
-	
-	public function setConteudo($conteudo){
-		$this->conteudo = $conteudo;
-	}
-	
-	public function setAno($ano){
+	public function setAno($ano) {
 		$this->ano = $ano;
+		return $this;
+	}
+	public function getProfessor() {
+		return $this->Professor;
+	}
+	public function setProfessor($Professor) {
+		$this->Professor = $Professor;
+		return $this;
 	}
 	
 	public function inserirItemCurriculo(){

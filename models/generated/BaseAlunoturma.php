@@ -9,6 +9,8 @@
  * @property integer $idAluno
  * @property integer $idTurma
  * @property string $ano
+ * @property Aluno $Aluno
+ * @property Turma $Turma
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -60,6 +62,12 @@ abstract class BaseAlunoturma extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        
-    }
+        $this->hasOne('Aluno', array(
+             'local' => 'idAluno',
+             'foreign' => 'idAluno'));
+
+        $this->hasOne('Turma', array(
+             'local' => 'idTurma',
+             'foreign' => 'idTurma'));
+    }	
 }

@@ -10,6 +10,7 @@
  * @property string $titulo
  * @property string $conteudo
  * @property string $ano
+ * @property Professor $Professor
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -69,6 +70,18 @@ abstract class BaseItemcurriculo extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        
+        $this->hasOne('Professor', array(
+             'local' => 'idProfessor',
+             'foreign' => 'idProfessor'));
     }
+	public function getIdItemCurriculo() {
+		return $this->idItemCurriculo;
+	}
+	public function setIdItemCurriculo($idItemCurriculo) {
+		$this->idItemCurriculo = $idItemCurriculo;
+		return $this;
+	}
+	public function getIdProfessor() {
+		return $this->idProfessor;
+	}	
 }

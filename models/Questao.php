@@ -11,60 +11,68 @@
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 class Questao extends BaseQuestao{
-	public function getIdQuestao(){
+public function getIdQuestao() {
 		return $this->idQuestao;
 	}
-	
-	public function getIdDisciplina(){
+	public function setIdQuestao($idQuestao) {
+		$this->idQuestao = $idQuestao;
+		return $this;
+	}
+	public function getIdDisciplina() {
 		return $this->idDisciplina;
 	}
-	
-	public function getPrivacidade(){
+	public function setIdDisciplina($idDisciplina) {
+		$this->idDisciplina = $idDisciplina;
+		return $this;
+	}
+	public function getPrivacidade() {
 		return $this->privacidade;
 	}
-	
-	public function getEnunciado(){
+	public function setPrivacidade($privacidade) {
+		$this->privacidade = $privacidade;
+		return $this;
+	}
+	public function getEnunciado() {
 		return $this->enunciado;
 	}
-	
-	public function getTipo(){
+	public function setEnunciado($enunciado) {
+		$this->enunciado = $enunciado;
+		return $this;
+	}
+	public function getTipo() {
 		return $this->tipo;
 	}
-	
-	public function getResposta(){
+	public function setTipo($tipo) {
+		$this->tipo = $tipo;
+		return $this;
+	}
+	public function getResposta() {
 		return $this->resposta;
 	}
-	
-	public function getAlternativas(){
+	public function setResposta($resposta) {
+		$this->resposta = $resposta;
+		return $this;
+	}
+	public function getAlternativas() {
 		return $this->alternativas;
 	}
-	
-	public function setIdQuestao($idQuestao){
-		$this->idQuestao = $idQuestao;
+	public function setAlternativas($alternativas) {
+		$this->alternativas = $alternativas;
+		return $this;
 	}
-	
-	public function setIdDisciplina($idDisciplina){
-		$this->idDisciplina = $idDisciplina;
+	public function getDisciplina() {
+		return $this->Disciplina;
 	}
-	
-	public function setPrivacidade($privacidade){
-		$this->privacidade = $privacidade;
+	public function setDisciplina($Disciplina) {
+		$this->Disciplina = $Disciplina;
+		return $this;
 	}
-	
-	public function setEnunciado($enunciado){
-		$this->enunciado = $enunciado;
+	public function getItemavaliacao() {
+		return $this->Itemavaliacao;
 	}
-	
-	public function setTipo($tipo){
-		$this->tipo = $tipo;
-	}
-	
-	public function setResposta($resposta){
-		$this->resposta = $resposta;
-	}
-	
-	public function setAlternativas($alternativa){
-		$this->alternativas = $alternativa;
+	public function setItemavaliacao($Itemavaliacao) {
+		$this->Itemavaliacao = $Itemavaliacao;
+		return $this;
 	}
 	
 	public function inserirQuestao(){

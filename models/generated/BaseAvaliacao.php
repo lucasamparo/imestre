@@ -9,6 +9,9 @@
  * @property integer $idTurma
  * @property integer $peso
  * @property date $data
+ * @property Turma $Turma
+ * @property Doctrine_Collection $Itemavaliacao
+ * @property Doctrine_Collection $Responde
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -59,6 +62,16 @@ abstract class BaseAvaliacao extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        
-    }
+        $this->hasOne('Turma', array(
+             'local' => 'idTurma',
+             'foreign' => 'idTurma'));
+
+        $this->hasMany('Itemavaliacao', array(
+             'local' => 'idAvaliacao',
+             'foreign' => 'idAvaliacao'));
+
+        $this->hasMany('Responde', array(
+             'local' => 'idAvaliacao',
+             'foreign' => 'idAvaliacao'));
+    }	
 }

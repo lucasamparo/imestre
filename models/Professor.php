@@ -11,141 +11,145 @@
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 class Professor extends BaseProfessor{
-	
-	public function getIdProfessor(){
+	public function getIdProfessor() {
 		return $this->idProfessor;
 	}
-	
-	public function getNome(){
+	public function setIdProfessor($idProfessor) {
+		$this->idProfessor = $idProfessor;
+		return $this;
+	}
+	public function getNomeProfessor() {
 		return $this->nomeProfessor;
 	}
-	
-	public function getNascimento(){
+	public function setNomeProfessor($nomeProfessor) {
+		$this->nomeProfessor = $nomeProfessor;
+		return $this;
+	}
+	public function getNascimento() {
 		return $this->nascimento;
 	}
-	
-	public function getTituloMax(){
+	public function setNascimento($nascimento) {
+		$this->nascimento = $nascimento;
+		return $this;
+	}
+	public function getTituloMax() {
 		return $this->tituloMax;
 	}
-	
-	public function getAreaAtuacao(){
+	public function setTituloMax($tituloMax) {
+		$this->tituloMax = $tituloMax;
+		return $this;
+	}
+	public function getAreaAtuacao() {
 		return $this->areaAtuacao;
 	}
-	
-	public function getNivelAtuacao(){
+	public function setAreaAtuacao($areaAtuacao) {
+		$this->areaAtuacao = $areaAtuacao;
+		return $this;
+	}
+	public function getNivelAtuacao() {
 		return $this->nivelAtuacao;
 	}
-	
-	public function getLogradouro(){
+	public function setNivelAtuacao($nivelAtuacao) {
+		$this->nivelAtuacao = $nivelAtuacao;
+		return $this;
+	}
+	public function getLogradouro() {
 		return $this->logradouro;
 	}
-	
-	public function getNumero(){
+	public function setLogradouro($logradouro) {
+		$this->logradouro = $logradouro;
+		return $this;
+	}
+	public function getNumero() {
 		return $this->numero;
 	}
-	
-	public function getBairro(){
+	public function setNumero($numero) {
+		$this->numero = $numero;
+		return $this;
+	}
+	public function getBairro() {
 		return $this->bairro;
 	}
-	
-	public function getCidade(){
+	public function setBairro($bairro) {
+		$this->bairro = $bairro;
+		return $this;
+	}
+	public function getCidade() {
 		return $this->cidade;
 	}
-	
-	public function getEstado(){
+	public function setCidade($cidade) {
+		$this->cidade = $cidade;
+		return $this;
+	}
+	public function getEstado() {
 		return $this->estado;
 	}
-	
-	public function getPais(){
+	public function setEstado($estado) {
+		$this->estado = $estado;
+		return $this;
+	}
+	public function getPais() {
 		return $this->pais;
 	}
-	
-	public function getCep(){
+	public function setPais($pais) {
+		$this->pais = $pais;
+		return $this;
+	}
+	public function getCep() {
 		return $this->cep;
 	}
-	
-	public function getEmail(){
+	public function setCep($cep) {
+		$this->cep = $cep;
+		return $this;
+	}
+	public function getEmail() {
 		return $this->email;
 	}
-	
-	public function getTelCel(){
+	public function setEmail($email) {
+		$this->email = $email;
+		return $this;
+	}
+	public function getTelCel() {
 		return $this->telCel;
 	}
-	
-	public function getLogin(){
+	public function setTelCel($telCel) {
+		$this->telCel = $telCel;
+		return $this;
+	}
+	public function getLogin() {
 		return $this->login;
 	}
-		
-	public function getSenha(){
+	public function setLogin($login) {
+		$this->login = $login;
+		return $this;
+	}
+	public function getSenha() {
 		return $this->senha;
 	}
-	
-	public function setIdProfessor($idProfessor){
-		$this->idProfessor = $idProfessor;
-	}
-	
-	public function setNome($nomeProfessor){
-		$this->nomeProfessor = $nomeProfessor;
-	}
-	
-	public function setNascimento($nascimento){
-		$this->nascimento = $nascimento;
-	}
-	
-	public function setTituloMax($tituloMax){
-		$this->tituloMax = $tituloMax;
-	}
-	
-	public function setAreaAtuacao($areaAtuacao){
-		$this->areaAtuacao = $areaAtuacao;
-	}
-	
-	public function setNivelAtuacao($nivelAtuacao){
-		$this->nivelAtuacao = $nivelAtuacao;
-	}
-	
-	public function setLogradouro($logradouro){
-		$this->logradouro = $logradouro;
-	}
-	
-	public function setNumero($numero){
-		$this->numero = $numero;
-	}
-	
-	public function setBairro($bairro){
-		$this->bairro = $bairro;
-	}
-	
-	public function setCidade($cidade){
-		$this->cidade = $cidade;
-	}
-	
-	public function setEstado($estado){
-		$this->estado = $estado;
-	}
-	
-	public function setPais($pais){
-		$this->pais = $pais;
-	}
-	
-	public function setCep($cep){
-		$this->cep = $cep;
-	}
-	
-	public function setEmail($email){
-		$this->email = $email;
-	}
-	
-	public function setTelCel($telCel){
-		$this->telCel = $telCel;
-	}
-	
-	public function setLogin($login){
-		$this->login = $login;
-	}
-	
-	public function setSenha($senha){
+	public function setSenha($senha) {
 		$this->senha = $senha;
+		return $this;
+	}
+	public function getItemcurriculo() {
+		return $this->Itemcurriculo;
+	}
+	public function setItemcurriculo($Itemcurriculo) {
+		$this->Itemcurriculo = $Itemcurriculo;
+		return $this;
+	}
+	public function getMensagem() {
+		return $this->Mensagem;
+	}
+	public function setMensagem($Mensagem) {
+		$this->Mensagem = $Mensagem;
+		return $this;
+	}
+	public function getTrabalha() {
+		return $this->Trabalha;
+	}
+	public function setTrabalha($Trabalha) {
+		$this->Trabalha = $Trabalha;
+		return $this;
 	}
 		
 	public function inserirProfessor(){

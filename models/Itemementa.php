@@ -12,5 +12,46 @@
  */
 class Itemementa extends BaseItemementa
 {
-
+	public function getIdItemEmenta() {
+		return $this->idItemEmenta;
+	}
+	public function setIdItemEmenta($idItemEmenta) {
+		$this->idItemEmenta = $idItemEmenta;
+		return $this;
+	}
+	public function getIdEmenta() {
+		return $this->idEmenta;
+	}
+	public function setIdEmenta($idEmenta) {
+		$this->idEmenta = $idEmenta;
+		return $this;
+	}
+	public function getIndice() {
+		return $this->indice;
+	}
+	public function setIndice($indice) {
+		$this->indice = $indice;
+		return $this;
+	}
+	public function getConteudo() {
+		return $this->conteudo;
+	}
+	public function setConteudo($conteudo) {
+		$this->conteudo = $conteudo;
+		return $this;
+	}
+	public function getEmenta() {
+		return $this->Ementa;
+	}
+	public function setEmenta($Ementa) {
+		$this->Ementa = $Ementa;
+		return $this;
+	}
+	public function getPlanejaementa() {
+		return $this->Planejaementa;
+	}
+	public function setPlanejaementa($Planejaementa) {
+		$this->Planejaementa = $Planejaementa;
+		return $this;
+	}
 }

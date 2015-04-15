@@ -11,20 +11,40 @@
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 class Disciplina extends BaseDisciplina{
-	function getIdDisciplina(){
+public function getIdDisciplina() {
 		return $this->idDisciplina;
 	}
-	
-	function getNomeDisciplina(){
+	public function setIdDisciplina($idDisciplina) {
+		$this->idDisciplina = $idDisciplina;
+		return $this;
+	}
+	public function getNomeDisciplina() {
 		return $this->nomeDisciplina;
 	}
-	
-	function setIdDisciplina($idDisciplina){
-		$this->idDisciplina = $idDisciplina;
-	}
-	
-	function setNomeDisciplina($nomeDisciplina){
+	public function setNomeDisciplina($nomeDisciplina) {
 		$this->nomeDisciplina = $nomeDisciplina;
+		return $this;
+	}
+	public function getEmenta() {
+		return $this->Ementa;
+	}
+	public function setEmenta($Ementa) {
+		$this->Ementa = $Ementa;
+		return $this;
+	}
+	public function getQuestao() {
+		return $this->Questao;
+	}
+	public function setQuestao($Questao) {
+		$this->Questao = $Questao;
+		return $this;
+	}
+	public function getTurma() {
+		return $this->Turma;
+	}
+	public function setTurma($Turma) {
+		$this->Turma = $Turma;
+		return $this;
 	}
 	
 	public function inserirDisciplina(){

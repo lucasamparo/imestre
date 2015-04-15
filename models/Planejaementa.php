@@ -12,5 +12,39 @@
  */
 class Planejaementa extends BasePlanejaementa
 {
-
+	public function getIdTurma() {
+		return $this->idTurma;
+	}
+	public function setIdTurma($idTurma) {
+		$this->idTurma = $idTurma;
+		return $this;
+	}
+	public function getIdItemEmenta() {
+		return $this->idItemEmenta;
+	}
+	public function setIdItemEmenta($idItemEmenta) {
+		$this->idItemEmenta = $idItemEmenta;
+		return $this;
+	}
+	public function getPrevisto() {
+		return $this->previsto;
+	}
+	public function setPrevisto($previsto) {
+		$this->previsto = $previsto;
+		return $this;
+	}
+	public function getRealizado() {
+		return $this->realizado;
+	}
+	public function setRealizado($realizado) {
+		$this->realizado = $realizado;
+		return $this;
+	}
+	public function getItemementa() {
+		return $this->Itemementa;
+	}
+	public function setItemementa($Itemementa) {
+		$this->Itemementa = $Itemementa;
+		return $this;
+	}
 }

@@ -10,6 +10,7 @@
  * @property timestamp $dataHoraEnvio
  * @property string $destinatarios
  * @property string $conteudo
+ * @property Professor $Professor
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -67,6 +68,8 @@ abstract class BaseMensagem extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        
-    }
+        $this->hasOne('Professor', array(
+             'local' => 'idProfessor',
+             'foreign' => 'idProfessor'));
+    }	
 }

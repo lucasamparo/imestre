@@ -12,5 +12,39 @@
  */
 class Trabalha extends BaseTrabalha
 {
-
+	public function getIdProfessor() {
+		return $this->idProfessor;
+	}
+	public function setIdProfessor($idProfessor) {
+		$this->idProfessor = $idProfessor;
+		return $this;
+	}
+	public function getIdInstituicao() {
+		return $this->idInstituicao;
+	}
+	public function setIdInstituicao($idInstituicao) {
+		$this->idInstituicao = $idInstituicao;
+		return $this;
+	}
+	public function getAno() {
+		return $this->ano;
+	}
+	public function setAno($ano) {
+		$this->ano = $ano;
+		return $this;
+	}
+	public function getProfessor() {
+		return $this->Professor;
+	}
+	public function setProfessor($Professor) {
+		$this->Professor = $Professor;
+		return $this;
+	}
+	public function getInstituicao() {
+		return $this->Instituicao;
+	}
+	public function setInstituicao($Instituicao) {
+		$this->Instituicao = $Instituicao;
+		return $this;
+	}
 }

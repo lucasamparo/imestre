@@ -8,6 +8,8 @@
  * @property integer $idEmenta
  * @property integer $idDisciplina
  * @property integer $ano
+ * @property Disciplina $Disciplina
+ * @property Doctrine_Collection $Itemementa
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -50,6 +52,12 @@ abstract class BaseEmenta extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        
-    }
+        $this->hasOne('Disciplina', array(
+             'local' => 'idDisciplina',
+             'foreign' => 'idDisciplina'));
+
+        $this->hasMany('Itemementa', array(
+             'local' => 'idEmenta',
+             'foreign' => 'idEmenta'));
+    }	
 }

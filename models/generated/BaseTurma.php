@@ -12,6 +12,10 @@
  * @property integer $cargaHoraria
  * @property integer $periodo
  * @property integer $turno
+ * @property Instituicao $Instituicao
+ * @property Disciplina $Disciplina
+ * @property Doctrine_Collection $Alunoturma
+ * @property Doctrine_Collection $Avaliacao
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -90,6 +94,20 @@ abstract class BaseTurma extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        
-    }
+        $this->hasOne('Instituicao', array(
+             'local' => 'idInstituicao',
+             'foreign' => 'idInstituicao'));
+
+        $this->hasOne('Disciplina', array(
+             'local' => 'idDisciplina',
+             'foreign' => 'idDisciplina'));
+
+        $this->hasMany('Alunoturma', array(
+             'local' => 'idTurma',
+             'foreign' => 'idTurma'));
+
+        $this->hasMany('Avaliacao', array(
+             'local' => 'idTurma',
+             'foreign' => 'idTurma'));
+    }	
 }

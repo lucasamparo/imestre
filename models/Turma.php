@@ -11,60 +11,82 @@
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 class Turma extends BaseTurma{
-	public function getIdTurma(){
+public function getIdTurma() {
 		return $this->idTurma;
 	}
-	
-	public function getIdInstituicao(){
+	public function setIdTurma($idTurma) {
+		$this->idTurma = $idTurma;
+		return $this;
+	}
+	public function getIdInstituicao() {
 		return $this->idInstituicao;
 	}
-	
-	public function getIdDisciplina(){
+	public function setIdInstituicao($idInstituicao) {
+		$this->idInstituicao = $idInstituicao;
+		return $this;
+	}
+	public function getIdDisciplina() {
 		return $this->idDisciplina;
 	}
-	
-	public function getNomeTurma(){
+	public function setIdDisciplina($idDisciplina) {
+		$this->idDisciplina = $idDisciplina;
+		return $this;
+	}
+	public function getNomeTurma() {
 		return $this->nomeTurma;
 	}
-	
-	public function getCargaHoraria(){
+	public function setNomeTurma($nomeTurma) {
+		$this->nomeTurma = $nomeTurma;
+		return $this;
+	}
+	public function getCargaHoraria() {
 		return $this->cargaHoraria;
 	}
-	
-	public function getPeriodo(){
+	public function setCargaHoraria($cargaHoraria) {
+		$this->cargaHoraria = $cargaHoraria;
+		return $this;
+	}
+	public function getPeriodo() {
 		return $this->periodo;
 	}
-	
-	public function getTurno(){
+	public function setPeriodo($periodo) {
+		$this->periodo = $periodo;
+		return $this;
+	}
+	public function getTurno() {
 		return $this->turno;
 	}
-	
-	public function setIdTurma($idTurma){
-		$this->idTurma = $idTurma;
-	}
-	
-	public function setIdInstituicao($idInstituicao){
-		$this->idInstituicao = $idInstituicao;
-	}
-	
-	public function setIdDisciplina($idDisciplina){
-		$this->idDisciplina = $idDisciplina;
-	}
-	
-	public function setNomeTurma($nomeTurma){
-		$this->nomeTurma = $nomeTurma;
-	}
-	
-	public function setCargaHoraria($cargaHoraria){
-		$this->cargaHoraria = $cargaHoraria;
-	}
-	
-	public function setPeriodo($periodo){
-		$this->periodo = $periodo;
-	}
-	
-	public function setTurno($turno){
+	public function setTurno($turno) {
 		$this->turno = $turno;
+		return $this;
+	}
+	public function getInstituicao() {
+		return $this->Instituicao;
+	}
+	public function setInstituicao($Instituicao) {
+		$this->Instituicao = $Instituicao;
+		return $this;
+	}
+	public function getDisciplina() {
+		return $this->Disciplina;
+	}
+	public function setDisciplina($Disciplina) {
+		$this->Disciplina = $Disciplina;
+		return $this;
+	}
+	public function getAlunoturma() {
+		return $this->Alunoturma;
+	}
+	public function setAlunoturma($Alunoturma) {
+		$this->Alunoturma = $Alunoturma;
+		return $this;
+	}
+	public function getAvaliacao() {
+		return $this->Avaliacao;
+	}
+	public function setAvaliacao($Avaliacao) {
+		$this->Avaliacao = $Avaliacao;
+		return $this;
 	}
 	
 	public function inserirTurma(){

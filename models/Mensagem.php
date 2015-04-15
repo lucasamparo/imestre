@@ -12,5 +12,46 @@
  */
 class Mensagem extends BaseMensagem
 {
-
+	public function getIdMensagem() {
+		return $this->idMensagem;
+	}
+	public function setIdMensagem($idMensagem) {
+		$this->idMensagem = $idMensagem;
+		return $this;
+	}
+	public function getIdProfessor() {
+		return $this->idProfessor;
+	}
+	public function setIdProfessor($idProfessor) {
+		$this->idProfessor = $idProfessor;
+		return $this;
+	}
+	public function getDataHoraEnvio() {
+		return $this->dataHoraEnvio;
+	}
+	public function setDataHoraEnvio($dataHoraEnvio) {
+		$this->dataHoraEnvio = $dataHoraEnvio;
+		return $this;
+	}
+	public function getDestinatarios() {
+		return $this->destinatarios;
+	}
+	public function setDestinatarios($destinatarios) {
+		$this->destinatarios = $destinatarios;
+		return $this;
+	}
+	public function getConteudo() {
+		return $this->conteudo;
+	}
+	public function setConteudo($conteudo) {
+		$this->conteudo = $conteudo;
+		return $this;
+	}
+	public function getProfessor() {
+		return $this->Professor;
+	}
+	public function setProfessor($Professor) {
+		$this->Professor = $Professor;
+		return $this;
+	}
 }

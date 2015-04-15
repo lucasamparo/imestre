@@ -7,6 +7,9 @@
  * 
  * @property integer $idAvaliacao
  * @property integer $idQuestao
+ * @property integer $indice
+ * @property Avaliacao $Avaliacao
+ * @property Questao $Questao
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -34,11 +37,26 @@ abstract class BaseItemavaliacao extends Doctrine_Record
              'primary' => true,
              'autoincrement' => false,
              ));
+        $this->hasColumn('indice', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
+             ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        
-    }
+        $this->hasOne('Avaliacao', array(
+             'local' => 'idAvaliacao',
+             'foreign' => 'idAvaliacao'));
+
+        $this->hasOne('Questao', array(
+             'local' => 'idQuestao',
+             'foreign' => 'idQuestao'));
+    }	
 }

@@ -7,6 +7,9 @@
  * 
  * @property integer $idProfessor
  * @property integer $idInstituicao
+ * @property string $ano
+ * @property Professor $Professor
+ * @property Instituicao $Instituicao
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -34,11 +37,26 @@ abstract class BaseTrabalha extends Doctrine_Record
              'primary' => true,
              'autoincrement' => false,
              ));
+        $this->hasColumn('ano', 'string', 4, array(
+             'type' => 'string',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
+             ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        
-    }
+        $this->hasOne('Professor', array(
+             'local' => 'idProfessor',
+             'foreign' => 'idProfessor'));
+
+        $this->hasOne('Instituicao', array(
+             'local' => 'idInstituicao',
+             'foreign' => 'idInstituicao'));
+    }	
 }

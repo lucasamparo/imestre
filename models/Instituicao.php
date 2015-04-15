@@ -11,69 +11,75 @@
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 class Instituicao extends BaseInstituicao{
-	
-	public function getIdInstituicao(){
+	public function getIdInstituicao() {
 		return $this->idInstituicao;
 	}
-	
-	public function getNomeInstituicao(){
+	public function setIdInstituicao($idInstituicao) {
+		$this->idInstituicao = $idInstituicao;
+		return $this;
+	}
+	public function getNomeInstituicao() {
 		return $this->nomeInstituicao;
 	}
-	
-	public function getLogradouro(){
+	public function setNomeInstituicao($nomeInstituicao) {
+		$this->nomeInstituicao = $nomeInstituicao;
+		return $this;
+	}
+	public function getLogradouro() {
 		return $this->logradouro;
 	}
-	
-	public function getNumero(){
+	public function setLogradouro($logradouro) {
+		$this->logradouro = $logradouro;
+		return $this;
+	}
+	public function getNumero() {
 		return $this->numero;
 	}
-	
-	public function getBairro(){
+	public function setNumero($numero) {
+		$this->numero = $numero;
+		return $this;
+	}
+	public function getBairro() {
 		return $this->bairro;
 	}
-	
-	public function getCidade(){
+	public function setBairro($bairro) {
+		$this->bairro = $bairro;
+		return $this;
+	}
+	public function getCidade() {
 		return $this->cidade;
 	}
-	
-	public function getTelContato(){
+	public function setCidade($cidade) {
+		$this->cidade = $cidade;
+		return $this;
+	}
+	public function getTelContato() {
 		return $this->telContato;
 	}
-	
-	public function getMedia(){
+	public function setTelContato($telContato) {
+		$this->telContato = $telContato;
+		return $this;
+	}
+	public function getMedia() {
 		return $this->media;
 	}
-	
-	public function setIdInstituicao($idInstituicao){
-		$this->idInstituicao = $idInstituicao;
-	}
-	
-	public function setNomeInstituicao($nomeInstituicao){
-		$this->nomeInstituicao = $nomeInstituicao;
-	}
-	
-	public function setLogradouro($logradouro){
-		$this->logradouro = $logradouro;
-	}
-	
-	public function setNumero($numero){
-		$this->numero = $numero;
-	}
-	
-	public function setBairro($bairro){
-		$this->bairro = $bairro;
-	}
-	
-	public function setCidade($cidade){
-		$this->cidade = $cidade;
-	}
-	
-	public function setTelContato($telContato){
-		$this->telContato = $telContato;
-	}
-	
-	public function setMedia($media){
+	public function setMedia($media) {
 		$this->media = $media;
+		return $this;
+	}
+	public function getTrabalha() {
+		return $this->Trabalha;
+	}
+	public function setTrabalha($Trabalha) {
+		$this->Trabalha = $Trabalha;
+		return $this;
+	}
+	public function getTurma() {
+		return $this->Turma;
+	}
+	public function setTurma($Turma) {
+		$this->Turma = $Turma;
+		return $this;
 	}
 	
 	public function inserirInstituicao(){

@@ -11,28 +11,40 @@
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 class Aluno extends BaseAluno{
-	public function getIdAluno(){
+public function getIdAluno() {
 		return $this->idAluno;
 	}
-	
-	public function getNomeAluno(){
+	public function setIdAluno($idAluno) {
+		$this->idAluno = $idAluno;
+		return $this;
+	}
+	public function getNomeAluno() {
 		return $this->nomeAluno;
 	}
-	
-	public function getEmailAluno(){
-		return $this->emailAluno; 
-	}
-	
-	public function setIdAluno($idAluno){
-		$this->idAluno = $idAluno;
-	}
-	
-	public function setNomeAluno($nomeAluno){
+	public function setNomeAluno($nomeAluno) {
 		$this->nomeAluno = $nomeAluno;
+		return $this;
 	}
-	
-	public function setEmailAluno($emailAluno){
+	public function getEmailAluno() {
+		return $this->emailAluno;
+	}
+	public function setEmailAluno($emailAluno) {
 		$this->emailAluno = $emailAluno;
+		return $this;
+	}
+	public function getAlunoturma() {
+		return $this->Alunoturma;
+	}
+	public function setAlunoturma($Alunoturma) {
+		$this->Alunoturma = $Alunoturma;
+		return $this;
+	}
+	public function getResponde() {
+		return $this->Responde;
+	}
+	public function setResponde($Responde) {
+		$this->Responde = $Responde;
+		return $this;
 	}
 	
 	public function inserirAluno(){

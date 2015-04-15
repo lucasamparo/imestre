@@ -8,6 +8,8 @@
  * @property integer $idAluno
  * @property string $nomeAluno
  * @property string $emailAluno
+ * @property Doctrine_Collection $Alunoturma
+ * @property Doctrine_Collection $Responde
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -50,6 +52,12 @@ abstract class BaseAluno extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        
-    }
+        $this->hasMany('Alunoturma', array(
+             'local' => 'idAluno',
+             'foreign' => 'idAluno'));
+
+        $this->hasMany('Responde', array(
+             'local' => 'idAluno',
+             'foreign' => 'idAluno'));
+    }	
 }

@@ -9,6 +9,8 @@
  * @property integer $idEmenta
  * @property integer $indice
  * @property string $conteudo
+ * @property Ementa $Ementa
+ * @property Doctrine_Collection $Planejaementa
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -59,6 +61,12 @@ abstract class BaseItemementa extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        
-    }
+        $this->hasOne('Ementa', array(
+             'local' => 'idEmenta',
+             'foreign' => 'idEmenta'));
+
+        $this->hasMany('Planejaementa', array(
+             'local' => 'idItemEmenta',
+             'foreign' => 'idItemEmenta'));
+    }	
 }

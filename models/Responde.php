@@ -12,5 +12,39 @@
  */
 class Responde extends BaseResponde
 {
-
+	public function getIdAluno() {
+		return $this->idAluno;
+	}
+	public function setIdAluno($idAluno) {
+		$this->idAluno = $idAluno;
+		return $this;
+	}
+	public function getIdAvaliacao() {
+		return $this->idAvaliacao;
+	}
+	public function setIdAvaliacao($idAvaliacao) {
+		$this->idAvaliacao = $idAvaliacao;
+		return $this;
+	}
+	public function getConceito() {
+		return $this->conceito;
+	}
+	public function setConceito($conceito) {
+		$this->conceito = $conceito;
+		return $this;
+	}
+	public function getAvaliacao() {
+		return $this->Avaliacao;
+	}
+	public function setAvaliacao($Avaliacao) {
+		$this->Avaliacao = $Avaliacao;
+		return $this;
+	}
+	public function getAluno() {
+		return $this->Aluno;
+	}
+	public function setAluno($Aluno) {
+		$this->Aluno = $Aluno;
+		return $this;
+	}
 }

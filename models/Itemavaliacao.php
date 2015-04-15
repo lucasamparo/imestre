@@ -12,5 +12,39 @@
  */
 class Itemavaliacao extends BaseItemavaliacao
 {
-
+	public function getIdAvaliacao() {
+		return $this->idAvaliacao;
+	}
+	public function setIdAvaliacao($idAvaliacao) {
+		$this->idAvaliacao = $idAvaliacao;
+		return $this;
+	}
+	public function getIdQuestao() {
+		return $this->idQuestao;
+	}
+	public function setIdQuestao($idQuestao) {
+		$this->idQuestao = $idQuestao;
+		return $this;
+	}
+	public function getIndice() {
+		return $this->indice;
+	}
+	public function setIndice($indice) {
+		$this->indice = $indice;
+		return $this;
+	}
+	public function getAvaliacao() {
+		return $this->Avaliacao;
+	}
+	public function setAvaliacao($Avaliacao) {
+		$this->Avaliacao = $Avaliacao;
+		return $this;
+	}
+	public function getQuestao() {
+		return $this->Questao;
+	}
+	public function setQuestao($Questao) {
+		$this->Questao = $Questao;
+		return $this;
+	}
 }

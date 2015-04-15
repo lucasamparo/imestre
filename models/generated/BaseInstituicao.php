@@ -13,6 +13,8 @@
  * @property string $cidade
  * @property string $telContato
  * @property float $media
+ * @property Doctrine_Collection $Trabalha
+ * @property Doctrine_Collection $Turma
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -99,6 +101,12 @@ abstract class BaseInstituicao extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        
-    }
+        $this->hasMany('Trabalha', array(
+             'local' => 'idInstituicao',
+             'foreign' => 'idInstituicao'));
+
+        $this->hasMany('Turma', array(
+             'local' => 'idInstituicao',
+             'foreign' => 'idInstituicao'));
+    }	
 }

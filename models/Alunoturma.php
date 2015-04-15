@@ -11,28 +11,47 @@
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 class Alunoturma extends BaseAlunoturma{
-	public function getIdAlunoTurma(){
+public function getIdAlunoTurma() {
 		return $this->idAlunoTurma;
 	}
-	
-	public function getIdAluno(){
+	public function setIdAlunoTurma($idAlunoTurma) {
+		$this->idAlunoTurma = $idAlunoTurma;
+		return $this;
+	}
+	public function getIdAluno() {
 		return $this->idAluno;
 	}
-	
-	public function getIdTurma(){
-		return $this->idTurma();
-	}
-	
-	public function setIdAlunoTurma($idAlunoTurma){
-		$this->idAlunoTurma = $idAlunoTurma;
-	}
-	
-	public function setIdAluno($idAluno){
+	public function setIdAluno($idAluno) {
 		$this->idAluno = $idAluno;
+		return $this;
 	}
-	
-	public function setIdTurma($idTurma){
+	public function getIdTurma() {
+		return $this->idTurma;
+	}
+	public function setIdTurma($idTurma) {
 		$this->idTurma = $idTurma;
+		return $this;
+	}
+	public function getAno() {
+		return $this->ano;
+	}
+	public function setAno($ano) {
+		$this->ano = $ano;
+		return $this;
+	}
+	public function getAluno() {
+		return $this->Aluno;
+	}
+	public function setAluno($Aluno) {
+		$this->Aluno = $Aluno;
+		return $this;
+	}
+	public function getTurma() {
+		return $this->Turma;
+	}
+	public function setTurma($Turma) {
+		$this->Turma = $Turma;
+		return $this;
 	}
 	
 	public function retornaAlunosDeTurma($idTurma){

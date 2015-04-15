@@ -12,6 +12,8 @@
  * @property integer $tipo
  * @property string $resposta
  * @property string $alternativas
+ * @property Disciplina $Disciplina
+ * @property Doctrine_Collection $Itemavaliacao
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -89,6 +91,12 @@ abstract class BaseQuestao extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        
-    }
+        $this->hasOne('Disciplina', array(
+             'local' => 'idDisciplina',
+             'foreign' => 'idDisciplina'));
+
+        $this->hasMany('Itemavaliacao', array(
+             'local' => 'idQuestao',
+             'foreign' => 'idQuestao'));
+    }	
 }

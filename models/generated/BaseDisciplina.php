@@ -7,6 +7,9 @@
  * 
  * @property integer $idDisciplina
  * @property string $nomeDisciplina
+ * @property Doctrine_Collection $Ementa
+ * @property Doctrine_Collection $Questao
+ * @property Doctrine_Collection $Turma
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -40,6 +43,16 @@ abstract class BaseDisciplina extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        
-    }
+        $this->hasMany('Ementa', array(
+             'local' => 'idDisciplina',
+             'foreign' => 'idDisciplina'));
+
+        $this->hasMany('Questao', array(
+             'local' => 'idDisciplina',
+             'foreign' => 'idDisciplina'));
+
+        $this->hasMany('Turma', array(
+             'local' => 'idDisciplina',
+             'foreign' => 'idDisciplina'));
+    }	
 }
