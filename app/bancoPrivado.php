@@ -29,16 +29,17 @@ if(!($_SESSION['logado'])){
 		</div>
 	</div>
 	<div class="row"><!-- Linha do Content -->
-		<div class="large-4 columns">
+		<div class="large-2 columns">
 			<?php include('sidebar.php');?>
 		</div>
-		<div class="large-8 columns" style="border-left-style: solid; border-width: 1px;">
+		<div class="large-10 columns" style="border-left-style: solid; border-width: 1px;">
 			<h4 class="text-center">Banco Público de Questões</h4>
 			<table class="large-12">
 				<thead>
 					<th>Enunciado</th>
 					<th>Tipo</th>
 					<th>Grau</th>
+					<th class="text-center"><img src="img/visualizar.png" width="20px"></th>
 				</thead>
 				<tbody>
 					<?php 
@@ -49,6 +50,7 @@ if(!($_SESSION['logado'])){
 								echo '<td>'.$q->getEnunciado().'</td>';
 								echo '<td>'.Util::retornaTipoQuestao($q->getTipo()).'</td>';
 								echo '<td>Grau</td>';
+								echo '<td class="text-center"><img src="img/visualizar.png" width="20px"></td>';
 							echo '</tr>';
 						}
 					?>

@@ -257,9 +257,7 @@ class Professor extends BaseProfessor{
 	
 	public function validarAcesso($login, $senha){
 		$retorno = $this->getTable("Professor")->findOneBy('login',$login);
-		echo $retorno->getNome();
 		if($retorno){
-			echo $retorno->getSenha();
 			if($retorno->getSenha() == md5($senha)){
 				return $retorno;
 			} else {

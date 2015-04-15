@@ -7,7 +7,7 @@
 	$p = new Professor();
 	$p->setIdProfessor($_SESSION['idProfessor']);
 	$professor = $p->retornaProfessorPorId();
-	$nome = explode(" ",$professor->getNome());
+	$nome = explode(" ",$professor->getNomeProfessor());
 	$salvo = false;
 	
 	if(isset($_POST['nomeCompleto'])){
@@ -54,15 +54,10 @@
 		</div>
 	</div>
 	<div class="row"><!-- Linha do Content -->
-		<div class="large-4 columns">
-			<ul class="side-nav" role="navigation" title="Link List">
-			   <li role="menuitem"><a href="#">Link 1</a></li>
-			   <li role="menuitem"><a href="#">Link 2</a></li>
-			   <li role="menuitem"><a href="#">Link 3</a></li>
-			   <li role="menuitem"><a href="#">Link 4</a></li>
-			 </ul>
+		<div class="large-2 columns">
+			<?php include('sidebar.php');?>
 		</div>
-		<div class="large-8 columns" style="border-left-style: solid; border-width: 1px;">
+		<div class="large-10 columns" style="border-left-style: solid; border-width: 1px;">
 			<h4 class="text-center">Perfil - Professor <?php echo $_SESSION['nomeProfessor'];?></h4>
 			<div class="large-12 columns">
 				<?php 
@@ -76,7 +71,7 @@
 					<legend>Dados Pessoais</legend>
 					<div class="large-12 columns">
 						<label>Nome Completo:</label>
-							<input type="text" name="nomeCompleto" value="<?php echo $professor->getNome();?>">
+							<input type="text" name="nomeCompleto" value="<?php echo $professor->getNomeProfessor();?>">
 					</div>
 					<div class="large-6 columns">
 						<label>Data Nascimento:</label>
@@ -191,7 +186,6 @@
 				</div>
 			</form>
 		</div>
-	<hr>
 	</div>
 	<div class="large-12 columns">
 			<?php include('footer.php')?>

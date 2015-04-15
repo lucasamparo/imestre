@@ -56,11 +56,11 @@
 		</div>
 	</div>
 	<div class="row"><!-- Linha do Content -->
-		<div class="large-4 columns">
+		<div class="large-2 columns">
 			<?php include('sidebar.php');?>
 		</div>
-		<div class="large-8 columns" style="border-left-style: solid; border-width: 1px;">
-			<h4 class="text-class">Mensagens Enviadas</h4>
+		<div class="large-10 columns" style="border-left-style: solid; border-width: 1px;">
+			<h4 class="text-center">Mensagens</h4>
 			<form method="post">
 				<fieldset>
 					<div class="large-12 columns">

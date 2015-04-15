@@ -9,22 +9,27 @@
 	$p->setIdProfessor($_SESSION['idProfessor']);
 	$professor = $p->retornaProfessorPorId();
 	
-	if($_POST['titulo']){
-		$itemSalvo = new Itemcurriculo();
-		$itemSalvo->setTitulo($_POST['titulo']);
-		$itemSalvo->setConteudo($_POST['conteudo']);
-		$itemSalvo->setAno($_POST['ano']);
-		$itemSalvo->setProfessor($_SESSION['idProfessor']);
-		$itemSalvo->save();
+	if(isset($_POST['titulo'])){
+		if($_POST['titulo']){
+			$itemSalvo = new Itemcurriculo();
+			$itemSalvo->setTitulo($_POST['titulo']);
+			$itemSalvo->setConteudo($_POST['conteudo']);
+			$itemSalvo->setAno($_POST['ano']);
+			$itemSalvo->setProfessor($_SESSION['idProfessor']);
+			$itemSalvo->save();
+		}	
 	}
-	if($_POST['tituloEd']){
-		$itemEditado = new Itemcurriculo();
-		$itemEditado->setTitulo($_POST['tituloEd']);
-		$itemEditado->setConteudo($_POST['conteudoEd']);
-		$itemEditado->setAno($_POST['anoEd']);
-		$itemEditado->setIdItemCurriculo($_POST['idItem']);
-		$itemEditado->atualizaItemCurriculo();
+	if(isset($_POST['tituloEd'])){
+		if($_POST['tituloEd']){
+			$itemEditado = new Itemcurriculo();
+			$itemEditado->setTitulo($_POST['tituloEd']);
+			$itemEditado->setConteudo($_POST['conteudoEd']);
+			$itemEditado->setAno($_POST['anoEd']);
+			$itemEditado->setIdItemCurriculo($_POST['idItem']);
+			$itemEditado->atualizaItemCurriculo();
+		}
 	}
+	
 	
 	$items = $item->retornaTodosItensPorIdProfessor($professor->getIdProfessor());
 ?>
@@ -68,10 +73,10 @@ function abrir_modal(linha,codigo){
 		</div>
 	</div>
 	<div class="row"><!-- Linha do Content -->
-		<div class="large-4 columns">
+		<div class="large-2 columns">
 			<?php include('sidebar.php');?>
 		</div>
-		<div class="large-8 columns" style="border-left-style: solid; border-width: 1px;">
+		<div class="large-10 columns" style="border-left-style: solid; border-width: 1px;">
 			<h3 class="text-center">Currículo - Professor <?php echo $_SESSION['nomeProfessor'];?></h3>
 			<form method="post" action="cadCurriculo.php">
 				<fieldset>

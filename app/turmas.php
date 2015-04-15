@@ -40,10 +40,10 @@
 		</div>
 	</div>
 	<div class="row"><!-- Linha do Content -->
-		<div class="large-4 columns">
+		<div class="large-2 columns">
 			<?php include('sidebar.php');?>
 		</div>
-		<div class="large-8 columns" style="border-left-style: solid; border-width: 1px;">
+		<div class="large-10 columns" style="border-left-style: solid; border-width: 1px;">
 			<h4 class="text-center">Cadastro de Turmas</h4>
 			<form method="post" action="turmas.php">
 				<fieldset>

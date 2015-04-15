@@ -7,12 +7,12 @@
 	$p = new Professor();
 	$p->setIdProfessor($_SESSION['idProfessor']);
 	$professor = $p->retornaProfessorPorId();
-	$nome = explode(" ",$professor->getNome());
+	$nome = explode(" ",$professor->getNomeProfessor());
 ?>
 
 <html>
 <head>
-<title>iMestre :: Início - Professor <?php echo $professor->getNome();?></title>
+<title>iMestre :: Início - Professor <?php echo $professor->getNomeProfessor();?></title>
 <link rel="stylesheet" type="text/css" href="css/foundation.css">
 <script language="JScript" src="js/vendor/jquery.js"></script>
 <script language="JScript" src="js/vendor/modernizr.js"></script>
@@ -32,10 +32,10 @@
 		</div>
 	</div>
 	<div class="row"><!-- Linha do Content -->
-		<div class="large-4 columns">
+		<div class="large-2 columns">
 			<?php include('sidebar.php');?>
 		</div>
-		<div class="large-8 columns" style="border-left-style: solid; border-width: 1px;">
+		<div class="large-10 columns" style="border-left-style: solid; border-width: 1px;">
 			<div class="row collapse">
 				<div class="large-6 columns">
 					&nbsp;
@@ -107,8 +107,7 @@
 						</tbody>
 					</table>
 				</div>
-			</div>
-		<hr>			
+			</div>		
 		</div>
 		<div class="large-12 columns">
 			<?php include('footer.php')?>

@@ -8,11 +8,11 @@
 	$item = new Itemcurriculo();
 	$p->setIdProfessor($_SESSION['idProfessor']);
 	$professor = $p->retornaProfessorPorId();
-	$nome = explode(" ",$professor->getNome());
+	$nome = explode(" ",$professor->getNomeProfessor());
 ?>
 <html>
 <head>
-<title>iMestre :: Áreas de Atuação - Professor <?php echo $professor->getNome();?></title>
+<title>iMestre :: Áreas de Atuação - Professor <?php echo $professor->getNomeProfessor();?></title>
 <link rel="stylesheet" type="text/css" href="css/foundation.css">
 <script language="JScript" src="js/vendor/jquery.js"></script>
 <script language="JScript" src="js/vendor/modernizr.js"></script>
@@ -57,10 +57,10 @@ jQuery(function ($) {
 		</div>
 	</div>
 	<div class="row"><!-- Linha do Content -->
-		<div class="large-4 columns">
+		<div class="large-2 columns">
 			<?php include('sidebar.php');?>
 		</div>
-		<div class="large-8 columns" style="border-left-style: solid; border-width: 1px;">
+		<div class="large-10 columns" style="border-left-style: solid; border-width: 1px;">
 			<h3 class="text-center">Áreas de Atuação</h3>
 			<form method="post">
 				<div class="large-12 columns">

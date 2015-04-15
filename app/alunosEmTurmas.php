@@ -33,7 +33,7 @@ function insereAluno(codigo){
 }
 </script>
 </head>
-<body onload="arrumaMenu('listaTurma')">
+<body onload="arrumaMenu()">
 	<div class="row"><!-- Linha do header -->
 		<?php include('header.php');?>
 	</div>
@@ -88,11 +88,15 @@ function insereAluno(codigo){
 								<th>Nome</th>
 							</thead>
 							<tbody id="corpoAlunos">
-								<?php 
-									foreach($alunos as $a){
-										echo '<tr>';
+								<?php
+									if(count($alunos) > 0){
+										foreach($alunos as $a){
+											echo '<tr>';
 											echo '<td>'.$a->getNomeAluno().'</td>';
-										echo '</tr>';
+											echo '</tr>';
+										}
+									} else {
+										echo '<tr><td>Nenhum Aluno Nessa Turma</td></tr>';
 									}
 								?>
 							</tbody>
