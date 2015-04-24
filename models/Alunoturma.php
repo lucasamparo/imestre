@@ -61,4 +61,23 @@ public function getIdAlunoTurma() {
 			echo $e->getMessage();
 		}
 	}
+	
+	public function inserirAlunoEmTurma(){
+		try{
+			$this->save();
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function deletarAlunoEmTurma(){
+		try{
+			$alunoTurma = $this->getTable('Alunoturma')->findOneBy('idAlunoTurma', $this->getIdAlunoTurma());
+			if($alunoTurma){
+				$alunoTurma->delete();
+			}
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
 }

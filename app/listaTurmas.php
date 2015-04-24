@@ -103,7 +103,7 @@ function completaEdicao(codigo){
 									echo '<td>'.$turno.'</td>';
 									$i->setIdInstituicao($t->getIdInstituicao());
 									echo '<td>'.$i->retornaInstituicaoPorId()->getNomeInstituicao().'</td>';
-									echo '<td class="text-center"><a href="alunosEmTurmas.php"><img src="img/alunos.jpg" width="25px"></a></td>';
+									echo '<td class="text-center"><a href="alunosEmTurmas.php?id='.$t->getIdTurma().'"><img src="img/alunos.jpg" width="25px"></a></td>';
 									echo '<td class="text-center"><img src="img/editar.png" style="cursor: pointer;" onclick="completaEdicao('.$t->getIdTurma().')" width="20"></td>';
 								echo '</tr>';
 							}

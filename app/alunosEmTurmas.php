@@ -4,6 +4,23 @@
 	if(!($_SESSION['logado'])){
 		header('Location: index.php');
 	}
+	
+	if(isset($_POST['alunos'])){
+		foreach($_POST['alunos'] as $a){
+			$at = new Alunoturma();
+			$at->setIdAluno($a);
+			$at->setIdTurma($_GET['id']);
+			$at->setAno(date('Y'));
+			$at->inserirAlunoEmTurma();
+		}
+		header('Location: alunosEmTurmas.php?id='.$_GET['id']);
+	}
+	
+	if(isset($_GET['e'])){
+		$at = new Alunoturma();
+		$at->setIdAlunoTurma($_GET['e']);
+		$at->deletarAlunoEmTurma();
+	}
 ?>
 <html>
 <head>
@@ -30,6 +47,13 @@ function insereAluno(codigo){
 	    }
 	});
 	$('#corpoAlunos').append('<tr><td>'+retorno.nomeAluno+'</td></tr>');
+	html = $('#formAlunos').html();
+	html += '<input type="hidden" value="'+retorno.idAluno+'" name="alunos[]">';
+	$('#formAlunos').html(html);
+}
+
+function abreEscolheAluno(){
+	abrirJanela('escolheAluno.php','500','300','100','0');
 }
 </script>
 </head>
@@ -46,77 +70,33 @@ function insereAluno(codigo){
 		</div>
 	</div>
 	<div class="row"><!-- Linha do Content -->
-		<div class="large-4 columns">
+		<div class="large-2 columns">
 			<?php include('sidebar.php');?>
 		</div>
-		<div class="large-8 columns" style="border-left-style: solid; border-width: 1px;">
+		<div class="large-10 columns" style="border-left-style: solid; border-width: 1px;">
 			<?php 
-				if(!isset($_POST['turma'])){
-					?>
-					<form method="post">
-						<fieldset>
-							<legend>Selecione a Turma:</legend>
-								<div class="large-9 columns">
-									<select name="turma">
-										<?php 
-											$t = new Turma();
-											$turmas = $t->retornaTodasTurmas();
-											foreach($turmas as $t){
-												echo '<option value="'.$t->getIdTurma().'">'.$t->getNomeTurma().'</option>';	
-											}
-										?>
-									</select>
-								</div>
-								<div class="large-1 columns">&nbsp;</div>
-								<div class="large-2 columns">
-									<input type="submit" value="Selecionar" class="button tiny">
-								</div>
-						</fieldset>
-					</form>
-					<?php
-				} else {
-					$t = new Turma();
-					$t->setIdTurma($_POST['turma']);
-					$turma = $t->retornaTurmaPorId();
-					$alunos = $t->retornaAlunosDaTurma();
-					?>
-					<fieldset>
-						<span>Turma: </span><span><?php echo $turma->getNomeTurma()?></span><br>
-						<span>Alunos (<?php echo count($alunos);?>)</span>
-						<table class="large-12">
-							<thead>
-								<th>Nome</th>
-							</thead>
-							<tbody id="corpoAlunos">
-								<?php
-									if(count($alunos) > 0){
-										foreach($alunos as $a){
-											echo '<tr>';
-											echo '<td>'.$a->getNomeAluno().'</td>';
-											echo '</tr>';
-										}
-									} else {
-										echo '<tr><td>Nenhum Aluno Nessa Turma</td></tr>';
-									}
-								?>
-							</tbody>
-						</table>
-						<div class="row collapse">
-							<div class="large-4 columns">
-								<a href="#" class="button large-12" onclick="abrirJanela('escolheAluno.php','500','600','55','0')">+ Aluno</a>
-							</div>
-							<div class="large-4 columns">&nbsp;</div>
-							<div class="large-4 columns">
-								<form method="post" id="formTurma">
-									<input type="hidden" name="idTurma" value="<?php echo $_POST['turma'];?>">
-									<input type="submit" class="button large-12" value="Salvar">
-								</form>
-							</div>
-						</div>												
-					</fieldset>
-					<?php
-				}
+				$id = $_GET['id'];
+				$t = new Turma();
+				$t->setIdTurma($id);
+				$turma = $t->retornaTurmaPorId();
+				echo '<h5>Alunos da Turma "'.$turma->getNomeTurma().'"</h5>';
+				echo '<table class="large-12" id="corpoAlunos">';
+					echo '<th>Nome do Aluno</th>';
+					echo '<th class="text-center" width="40px"><img src="img/deletar.png" style="cursor: pointer"></th>';
+					foreach($turma->getAlunoturma() as $alunos){
+						echo '<tr>';
+							echo '<td>'.$alunos->getAluno()->getNomeAluno().'</td>';
+							echo '<td class="text-center" width="40px"><a href="?id='.$id.'&e='.$alunos->getIdAlunoTurma().'"><img src="img/deletar.png" style="cursor: pointer"></a></td>';
+						echo '</tr>';
+					}
+				echo '</table>';
 			?>
+			<div class="large-8 columns">
+				<a href="#" class="button large-6" onclick="abreEscolheAluno()">+ Aluno</a>
+			</div>
+			<form method="post" id="formAlunos" class="large-4 columns">
+				<input type="submit" class="button large-12" value="Salvar">
+			</form>			
 		</div>
 		<hr>
 	</div>
