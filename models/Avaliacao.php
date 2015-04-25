@@ -61,4 +61,23 @@ class Avaliacao extends BaseAvaliacao
 		$this->Responde = $Responde;
 		return $this;
 	}
+	
+	public function inserirAvaliacao(){
+		try{
+			$this->save();
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function retornarTodasAvaliacoes($data){
+		try{
+			$table = Doctrine_Core::getTable('Avaliacao');
+			$query = $table->createQuery()->where('data >= '.$data);
+			$rs = $query->execute();
+			return $rs;
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
 }
