@@ -72,8 +72,9 @@ function completaEdicao(codigo, nome){
 					<legend>Disciplinas já Cadastradas</legend>
 						<table class="large-12">
 							<thead>
-								<th width="90%">Nome</th>
-								<th width="10%" class="text-center"><img src="img/editar.png" width="20"></th>
+								<th width="80%">Nome</th>
+								<th width="10%">Ementas</th>
+								<th width="10%" class="text-center"><img src="img/editar.png" width="20"></th>					
 							</thead>
 							<tbody>
 								<?php 
@@ -82,6 +83,7 @@ function completaEdicao(codigo, nome){
 									foreach ($disciplinas as $d){
 										echo '<tr>';
 											echo '<td>'.$d->getNomeDisciplina().'</td>';
+											echo '<td><a href="ementas.php?id='.$d->getIdDisciplina().'">Ementas</a></td>';
 											echo '<td class="text-center"><img src="img/editar.png" width="20" style="cursor: pointer;" onclick="'."completaEdicao('".$d->getIdDisciplina()."','".$d->getNomeDisciplina()."')".'"></td>';
 										echo '</tr>';
 									}

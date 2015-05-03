@@ -8,8 +8,8 @@
  * @property integer $idAluno
  * @property integer $idAvaliacao
  * @property float $conceito
- * @property Avaliacao $Avaliacao
  * @property Aluno $Aluno
+ * @property Avaliacao $Avaliacao
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -50,12 +50,12 @@ abstract class BaseResponde extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('Avaliacao', array(
-             'local' => 'idAvaliacao',
-             'foreign' => 'idAvaliacao'));
-
         $this->hasOne('Aluno', array(
              'local' => 'idAluno',
              'foreign' => 'idAluno'));
-    }	
+
+        $this->hasOne('Avaliacao', array(
+             'local' => 'idAvaliacao',
+             'foreign' => 'idAvaliacao'));
+    }
 }

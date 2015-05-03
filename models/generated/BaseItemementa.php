@@ -68,5 +68,5 @@ abstract class BaseItemementa extends Doctrine_Record
         $this->hasMany('Planejaementa', array(
              'local' => 'idItemEmenta',
              'foreign' => 'idItemEmenta'));
-    }	
+    }
 }

@@ -54,4 +54,44 @@ class Itemementa extends BaseItemementa
 		$this->Planejaementa = $Planejaementa;
 		return $this;
 	}
+	
+	public function inserirItemEmenta(){
+		try{
+			$this->save();
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function excluirItemEmenta(){
+		try{
+			$item = $this->getTable('Itemementa')->findOneBy('idItemEmenta', $this->getIdItemEmenta());
+			if($item){
+				$item->delete();
+			}
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function atualizarItemEmenta(){
+		try{
+			$antigo = $this->copy();
+			$item = $this->getTable()->findOneBy('idItemEmenta', $this->getIdItemEmenta());
+			if($item){
+				if(!is_null($antigo->getIdEmenta())){
+					$item->setIdEmenta($antigo->getIdEmenta());
+				}
+				if(!is_null($antigo->getIndice())){
+					$item->setIndice($antigo->getIndice());
+				}
+				if(!is_null($antigo->getConteudo())){
+					$item->setConteudo($antigo->getConteudo());
+				}
+				$item->save();
+			}
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
 }

@@ -58,5 +58,5 @@ abstract class BaseItemavaliacao extends Doctrine_Record
         $this->hasOne('Questao', array(
              'local' => 'idQuestao',
              'foreign' => 'idQuestao'));
-    }	
+    }
 }

@@ -18,7 +18,7 @@
 					<label class="text-right">X Mensagens</label>
 				</div>
 				<div class="large-12 columns">
-					<label class="text-right"><a href="index.php">Logout</a></label>
+					<label class="text-right"><a href="logout.php">Logout</a></label>
 				</div>
 			</div>
 		</div>

@@ -8,8 +8,8 @@
  * @property integer $idProfessor
  * @property integer $idInstituicao
  * @property string $ano
- * @property Professor $Professor
  * @property Instituicao $Instituicao
+ * @property Professor $Professor
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -51,12 +51,12 @@ abstract class BaseTrabalha extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('Professor', array(
-             'local' => 'idProfessor',
-             'foreign' => 'idProfessor'));
-
         $this->hasOne('Instituicao', array(
              'local' => 'idInstituicao',
              'foreign' => 'idInstituicao'));
-    }	
+
+        $this->hasOne('Professor', array(
+             'local' => 'idProfessor',
+             'foreign' => 'idProfessor'));
+    }
 }

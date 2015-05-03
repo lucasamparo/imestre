@@ -54,5 +54,5 @@ abstract class BaseDisciplina extends Doctrine_Record
         $this->hasMany('Turma', array(
              'local' => 'idDisciplina',
              'foreign' => 'idDisciplina'));
-    }	
+    }
 }

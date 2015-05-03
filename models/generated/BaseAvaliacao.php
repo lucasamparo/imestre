@@ -29,7 +29,7 @@ abstract class BaseAvaliacao extends Doctrine_Record
              'fixed' => false,
              'unsigned' => false,
              'primary' => true,
-             'autoincrement' => false,
+             'autoincrement' => true,
              ));
         $this->hasColumn('idTurma', 'integer', 4, array(
              'type' => 'integer',
@@ -73,5 +73,5 @@ abstract class BaseAvaliacao extends Doctrine_Record
         $this->hasMany('Responde', array(
              'local' => 'idAvaliacao',
              'foreign' => 'idAvaliacao'));
-    }	
+    }
 }

@@ -1,5 +1,5 @@
 <?php
-
+require_once('../models/bootstrap.php');
 /**
  * Ementa
  * 
@@ -46,5 +46,41 @@ class Ementa extends BaseEmenta
 	public function setItemementa($Itemementa) {
 		$this->Itemementa = $Itemementa;
 		return $this;
+	}
+	
+	public function inserirEmenta(){
+		try{
+			$this->save();
+			$query = Doctrine_Query::create();
+			$rs = $query->addSelect('max(idEmenta)')->addFrom('Ementa');
+			return $rs->execute();
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function retornaEmentaPorId(){
+		try{
+			return $this->getTable('Ementa')->findOneBy('idEmenta', $this->getIdEmenta());
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function reorganizarItens(){
+		try{
+			$ementa = $this->getTable('Ementa')->findOneBy('idEmenta', $this->getIdEmenta());
+			if($ementa){
+				$itens = $ementa->getItemementa();
+				$j = 1;
+				foreach($itens as $i){
+					$i->setIndice($j);
+					$i->atualizarItemEmenta();
+					$j++;
+				}
+			}			 
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
 	}
 }

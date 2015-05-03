@@ -69,5 +69,5 @@ abstract class BaseAlunoturma extends Doctrine_Record
         $this->hasOne('Turma', array(
              'local' => 'idTurma',
              'foreign' => 'idTurma'));
-    }	
+    }
 }

@@ -108,5 +108,5 @@ abstract class BaseInstituicao extends Doctrine_Record
         $this->hasMany('Turma', array(
              'local' => 'idInstituicao',
              'foreign' => 'idInstituicao'));
-    }	
+    }
 }

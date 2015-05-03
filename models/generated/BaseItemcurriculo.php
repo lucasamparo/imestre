@@ -74,14 +74,4 @@ abstract class BaseItemcurriculo extends Doctrine_Record
              'local' => 'idProfessor',
              'foreign' => 'idProfessor'));
     }
-	public function getIdItemCurriculo() {
-		return $this->idItemCurriculo;
-	}
-	public function setIdItemCurriculo($idItemCurriculo) {
-		$this->idItemCurriculo = $idItemCurriculo;
-		return $this;
-	}
-	public function getIdProfessor() {
-		return $this->idProfessor;
-	}	
 }

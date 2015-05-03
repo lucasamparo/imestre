@@ -9,6 +9,7 @@
  * @property integer $idItemEmenta
  * @property date $previsto
  * @property date $realizado
+ * @property Turma $Turma
  * @property Itemementa $Itemementa
  * 
  * @package    ##PACKAGE##
@@ -58,8 +59,12 @@ abstract class BasePlanejaementa extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('Turma', array(
+             'local' => 'idTurma',
+             'foreign' => 'idTurma'));
+
         $this->hasOne('Itemementa', array(
              'local' => 'idItemEmenta',
              'foreign' => 'idItemEmenta'));
-    }	
+    }
 }
