@@ -47,4 +47,20 @@ class Planejaementa extends BasePlanejaementa
 		$this->Itemementa = $Itemementa;
 		return $this;
 	}
+	
+	public function inserirPlanejamento(){
+		try{
+			$this->save();
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function retornaPlanejamentoPorIdTurma(){
+		try{
+			return $this->getTable()->findBy('idTurma', $this->getIdTurma());
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
 }
