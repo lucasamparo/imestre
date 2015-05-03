@@ -74,13 +74,14 @@ function completaEdicao(codigo){
 			<div class="large-12 columns">
 				<table class="large-12">
 					<thead>
-						<th class="text-center" width="15%">Nome</th>
+						<th class="text-center" width="13%">Nome</th>
 						<th class="text-center" width="10%">C. Horária</th>
 						<th class="text-center" width="10%">Turno</th>
 						<th class="text-center" width="15%">Instituição</th>
-						<th class="text-center" width="10%">Alunos</th>
-						<th class="text-center" width="10%">Planejar</th>
-						<th class="text-center" width="10%">Editar</th>
+						<th class="text-center" width="5%"><img src="img/alunos.jpg" width="25px"></th>
+						<th class="text-center" width="5%"><img src="img/planejar.png" width="20"></th>
+						<th class="text-center" width="5%"><img src="img/frequencia.png" width="20"></th>
+						<th class="text-center" width="5%"><img src="img/editar.png" width="20"></th>
 					</thead>
 					<tbody>
 						<?php 
@@ -106,6 +107,7 @@ function completaEdicao(codigo){
 									echo '<td>'.$i->retornaInstituicaoPorId()->getNomeInstituicao().'</td>';
 									echo '<td class="text-center"><a href="alunosEmTurmas.php?id='.$t->getIdTurma().'"><img src="img/alunos.jpg" width="25px"></a></td>';
 									echo '<td class="text-center"><a href="planejarTurma.php?id='.$t->getIdTurma().'"><img src="img/planejar.png" width="20"></a></td>';
+									echo '<td class="text-center"><a href="lancarFrequencia.php?id='.$t->getIdTurma().'"><img src="img/frequencia.png" width="20"></a></td>';
 									echo '<td class="text-center"><img src="img/editar.png" style="cursor: pointer;" onclick="completaEdicao('.$t->getIdTurma().')" width="20"></td>';
 								echo '</tr>';
 							}

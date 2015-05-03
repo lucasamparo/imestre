@@ -27,7 +27,7 @@ abstract class BaseEmenta extends Doctrine_Record
              'fixed' => false,
              'unsigned' => false,
              'primary' => true,
-             'autoincrement' => false,
+             'autoincrement' => true,
              ));
         $this->hasColumn('idDisciplina', 'integer', 4, array(
              'type' => 'integer',

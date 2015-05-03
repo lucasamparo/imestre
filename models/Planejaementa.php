@@ -12,6 +12,13 @@
  */
 class Planejaementa extends BasePlanejaementa
 {
+	public function getIdPlanejaEmenta() {
+		return $this->idPlanejaEmenta;
+	}
+	public function setIdPlanejaEmenta($idPlanejaEmenta) {
+		$this->idPlanejaEmenta = $idPlanejaEmenta;
+		return $this;
+	}	
 	public function getIdTurma() {
 		return $this->idTurma;
 	}

@@ -9,6 +9,7 @@
  * @property string $nomeAluno
  * @property string $emailAluno
  * @property Doctrine_Collection $Alunoturma
+ * @property Doctrine_Collection $Frequencia
  * @property Doctrine_Collection $Responde
  * 
  * @package    ##PACKAGE##
@@ -53,6 +54,10 @@ abstract class BaseAluno extends Doctrine_Record
     {
         parent::setUp();
         $this->hasMany('Alunoturma', array(
+             'local' => 'idAluno',
+             'foreign' => 'idAluno'));
+
+        $this->hasMany('Frequencia', array(
              'local' => 'idAluno',
              'foreign' => 'idAluno'));
 

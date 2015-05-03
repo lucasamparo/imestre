@@ -88,6 +88,13 @@ public function getIdTurma() {
 		$this->Avaliacao = $Avaliacao;
 		return $this;
 	}
+	public function getPlanejaementa() {
+		return $this->Planejaementa;
+	}
+	public function setPlanejaementa($Planejaementa) {
+		$this->Planejaementa = $Planejaementa;
+		return $this;
+	}
 	
 	public function inserirTurma(){
 		try{
