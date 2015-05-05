@@ -57,7 +57,34 @@ class Frequencia extends BaseFrequencia
 	
 	public function lancarFrequencia(){
 		try{
-			$this->save();
+			$tmp = $this->copy();
+			$q = Doctrine_Query::create()
+							->select("*")
+							->from('Frequencia')
+							->from('Frequencia')
+							->where('idAluno = '.$this->getIdAluno())
+							->andWhere('idPlanejamento = '.$this->getIdPlanejamento());
+			$f = $q->execute()[0];
+			if($f){
+				$f->setPresenca($tmp->getPresenca());
+				$f->save();
+			} else {
+				$tmp->save();
+			}
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	static public function verificarFrequencia($idAluno, $idPlanejamento){
+		try{
+			$query = Doctrine_Query::create()
+						->select('presenca')
+						->from('Frequencia')
+						->where('idAluno = '.$idAluno)
+						->andWhere('idPlanejamento = '.$idPlanejamento);
+			$rs = $query->execute();
+			return $rs[0]->getPresenca();
 		} catch (Doctrine_Exception $e){
 			echo $e->getMessage();
 		}

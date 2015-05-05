@@ -187,6 +187,21 @@ public function getIdTurma() {
 		}
 	}
 	
+	public function retornaAulasPorMes($mes){
+		try{
+			if(strlen($mes) == 1){
+				$mes = '0'.$mes;
+			}
+			$table = Doctrine_Core::getTable('Planejaementa');
+			$query = $table->createQuery()->addWhere("previsto like '".date('Y')."-".$mes."%'")
+											->andWhere('idTurma = '.$this->getIdTurma());
+			$rs = $query->execute();
+			return $rs;
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
 	public function getJson(){
 		$array = Array();
 		$array['idTurma'] = utf8_encode($this->idTurma);

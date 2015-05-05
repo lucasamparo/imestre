@@ -54,6 +54,13 @@ class Planejaementa extends BasePlanejaementa
 		$this->Itemementa = $Itemementa;
 		return $this;
 	}
+	public function getFrequencia() {
+		return $this->Frequencia;
+	}
+	public function setFrequencia($Frequencia) {
+		$this->Frequencia = $Frequencia;
+		return $this;
+	}
 	
 	public function inserirPlanejamento(){
 		try{
