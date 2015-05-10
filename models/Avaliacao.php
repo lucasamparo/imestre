@@ -80,4 +80,12 @@ class Avaliacao extends BaseAvaliacao
 			echo $e->getMessage();
 		}
 	}
+	
+	public function retornarAvaliacaoPorId(){
+		try{
+			return $this->getTable()->findOneBy('idAvaliacao', $this->getIdAvaliacao());
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
 }

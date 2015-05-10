@@ -33,7 +33,7 @@
 			<?php include('sidebar.php');?>
 		</div>
 		<div class="large-10 columns" style="border-left-style: solid; border-width: 1px;">
-			<h4 class="text-center">Avaliações Pendentes</h4>
+			<h4 class="text-center">Avaliações Cadastradas</h4>
 			<table class="large-12">
 				<thead>
 					<th width="15%">Data</th>
@@ -41,6 +41,7 @@
 					<th width="20%">Nº Questões</th>
 					<th width="10%" class="text-center"><img src="img/questoes.jpg" width="20px"></th>
 					<th width="10%" class="text-center"><img src="img/visualizar.png" width="20px"></th>
+					<th width="10%" class="text-center"><img src="img/avaliacao.png" width="30px"></th>
 				</thead>
 				<tbody>
 					<?php 
@@ -48,11 +49,12 @@
 						$avaliacoes = $a->retornarTodasAvaliacoes(date('Y-m-d'));
 						foreach($avaliacoes as $a){
 							echo '<tr>';
-								echo '<td>'.$a->getDataAvaliacao().'</td>';
+								echo '<td>'.Util::arrumaData($a->getDataAvaliacao()).'</td>';
 								echo '<td>'.$a->getTurma()->getNomeTurma().'</td>';
 								echo '<td>'.count($a->getItemAvaliacao()).' Questões</td>';
 								echo '<th width="10%" class="text-center"><img src="img/questoes.jpg" width="20px"></th>';
 								echo '<th width="10%" class="text-center"><img src="img/visualizar.png" width="20px"></th>';
+								echo '<th width="10%" class="text-center"><a href="lancaNota.php?id='.$a->getIdAvaliacao().'"><img src="img/avaliacao.png" width="30px"></a></th>';
 							echo '</tr>';
 						}
 					?>

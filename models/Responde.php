@@ -47,4 +47,12 @@ class Responde extends BaseResponde
 		$this->Aluno = $Aluno;
 		return $this;
 	}
+	
+	public function inserirNota(){
+		try{
+			$this->save();
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
 }
