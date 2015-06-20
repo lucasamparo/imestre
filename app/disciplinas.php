@@ -8,6 +8,8 @@
 	if(isset($_POST['nomeDisciplina'])){
 		$d = new Disciplina();
 		$d->setNomeDisciplina($_POST['nomeDisciplina']);
+		$d->setIdAreaMenor($_POST['areaMenor']);
+		$d->setIdProfessor($_SESSION['idProfessor']);
 		$d->inserirDisciplina();
 	}
 	
@@ -58,10 +60,29 @@ function completaEdicao(codigo, nome){
 			<form method="post" action="disciplinas.php">
 				<fieldset>
 					<legend>Nova Disciplina</legend>
-					<div class="large-9 columns">
-						<input type="text" name="nomeDisciplina">
+					<div class="large-5 columns">
+						<input type="text" name="nomeDisciplina" required>
 					</div>
-					<div class="large-1 columns">&nbsp;</div>
+					<div class="large-5 columns">
+						<select name="areaMenor" required>
+							<?php 
+								$a1 = new Areamaior();
+								$a1 = $a1->retornaTodasAreas();
+								foreach($a1 as $a){
+									echo '<optgroup label="'.$a->getNomeArea().'">';
+									$a2 = $a->getAreamenor();
+									$selected = "";
+									foreach($a2 as $aa){
+										if(false){
+											$selected = 'selected';
+										}
+										echo '<option value="'.$aa->getIdAreamenor().'" '.$selected.'>'.$aa->getNomeArea().'</option>';
+									}
+									echo '</optgroup>';
+								}
+							?>
+						</select>
+					</div>
 					<div class="large-2 columns">
 						<input type="submit" name="submeter" value="Adicionar" class="button tiny">
 					</div>
@@ -72,7 +93,8 @@ function completaEdicao(codigo, nome){
 					<legend>Disciplinas já Cadastradas</legend>
 						<table class="large-12">
 							<thead>
-								<th width="80%">Nome</th>
+								<th width="70%">Nome</th>
+								<th width="10%">Assuntos</th>
 								<th width="10%">Ementas</th>
 								<th width="10%" class="text-center"><img src="img/editar.png" width="20"></th>					
 							</thead>
@@ -83,6 +105,7 @@ function completaEdicao(codigo, nome){
 									foreach ($disciplinas as $d){
 										echo '<tr>';
 											echo '<td>'.$d->getNomeDisciplina().'</td>';
+											echo '<td><a href="assuntos.php?id='.$d->getIdDisciplina().'">Assuntos</a></td>';
 											echo '<td><a href="ementas.php?id='.$d->getIdDisciplina().'">Ementas</a></td>';
 											echo '<td class="text-center"><img src="img/editar.png" width="20" style="cursor: pointer;" onclick="'."completaEdicao('".$d->getIdDisciplina()."','".$d->getNomeDisciplina()."')".'"></td>';
 										echo '</tr>';

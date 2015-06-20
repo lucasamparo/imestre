@@ -74,5 +74,5 @@ abstract class BaseFrequencia extends Doctrine_Record
         $this->hasOne('Planejaementa', array(
              'local' => 'idPlanejamento',
              'foreign' => 'idPlanejaEmenta'));
-    }	
+    }
 }

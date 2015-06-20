@@ -8,7 +8,7 @@
 	if(isset($_POST['enunciado'])){
 		$questao = new Questao();
 		$questao->setPrivacidade($_POST['privacidade']);
-		$questao->setIdDisciplina($_POST['disciplina']);
+		$questao->setIdAssunto($_POST['assunto']);
 		$questao->setEnunciado($_POST['enunciado']);
 		$tipo = $_POST['tipo'];
 		$questao->setTipo($tipo);
@@ -107,7 +107,7 @@ function carregaRespostas(tipo){
 						<label>Privacidade:</label>
 						<div class="row collapse">
 							<div class="large-6 columns">
-								<input type="radio" name="privacidade" value="0" id="priv0"><label for="priv0">Pública</label>
+								<input type="radio" name="privacidade" value="0" id="priv0" checked><label for="priv0">Pública</label>
 							</div>
 							<div class="large-6 columns">
 								<input type="radio" name="privacidade" value="1" id="priv1"><label for="priv1">Privada</label>
@@ -115,25 +115,32 @@ function carregaRespostas(tipo){
 						</div>
 					</div>
 					<div class="large-6 columns">
-						<select name="disciplina">
+						<label>Assunto:</label>
+						<select name="assunto" required>
 							<?php 
 								$d = new Disciplina();
-								$disciplina = $d->retornaTodasDisciplinas();
+								$d->setIdProfessor($_SESSION['idProfessor']);
+								$disciplina = $d->retornaTodasDisciplinasPorProfessor();
 								foreach($disciplina as $d){
-									echo '<option value="'.$d->getIdDisciplina().'">'.$d->getNomeDisciplina().'</option>';
+									echo '<optgroup label="'.$d->getNomeDisciplina().'">';
+										$as = $d->getAssunto();
+										foreach($as as $a){
+											echo '<option value="'.$a->getIdAssunto().'">'.$a->getNomeAssunto().'</option>';
+										}
+									echo '</optgroup>';
 								}
 							?>
 						</select>
 					</div>
 					<div class="large-12 columns">
 						<label>Enunciado:</label>
-							<input type="text" name="enunciado">
+							<input type="text" name="enunciado" required>
 					</div>
 					<div class="large-12 columns">
 						<label>Tipo de Resposta</label>
 						<div class="row collapse">
 							<div class="large-4 columns">
-								<input type="radio" name="tipo" value="0" id="tipo0" onclick="carregaRespostas(0)"><label for="tipo0">Dissertativa</label>
+								<input type="radio" name="tipo" value="0" id="tipo0" onclick="carregaRespostas(0)" required><label for="tipo0">Dissertativa</label>
 							</div>
 							<div class="large-4 columns">
 								<input type="radio" name="tipo" value="1" id="tipo1" onclick="carregaRespostas(1)"><label for="tipo1">Múltipla Escolha</label>

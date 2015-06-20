@@ -11,18 +11,18 @@
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 class Questao extends BaseQuestao{
-public function getIdQuestao() {
+	public function getIdQuestao() {
 		return $this->idQuestao;
 	}
 	public function setIdQuestao($idQuestao) {
 		$this->idQuestao = $idQuestao;
 		return $this;
 	}
-	public function getIdDisciplina() {
-		return $this->idDisciplina;
+	public function getIdAssunto() {
+		return $this->idAssunto;
 	}
-	public function setIdDisciplina($idDisciplina) {
-		$this->idDisciplina = $idDisciplina;
+	public function setIdAssunto($idAssunto) {
+		$this->idAssunto = $idAssunto;
 		return $this;
 	}
 	public function getPrivacidade() {
@@ -60,11 +60,11 @@ public function getIdQuestao() {
 		$this->alternativas = $alternativas;
 		return $this;
 	}
-	public function getDisciplina() {
-		return $this->Disciplina;
+	public function getAssunto() {
+		return $this->Assunto;
 	}
-	public function setDisciplina($Disciplina) {
-		$this->Disciplina = $Disciplina;
+	public function setAssunto($Assunto) {
+		$this->Assunto = $Assunto;
 		return $this;
 	}
 	public function getItemavaliacao() {
@@ -114,8 +114,8 @@ public function getIdQuestao() {
 				if(!is_null($this->getIdQuestao())){
 					$questao->setIdQuestao($this->getIdQuestao());
 				}
-				if(!is_null($this->getIdDisciplina())){
-					$questao->setIdDisciplina($this->getIdDisciplina());
+				if(!is_null($this->getIdAssunto())){
+					$questao->setIdAssunto($this->getIdAssunto());
 				}
 				if(!is_null($this->getPrivacidade())){
 					$questao->setPrivacidade($this->getPrivacidade());

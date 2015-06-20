@@ -46,6 +46,27 @@ public function getIdDisciplina() {
 		$this->Turma = $Turma;
 		return $this;
 	}
+	public function getIdAreaMenor() {
+		return $this->idAreaMenor;
+	}
+	public function setIdAreaMenor($idAreaMenor) {
+		$this->idAreaMenor = $idAreaMenor;
+		return $this;
+	}
+	public function getAreamenor() {
+		return $this->Areamenor;
+	}
+	public function setAreamenor($Areamenor) {
+		$this->Areamenor = $Areamenor;
+		return $this;
+	}
+	public function getAssunto() {
+		return $this->Assunto;
+	}
+	public function setAssunto($Assunto) {
+		$this->Assunto = $Assunto;
+		return $this;
+	}
 	
 	public function inserirDisciplina(){
 		try{
@@ -55,10 +76,33 @@ public function getIdDisciplina() {
 			echo $e->getMessage();
 		}
 	}
+	public function getIdProfessor() {
+		return $this->idProfessor;
+	}
+	public function setIdProfessor($idProfessor) {
+		$this->idProfessor = $idProfessor;
+		return $this;
+	}
+	public function getProfessor() {
+		return $this->Professor;
+	}
+	public function setProfessor($Professor) {
+		$this->Professor = $Professor;
+		return $this;
+	}
 	
 	public function retornaTodasDisciplinas(){
 		try{
 			$rs = $this->getTable("disciplina")->findAll();
+			return $rs;
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function retornaTodasDisciplinasPorProfessor(){
+		try{
+			$rs = $this->getTable("disciplina")->findBy('idProfessor', $this->getIdProfessor());
 			return $rs;
 		} catch(Doctrine_Exception $e){
 			echo $e->getMessage();
