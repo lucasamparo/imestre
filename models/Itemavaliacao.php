@@ -47,4 +47,55 @@ class Itemavaliacao extends BaseItemavaliacao
 		$this->Questao = $Questao;
 		return $this;
 	}
+	
+	public function inserirItemAvaliacao(){
+		try{
+			$this->save();
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function excluirQuestao(){
+		try{
+			$q = $this->getTable()->createQuery()
+								->where('idAvaliacao = '.$this->getIdAvaliacao())
+								->andWhere('idQuestao = '.$this->getIdQuestao())
+								->limit('1')
+								->execute();
+			$q[0]->delete();
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function alterarIndice(){
+		try{
+			$q = $this->getTable()->getConnection()
+							->prepare('Update itemavaliacao set indice = '.$this->getIndice().
+										' where idAvaliacao = '.$this->getIdAvaliacao().
+										' AND idQuestao = '.$this->getIdQuestao());
+			$q->execute();
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function reorganizarItens(){
+		try{
+			$q = $this->getTable()->createQuery()
+								->where('idAvaliacao = '.$this->getIdAvaliacao())
+								->orderBy('indice')
+								->execute();
+			$i = 1;
+			foreach ($q as $q1){
+				$q1->getQuestao()->getEnunciado();
+				$q1->setIndice($i);
+				$q1->alterarIndice();
+				$i++;
+			}
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}		
+	}
 }

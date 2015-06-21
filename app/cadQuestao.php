@@ -22,7 +22,7 @@
 				$questao->setResposta($_POST['resposta']);
 				break;
 			case 2:
-				$questao->setAlternativas('{"C1":"'.$_POST['coluna1'].'","C2":"'.$_POST['coluna2'].'"');
+				$questao->setAlternativas('{"C1":"'.$_POST['coluna1'].'","C2":"'.$_POST['coluna2'].'"}');
 				$questao->setResposta(null);
 				break;
 		}

@@ -88,4 +88,15 @@ class Avaliacao extends BaseAvaliacao
 			echo $e->getMessage();
 		}
 	}
+	
+	public function retornarItemsOrdenados(){
+		try{
+			$table = Doctrine_Core::getTable('Itemavaliacao');
+			$query = $table->createQuery()->where('idAvaliacao = '.$this->getIdAvaliacao())->orderBy('indice');
+			$rs = $query->execute();
+			return $rs;
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
 }

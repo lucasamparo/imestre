@@ -40,6 +40,13 @@ class Assunto extends BaseAssunto
 		$this->Disciplina = $Disciplina;
 		return $this;
 	}
+	public function getQuestao() {
+		return $this->Questao;
+	}
+	public function setQuestao($Questao) {
+		$this->Questao = $Questao;
+		return $this;
+	}
 	
 	public function retornaTodosAssuntosPorDisciplina(){
 		try{
@@ -63,6 +70,14 @@ class Assunto extends BaseAssunto
 			if($a){
 				$a->delete();
 			}
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function retornarAssuntoPorId(){
+		try{
+			return $this->getTable()->findOneBy('idAssunto', $this->getIdAssunto());
 		} catch (Doctrine_Exception $e){
 			echo $e->getMessage();
 		}
