@@ -28,7 +28,7 @@
 			<button href="#" data-dropdown="comunicacao" aria-controls="comunicacao" aria-expanded="false" class="button dropdown">Comunicação</button>
 			<ul id="comunicacao" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
 				<li><a href="#" id="blog" style="display: none;">Blog</a></li>
-				<li><a href="#" id="disco" style="display: none;">Disco Virtual</a></li>
+				<li><a href="disco.php" id="disco">Disco Virtual</a></li>
 				<li><a href="enviarEmail.php" id="email">Email</a></li>
 				<li><a href="#" id="contatos">Contatos</a></li>
 			</ul>
