@@ -10,6 +10,14 @@ class Util{
 		return $arrumado;
 	}
 	
+	static public function limparJson($json){
+		$json = str_replace("\r", "", $json);
+		$json = str_replace("\n", "", $json);
+		$json = str_replace("\t", "", $json);
+		
+		return $json;
+	}
+	
 	static public function arrumaData($data){
 		$dt = explode("-", $data);
 		return $dt[2]."/".$dt[1]."/".$dt[0];

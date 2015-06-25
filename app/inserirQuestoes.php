@@ -93,7 +93,7 @@ $(document).ready(function (){
 });
 </script>
 </head>
-<body onload="arrumaMenu('cadQuestao')">
+<body>
 	<div class="row"><!-- Linha do header -->
 		<?php include('header.php');?>
 	</div>

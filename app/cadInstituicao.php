@@ -16,6 +16,10 @@
 		$inst->setCidade($_POST['cidade']);
 		$inst->setTelContato($_POST['telContato']);
 		$inst->inserirInstituicao();
+		
+		$destino = 'cabecalho/header_'.$inst->getIdInstituicao().'.png';
+		$tmp = $_FILES['cabeca']['tmp_name'];
+		move_uploaded_file($tmp, $destino);
 	}
 ?>
 <html>
@@ -47,7 +51,7 @@
 		</div>
 		<div class="large-10 columns" style="border-left-style: solid; border-width: 1px;">
 			<h4 class="text-center">Cadastro de Instituição</h4>
-			<form method="post">
+			<form method="post" enctype="multipart/form-data">
 				<fieldset>
 					<div class="large-10 columns">
 						<label>Nome da Instituição:</label>
@@ -77,7 +81,11 @@
 						<label>Tel. Contato:</label>
 							<input type="tel" name="telContato">
 					</div>
-					<div class="large-8 columns">&nbsp;</div>
+					<div class="large-4 columns">
+						<label>Cabeçalho: <small>(Dimensões: 210mm X 30mm)</small></label>
+						<input name="cabeca" type="file" />
+					</div>
+					<div class="large-4 columns">&nbsp;</div>
 					<div class="large-4 columns">
 						<input type="submit" class="button large-12" value="Salvar">
 					</div>

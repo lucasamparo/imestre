@@ -17,7 +17,16 @@
 		$inst->setTelContato($_POST['telContato']);
 		$inst->setIdInstituicao($_POST['idInstituicao']);
 		$inst->atualizarInstituicao();
-		header('Location: listaInstituto.php');
+		
+		if($_FILES['cabeca']['error'] != 4 ){
+			unlink('cabecalho/header_'.$inst->getIdInstituicao().'.png');
+			
+			$destino = 'cabecalho/header_'.$inst->getIdInstituicao().'.png';
+			$tmp = $_FILES['cabeca']['tmp_name'];
+			move_uploaded_file($tmp, $destino);
+		}		
+		
+		//header('Location: listaInstituto.php');
 	}
 ?>
 <html>
@@ -54,6 +63,12 @@ function completaEdicao(codigo){
 	$('#telContato').val(retorno.telContato);
 	$('#idInstituicao').val(retorno.idInstituicao);
 }
+
+$(document).ready(function (){
+	$('#cabecaInstituto').click(function (){
+		abrirJanela('cabecalho/header_'+$('#idInstituicao').val()+'.jpg');
+	});
+});
 </script>
 </head>
 <body onload="arrumaMenu('listaInstituicao')">
@@ -103,7 +118,7 @@ function completaEdicao(codigo){
 			</table>
 			<div style="display: none" id="edicao">
 				<h4 class="text-center" id="tituloEdicao">Editando Insituição</h4>
-				<form method="post">
+				<form method="post" enctype="multipart/form-data">
 					<fieldset>
 						<div class="large-10 columns">
 							<label>Nome da Instituição:</label>
@@ -133,7 +148,14 @@ function completaEdicao(codigo){
 							<label>Tel. Contato:</label>
 								<input type="tel" name="telContato" id="telContato">
 						</div>
-						<div class="large-8 columns">&nbsp;</div>
+						<div class="large-6 columns">
+							<label>Cabeçalho: <small>(Dimensões: 210mm X 30mm)</small></label>
+							<input type="file" name="cabeca">
+						</div>
+						<div class="large-2 columns">
+							<label>&nbsp;</label>
+							<a href="#" id="cabecaInstituto">Ver Atual</a>
+						</div>
 						<div class="large-4 columns">
 							<input type="hidden" id="idInstituicao" name="idInstituicao">
 							<input type="submit" class="button large-12" value="Atualizar">

@@ -98,5 +98,5 @@ abstract class BaseQuestao extends Doctrine_Record
         $this->hasMany('Itemavaliacao', array(
              'local' => 'idQuestao',
              'foreign' => 'idQuestao'));
-    }	
+    }
 }

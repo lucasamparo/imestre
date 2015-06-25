@@ -151,6 +151,13 @@ class Professor extends BaseProfessor{
 		$this->Trabalha = $Trabalha;
 		return $this;
 	}
+	public function getValidador() {
+		return $this->validador;
+	}
+	public function setValidador($validador) {
+		$this->validador = $validador;
+		return $this;
+	}
 		
 	public function inserirProfessor(){
 		try{
@@ -179,6 +186,15 @@ class Professor extends BaseProfessor{
 			} else {
 				return false;
 			}
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function validaProfessor(){
+		try{
+			$sql = "Update professor set validador = 'V' where idProfessor = ".$this->getIdProfessor();
+			$this->getTable()->getConnection()->prepare($sql)->execute();
 		} catch(Doctrine_Exception $e){
 			echo $e->getMessage();
 		}

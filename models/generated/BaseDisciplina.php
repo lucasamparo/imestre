@@ -9,8 +9,8 @@
  * @property integer $idAreaMenor
  * @property integer $idProfessor
  * @property string $nomeDisciplina
- * @property Professor $Professor
  * @property Areamenor $Areamenor
+ * @property Professor $Professor
  * @property Doctrine_Collection $Assunto
  * @property Doctrine_Collection $Ementa
  * @property Doctrine_Collection $Turma
@@ -65,13 +65,13 @@ abstract class BaseDisciplina extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('Professor', array(
-             'local' => 'idProfessor',
-             'foreign' => 'idProfessor'));
-
         $this->hasOne('Areamenor', array(
              'local' => 'idAreaMenor',
              'foreign' => 'idAreaMenor'));
+
+        $this->hasOne('Professor', array(
+             'local' => 'idProfessor',
+             'foreign' => 'idProfessor'));
 
         $this->hasMany('Assunto', array(
              'local' => 'idDisciplina',

@@ -50,7 +50,7 @@ if(!($_SESSION['logado'])){
 								echo '<td>'.$q->getEnunciado().'</td>';
 								echo '<td>'.Util::retornaTipoQuestao($q->getTipo()).'</td>';
 								echo '<td>Grau</td>';
-								echo '<td class="text-center"><img src="img/visualizar.png" width="20px"></td>';
+								echo '<td class="text-center"><img src="img/visualizar.png" width="20px" style="cursor: pointer;" onclick="'."abrirJanela('verQuestao.php?id=".$q->getIdQuestao()."','400','350','50')".'"></td>';
 							echo '</tr>';
 						}
 					?>

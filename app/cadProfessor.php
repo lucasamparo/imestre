@@ -7,6 +7,13 @@
 		$p->setAreaAtuacao($_POST['area']);
 		$p->setBairro($_POST['bairro']);
 		$p->setCep($_POST['cep']);
+		$string = date('YmdHis');
+		$string = $string + 123456;
+		$string = $string . "ABCDEF";
+		$validador = md5($string);
+		$validador = strtoupper($validador);
+		$validador = substr($validador, 0, 20); 
+		$p->setValidador($validador);
 		$p->setCidade($_POST['cidade']);
 		$p->setEmail($_POST['email']);
 		$p->setEstado($_POST['estado']);
@@ -14,7 +21,7 @@
 		$p->setLogradouro($_POST['logradouro']);
 		$p->setNascimento($_POST['nascimento']);
 		$p->setNivelAtuacao($_POST['nivel']);
-		$p->setNome($_POST['nome']);
+		$p->setNomeProfessor($_POST['nome']);
 		$p->setNumero($_POST['numero']);
 		$p->setPais($_POST['pais']);
 		$p->setSenha(md5($_POST['senha']));
@@ -24,7 +31,10 @@
 		if($r){
 			$_SESSION['cadastrado'] = true;
 			$_SESSION['nomeCadastro'] = $_POST['nome'];
-			header('Location: cadastroCompleto.php');
+			$_SESSION['email'] = $_POST['email'];
+			$_SESSION['codigo'] = $validador;
+			$_SESSION['novoId'] = $p->getIdProfessor();
+			header('Location: notificaEmail.php');
 		}
 	}
 ?>
