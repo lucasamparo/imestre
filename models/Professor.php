@@ -283,4 +283,17 @@ class Professor extends BaseProfessor{
 			return false;
 		}
 	}
+	
+	public function verificaEmail(){
+		try{
+			$r = $this->getTable()->findOneBy('email', $this->getEmail());
+			if($r){
+				return true;
+			} else {
+				return false;
+			}
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
 }

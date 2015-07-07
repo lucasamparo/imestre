@@ -1,6 +1,7 @@
 <?php 
 	require_once('../models/bootstrap.php');
 	session_start();
+	$mensagem = "";
 	
 	if(isset($_POST['nome'])){
 		$p = new Professor();
@@ -34,7 +35,7 @@
 			$_SESSION['email'] = $_POST['email'];
 			$_SESSION['codigo'] = $validador;
 			$_SESSION['novoId'] = $p->getIdProfessor();
-			header('Location: notificaEmail.php');
+			header('Location: notificaEmail.php');	
 		}
 	}
 ?>
@@ -42,6 +43,32 @@
 <head>
 <title>iMestre :: Cadastro de Novo Usuário</title>
 <link rel="stylesheet" type="text/css" href="css/foundation.css">
+<script language="JScript" src="js/vendor/jquery.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#email').blur(function(){
+			var email = $('#email').val();
+			$.ajax({
+				 url:    "validaEmail.php",
+				 type:   "get",
+				 dataType:"json",
+				 data:   "e="+email,
+				 async: false,
+				 success: function(data){
+					if(data == 'usado'){
+						//alert('já está cadastrado');
+						$('#email').css('border-color','red');
+					} else {
+						alert('não está em uso');
+					}
+				 },
+				 error: function(XMLHttpRequest, textStatus, errorThrown){
+					 console.log(errorThrown);
+				 }
+			});
+		});
+	});
+</script>
 </head>
 <body>
 	<div class="row collapse">
@@ -50,6 +77,7 @@
 			<hr>
 		</div>
 		<h3 class="large-12 columns text-center">Cadastro de Novo Usuário</h3>
+		<h5 class="large-12 columns text-center"><?= $mensagem?></h5> 
 		<div class="large-1 columns">&nbsp;</div>
 		<form method="post" action="cadProfessor.php" class="large-10 columns end">
 			<fieldset>
@@ -94,7 +122,7 @@
 				<legend>Contato</legend>
 				<div class="large-6 columns">
 					<label>Email:</label>
-						<input type="email" name="email" required>
+						<input type="email" name="email" id="email" required>
 				</div>
 				<div class="large-6 columns">
 					<label>Tel. Celular:</label>
