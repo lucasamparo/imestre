@@ -158,6 +158,20 @@ class Professor extends BaseProfessor{
 		$this->validador = $validador;
 		return $this;
 	}
+	public function getInstituicao() {
+		return $this->Instituicao;
+	}
+	public function setInstituicao($Instituicao) {
+		$this->Instituicao = $Instituicao;
+		return $this;
+	}
+	public function getDisciplina() {
+		return $this->Disciplina;
+	}
+	public function setDisciplina($Disciplina) {
+		$this->Disciplina = $Disciplina;
+		return $this;
+	}
 		
 	public function inserirProfessor(){
 		try{

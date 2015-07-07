@@ -202,6 +202,15 @@ public function getIdTurma() {
 		}
 	}
 	
+	public function retornarTurmasDeProfessor($id){
+		try{
+			$rs = null;
+			return $rs;
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
 	public function getJson(){
 		$array = Array();
 		$array['idTurma'] = utf8_encode($this->idTurma);

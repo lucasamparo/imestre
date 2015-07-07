@@ -15,6 +15,7 @@
 		$inst->setBairro($_POST['bairro']);
 		$inst->setCidade($_POST['cidade']);
 		$inst->setTelContato($_POST['telContato']);
+		$inst->setIdProfessor($_SESSION['idProfessor']);
 		$inst->inserirInstituicao();
 		
 		$destino = 'cabecalho/header_'.$inst->getIdInstituicao().'.png';

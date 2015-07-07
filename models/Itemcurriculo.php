@@ -11,7 +11,14 @@
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 class Itemcurriculo extends BaseItemcurriculo{
-public function setIdProfessor($idProfessor) {
+	public function getIdItemCurriculo() {
+		return $this->idItemCurriculo;
+	}
+	public function setIdItemCurriculo($idItemCurriculo) {
+		$this->idItemCurriculo = $idItemCurriculo;
+		return $this;
+	}
+	public function setIdProfessor($idProfessor) {
 		$this->idProfessor = $idProfessor;
 		return $this;
 	}

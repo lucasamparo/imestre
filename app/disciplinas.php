@@ -100,8 +100,10 @@ function completaEdicao(codigo, nome){
 							</thead>
 							<tbody>
 								<?php 
-									$d1 = new Disciplina();
-									$disciplinas = $d1->retornaTodasDisciplinas();
+									$p = new Professor();
+									$p->setIdProfessor($_SESSION['idProfessor']);
+									$p = $p->retornaProfessorPorId();
+									$disciplinas = $p->getDisciplina();
 									foreach ($disciplinas as $d){
 										echo '<tr>';
 											echo '<td>'.$d->getNomeDisciplina().'</td>';

@@ -15,7 +15,7 @@
 			$itemSalvo->setTitulo($_POST['titulo']);
 			$itemSalvo->setConteudo($_POST['conteudo']);
 			$itemSalvo->setAno($_POST['ano']);
-			$itemSalvo->setProfessor($_SESSION['idProfessor']);
+			$itemSalvo->setIdProfessor($_SESSION['idProfessor']);
 			$itemSalvo->save();
 		}	
 	}

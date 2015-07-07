@@ -36,7 +36,7 @@
 <script language="JScript" src='js/jquery.simplemodal.js'></script>
 <script language="JScript" src='js/imestre.js'></script>
 </head>
-<body onload="arrumaMenu('cadDisciplina')">
+<body>
 	<div class="row"><!-- Linha do header -->
 		<?php include('header.php');?>
 	</div>

@@ -66,7 +66,7 @@ function completaEdicao(codigo){
 
 $(document).ready(function (){
 	$('#cabecaInstituto').click(function (){
-		abrirJanela('cabecalho/header_'+$('#idInstituicao').val()+'.jpg');
+		abrirJanela('cabecalho/header_'+$('#idInstituicao').val()+'.png');
 	});
 });
 </script>
@@ -89,8 +89,10 @@ $(document).ready(function (){
 		</div>
 		<div class="large-10 columns" style="border-left-style: solid; border-width: 1px;">
 			<?php 
-				$inst = new Instituicao();
-				$instituicoes = $inst->retornaTodasInstituicoes();
+				$p = new Professor();
+				$p->setIdProfessor($_SESSION['idProfessor']);
+				$p = $p->retornaProfessorPorId();
+				$instituicoes = $p->getInstituicao();
 			?>
 			<table class="large-12">
 				<thead>

@@ -18,6 +18,13 @@ class Instituicao extends BaseInstituicao{
 		$this->idInstituicao = $idInstituicao;
 		return $this;
 	}
+	public function getIdProfessor() {
+		return $this->idProfessor;
+	}
+	public function setIdProfessor($idProfessor) {
+		$this->idProfessor = $idProfessor;
+		return $this;
+	}
 	public function getNomeInstituicao() {
 		return $this->nomeInstituicao;
 	}

@@ -112,11 +112,11 @@ $(document).ready(function (){
 				<form method="post">
 					<fieldset>
 						<legend>Novo Item de Ementa</legend>
-						<div class="large-12 columns">
+						<div class="large-2 columns">
 							<label>Índice:</label>
 							<input type="number" step="1" id="indice">
 						</div>
-						<div class="large-12 columns">
+						<div class="large-10 columns">
 							<label>Conteúdo:</label>
 							<textarea id="conteudo"></textarea>
 						</div>

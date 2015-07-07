@@ -7,7 +7,9 @@
 		$p = new Professor();
 		$p->setAreaAtuacao($_POST['area']);
 		$p->setBairro($_POST['bairro']);
-		$p->setCep($_POST['cep']);
+		$cep = $_POST['cep'];
+		$cep = str_replace("-", "", $cep);
+		$p->setCep($cep);
 		$string = date('YmdHis');
 		$string = $string + 123456;
 		$string = $string . "ABCDEF";

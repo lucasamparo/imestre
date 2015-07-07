@@ -53,8 +53,10 @@
 						<select name="instituicao" required>
 							<option value="0">>Selecione<</option>
 							<?php 
-								$i = new Instituicao();
-								$instituicoes = $i->retornaTodasInstituicoes();
+								$p = new Professor();
+								$p->setIdProfessor($_SESSION['idProfessor']);
+								$p = $p->retornaProfessorPorId();
+								$instituicoes = $p->getInstituicao();
 								foreach($instituicoes as $i){
 									echo '<option value="'.$i->getIdInstituicao().'">'.$i->getNomeInstituicao().'</option>';
 								}
@@ -66,8 +68,7 @@
 						<select name="disciplina" required>
 							<option value="0">>Selecione<</option>
 							<?php 
-								$d = new Disciplina();
-								$disciplinas = $d->retornaTodasDisciplinas();
+								$disciplinas = $p->getDisciplina();
 								foreach($disciplinas as $d){
 									echo '<option value="'.$d->getIdDisciplina().'">'.$d->getNomeDisciplina().'</option>';
 								}

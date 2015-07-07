@@ -87,29 +87,45 @@ function completaEdicao(codigo){
 						<?php 
 							$t = new Turma();
 							$i = new Instituicao();
-							$turmas = $t->retornaTodasTurmas();
-							foreach($turmas as $t){
-								echo '<tr>';
-									echo '<td>'.$t->getNomeTurma().'</td>';
-									echo '<td>'.$t->getCargaHoraria().' H</td>';
-									$turno = $t->getTurno();
-									if($turno == 0){
-										$turno = 'Matutino';
+							$ia = new Instituicao();
+							$p = new Professor();
+							$p->setIdProfessor($_SESSION['idProfessor']);
+							$p = $p->retornaProfessorPorId();
+							$i = $p->getInstituicao();
+							$turmas = null;
+							foreach($i as $i1){
+								if(count($i1->getTurma()) != 0){
+									$turmas[] = $i1->getTurma();
+								}								
+							}
+							if(count($turmas) == 0){
+									echo '<tr><td colspan="8" class="text-center">Nenhuma Turma Cadastrada</td></tr>';
+							} else {
+								foreach($turmas as $t1){
+									foreach($t1 as $t){
+										echo '<tr>';
+										echo '<td>'.$t->getNomeTurma().'</td>';
+										echo '<td>'.$t->getCargaHoraria().' H</td>';
+										$turno = $t->getTurno();
+										if($turno == 0){
+											$turno = 'Matutino';
+										}
+										if($turno == 1){
+											$turno = 'Vespertino';
+										}
+										if($turno == 2){
+											$turno = 'Noturno';
+										}
+										echo '<td>'.$turno.'</td>';
+										$ia->setIdInstituicao($t->getIdInstituicao());
+										echo '<td>'.$ia->retornaInstituicaoPorId()->getNomeInstituicao().'</td>';
+										echo '<td class="text-center"><a href="alunosEmTurmas.php?id='.$t->getIdTurma().'"><img src="img/alunos.jpg" width="25px"></a></td>';
+										echo '<td class="text-center"><a href="planejarTurma.php?id='.$t->getIdTurma().'"><img src="img/planejar.png" width="20"></a></td>';
+										echo '<td class="text-center"><a href="lancarFrequencia.php?id='.$t->getIdTurma().'"><img src="img/frequencia.png" width="20"></a></td>';
+										echo '<td class="text-center"><img src="img/editar.png" style="cursor: pointer;" onclick="completaEdicao('.$t->getIdTurma().')" width="20"></td>';
+										echo '</tr>';
 									}
-									if($turno == 1){
-										$turno = 'Vespertino';
-									}
-									if($turno == 2){
-										$turno = 'Noturno';
-									}
-									echo '<td>'.$turno.'</td>';
-									$i->setIdInstituicao($t->getIdInstituicao());
-									echo '<td>'.$i->retornaInstituicaoPorId()->getNomeInstituicao().'</td>';
-									echo '<td class="text-center"><a href="alunosEmTurmas.php?id='.$t->getIdTurma().'"><img src="img/alunos.jpg" width="25px"></a></td>';
-									echo '<td class="text-center"><a href="planejarTurma.php?id='.$t->getIdTurma().'"><img src="img/planejar.png" width="20"></a></td>';
-									echo '<td class="text-center"><a href="lancarFrequencia.php?id='.$t->getIdTurma().'"><img src="img/frequencia.png" width="20"></a></td>';
-									echo '<td class="text-center"><img src="img/editar.png" style="cursor: pointer;" onclick="completaEdicao('.$t->getIdTurma().')" width="20"></td>';
-								echo '</tr>';
+								}	
 							}
 						?>
 					</tbody>
@@ -122,8 +138,10 @@ function completaEdicao(codigo){
 							<select name="instituicao" id="instituicao" required>
 								<option value="0">>Selecione<</option>
 								<?php 
-									$i = new Instituicao();
-									$instituicoes = $i->retornaTodasInstituicoes();
+									$p = new Professor();
+									$p->setIdProfessor($_SESSION['idProfessor']);
+									$p = $p->retornaProfessorPorId();
+									$instituicoes = $p->getInstituicao();
 									foreach($instituicoes as $i){
 										echo '<option value="'.$i->getIdInstituicao().'">'.$i->getNomeInstituicao().'</option>';
 									}
@@ -135,8 +153,7 @@ function completaEdicao(codigo){
 							<select name="disciplina" id="disciplina" required>
 								<option value="0">>Selecione<</option>
 								<?php 
-									$d = new Disciplina();
-									$disciplinas = $d->retornaTodasDisciplinas();
+									$disciplinas = $p->getDisciplina();
 									foreach($disciplinas as $d){
 										echo '<option value="'.$d->getIdDisciplina().'">'.$d->getNomeDisciplina().'</option>';
 									}

@@ -79,7 +79,7 @@ function abreEscolheAluno(){
 				$t = new Turma();
 				$t->setIdTurma($id);
 				$turma = $t->retornaTurmaPorId();
-				echo '<h5>Alunos da Turma "'.$turma->getNomeTurma().'"</h5>';
+				echo '<h5 class="text-center">Alunos da Turma "'.$turma->getNomeTurma().'"</h5>';
 				echo '<table class="large-12" id="corpoAlunos">';
 					echo '<th>Nome do Aluno</th>';
 					echo '<th class="text-center" width="40px"><img src="img/deletar.png" style="cursor: pointer"></th>';

@@ -73,5 +73,5 @@ abstract class BaseItemcurriculo extends Doctrine_Record
         $this->hasOne('Professor', array(
              'local' => 'idProfessor',
              'foreign' => 'idProfessor'));
-    }
+    }	
 }
