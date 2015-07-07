@@ -34,7 +34,7 @@
 ?>
 <html>
 <head>
-<title>iMestre :: Controle de Emails - Professor <?php echo $_SESSION['nomeProfessor'];?></title>
+<title>iMestre :: Controle de e-Mails</title>
 <link rel="stylesheet" type="text/css" href="css/foundation.css">
 <link rel="stylesheet" type="text/css" href="css/basic_simplemodal.css">
 <script language="JScript" src="js/vendor/jquery.js"></script>

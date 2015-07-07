@@ -274,6 +274,9 @@ class Professor extends BaseProfessor{
 	public function validarAcesso($login, $senha){
 		$retorno = $this->getTable("Professor")->findOneBy('login',$login);
 		if($retorno){
+			if($retorno->getValidador() != 'V'){
+				return false;
+			}
 			if($retorno->getSenha() == md5($senha)){
 				return $retorno;
 			} else {
@@ -291,6 +294,18 @@ class Professor extends BaseProfessor{
 				return true;
 			} else {
 				return false;
+			}
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function validarCadastro(){
+		try{
+			$r = $this->getTable()->findOneBy('idProfessor', $this->getIdProfessor());
+			if($r){
+				$r->setValidador('V');
+				$r->save();
 			}
 		} catch(Doctrine_Exception $e){
 			echo $e->getMessage();
