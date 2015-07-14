@@ -23,7 +23,9 @@
  * @property string $telCel
  * @property string $login
  * @property string $senha
+ * @property Doctrine_Collection $Aluno
  * @property Doctrine_Collection $Disciplina
+ * @property Doctrine_Collection $Funcionalidades
  * @property Doctrine_Collection $Instituicao
  * @property Doctrine_Collection $Itemcurriculo
  * @property Doctrine_Collection $Mensagem
@@ -204,7 +206,15 @@ abstract class BaseProfessor extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
+        $this->hasMany('Aluno', array(
+             'local' => 'idProfessor',
+             'foreign' => 'idProfessor'));
+
         $this->hasMany('Disciplina', array(
+             'local' => 'idProfessor',
+             'foreign' => 'idProfessor'));
+
+        $this->hasOne('Funcionalidades', array(
              'local' => 'idProfessor',
              'foreign' => 'idProfessor'));
 
@@ -223,5 +233,5 @@ abstract class BaseProfessor extends Doctrine_Record
         $this->hasMany('Trabalha', array(
              'local' => 'idProfessor',
              'foreign' => 'idProfessor'));
-    }			
+    }	
 }

@@ -49,11 +49,25 @@
 						<label>Turma:</label>
 							<select name="turma">
 								<?php 
-									$t = new Turma();
-									$turmas = $t->retornaTodasTurmas();
-									foreach($turmas as $t){
-										echo '<option value="'.$t->getIdTurma().'">'.$t->getNomeTurma().'</option>';
-									}
+								$p = new Professor();
+								$p->setIdProfessor($_SESSION['idProfessor']);
+								$p = $p->retornaProfessorPorId();
+								$i = $p->getInstituicao();
+								$turmas = null;
+								foreach($i as $i1){
+									if(count($i1->getTurma()) != 0){
+										$turmas[] = $i1->getTurma();
+									}								
+								}
+								if(count($turmas) == 0){
+									echo '<option value="0">Nenhuma Turma Cadastrada</option>';
+								} else {
+									foreach($turmas as $t1){
+										foreach($t1 as $t){
+											echo '<option value="'.$t->getIdTurma().'">'.$t->getNomeTurma().'</option>';
+										}										
+									}	
+								}
 								?>
 							</select>
 					</div>

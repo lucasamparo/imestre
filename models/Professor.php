@@ -172,6 +172,20 @@ class Professor extends BaseProfessor{
 		$this->Disciplina = $Disciplina;
 		return $this;
 	}
+	public function getAluno() {
+		return $this->Aluno;
+	}
+	public function setAluno($Aluno) {
+		$this->Aluno = $Aluno;
+		return $this;
+	}
+	public function getFuncionalidades() {
+		return $this->Funcionalidades;
+	}
+	public function setFuncionalidades($Funcionalidades) {
+		$this->Funcionalidades = $Funcionalidades;
+		return $this;
+	}
 		
 	public function inserirProfessor(){
 		try{
@@ -304,6 +318,19 @@ class Professor extends BaseProfessor{
 	public function verificaEmail(){
 		try{
 			$r = $this->getTable()->findOneBy('email', $this->getEmail());
+			if($r){
+				return true;
+			} else {
+				return false;
+			}
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function validaLogin(){
+		try{
+			$r = $this->getTable()->findOneBy('login', $this->getLogin());
 			if($r){
 				return true;
 			} else {

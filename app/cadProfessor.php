@@ -46,10 +46,20 @@
 <title>iMestre :: Cadastro de Novo Usuário</title>
 <link rel="stylesheet" type="text/css" href="css/foundation.css">
 <script language="JScript" src="js/vendor/jquery.js"></script>
+<script language="JScript" src="js/imestre.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#email').blur(function(){
 			var email = $('#email').val();
+			//Validando o email
+			if(!validaEmail(email)){
+				$('#msgEmail').html('Email inválido!');
+				$('#email').css('border-color','red');
+				$('#btSalvar').bind('click',false);
+				$('#btSalvar').css('color','darkgrey');
+				return;	
+			}
+			//Validando se não tem na base
 			$.ajax({
 				 url:    "validaEmail.php",
 				 type:   "get",
@@ -60,12 +70,68 @@
 					if(data == 'usado'){
 						//alert('já está cadastrado');
 						$('#email').css('border-color','red');
+						$('#btSalvar').bind('click',false);
+						$('#btSalvar').css('color','darkgrey');
+						$('#btSalvar').css('cursor','url(img/proibido.png),default');
+						$('#msgEmail').html('Email já em uso!');
 					} else {
-						alert('não está em uso');
+						$('#msgEmail').html('Email válido e livre para uso!');
+						$('#btSalvar').bind('click',true);
+						$('#btSalvar').css('color','white');
+						$('#email').css('border-color','green');
 					}
 				 },
 				 error: function(XMLHttpRequest, textStatus, errorThrown){
 					 console.log(errorThrown);
+				 }
+			});
+		});
+
+		$('#cep').blur(function(){
+			var cep = $('#cep').val();
+			$.ajax({
+				 url:    "http://viacep.com.br/ws/"+cep+"/json/",
+				 type:   "get",
+				 dataType:"json",
+				 async: false,
+				 success: function(data){
+					if(data != null){
+						$('#logradouro').val(data.logradouro);
+						$('#cidade').val(data.localidade);
+						$('#bairro').val(data.bairro);
+						$('#pais').val('Brasil');
+						$('#estado').val(data.uf);
+						$('#numero').focus();
+					}					
+				 },
+				 error: function(XMLHttpRequest, textStatus, errorThrown){
+					 console.log(errorThrown);
+				 }
+			});
+		});
+
+		$('#login').blur(function (){
+			var login = $('#login').val();
+			//Validando se não tem na base
+			$.ajax({
+				 url:    "verificaLogin.php",
+				 type:   "get",
+				 dataType:"json",
+				 data:   "l="+login,
+				 async: false,
+				 success: function(data){
+					if(data == 'usado'){
+						//alert('já está cadastrado');
+						$('#login').css('border-color','red');
+						$('#btSalvar').bind('click',false);
+						$('#btSalvar').css('color','darkgrey');
+						$('#msgLogin').html('Login já em uso!');
+					} else {
+						$('#msgLogin').html('Login válido e livre para uso!');
+						$('#btSalvar').bind('click',true);
+						$('#btSalvar').css('color','white');
+						$('#login').css('border-color','green');
+					}
 				 }
 			});
 		});
@@ -125,6 +191,7 @@
 				<div class="large-6 columns">
 					<label>Email:</label>
 						<input type="email" name="email" id="email" required>
+						<small id="msgEmail"></small>
 				</div>
 				<div class="large-6 columns">
 					<label>Tel. Celular:</label>
@@ -139,7 +206,7 @@
 				</div>
 				<div class="large-4 columns">
 					<label>Estado:</label>
-						<select name="estado" required>
+						<select name="estado" id="estado" required>
 							<option value="">Selecione</option>
 							<option value="AC">Acre</option>
 							<option value="AL">Alagoas</option>
@@ -172,30 +239,31 @@
 				</div>
 				<div class="large-4 columns">
 					<label>País:</label>
-						<input type="text" name="pais" placeholder="Brasil" required>
+						<input type="text" name="pais" id="pais" placeholder="Brasil" required>
 				</div>
 				<div class="large-10 columns">
 					<label>Logradouro:</label>
-						<input type="text" name="logradouro" required>
+						<input type="text" name="logradouro" id="logradouro" required>
 				</div>
 				<div class="large-2 columns">
 					<label>Número:</label>
-						<input type="text" name="numero" required>
+						<input type="text" name="numero" id="numero" required>
 				</div>
 				<div class="large-6 columns">
 					<label>Bairro:</label>
-						<input type="text" name="bairro" required>
+						<input type="text" name="bairro" id="bairro" required>
 				</div>
 				<div class="large-6 columns">
 					<label>Cidade:</label>
-						<input type="text" name="cidade" required>
+						<input type="text" name="cidade" id="cidade" required>
 				</div>
 			</fieldset>
 			<fieldset>
 				<legend>Acesso ao Sistema</legend>
 				<div class="large-6 columns">
 					<label>Login:</label>
-						<input type="text" name="login" required>
+						<input type="text" name="login" id="login" required>
+						<small id="msgLogin"></small>
 				</div>
 				<div class="large-6 columns">
 					<label>Senha:</label>
@@ -204,7 +272,7 @@
 			</fieldset>
 			<div class="row collapse">
 				<div class="large-12 columns">
-					<center><input type="submit" name="salvar" value="Cadastrar!" class="large-4 medium-6 small-8 button success"></center>
+					<center><input type="submit" name="salvar" value="Cadastrar!" class="large-4 medium-6 small-8 button success" id="btSalvar"></center>
 				</div>
 			</div>
 		</form>

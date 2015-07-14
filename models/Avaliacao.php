@@ -70,10 +70,10 @@ class Avaliacao extends BaseAvaliacao
 		}
 	}
 	
-	public function retornarTodasAvaliacoes($data){
+	public function retornarTodasAvaliacoes($data,$operador){
 		try{
 			$table = Doctrine_Core::getTable('Avaliacao');
-			$query = $table->createQuery()->where('data >= '.$data);
+			$query = $table->createQuery()->where('data '.$operador." '".$data."'");
 			$rs = $query->execute();
 			return $rs;
 		} catch (Doctrine_Exception $e){

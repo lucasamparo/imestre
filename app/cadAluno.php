@@ -9,6 +9,7 @@
 		$aluno = new Aluno();
 		$aluno->setNomeAluno($_POST['nomeAluno']);
 		$aluno->setEmailAluno($_POST['emailAluno']);
+		$aluno->setIdProfessor($_SESSION['idProfessor']);
 		$aluno->inserirAluno();
 	}
 ?>

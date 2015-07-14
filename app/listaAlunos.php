@@ -61,15 +61,22 @@ function completaEdicao(codigo,nome,email){
 				<tbody>
 					<?php 
 						$a = new Aluno();
-						$alunos = $a->retornaTodosAlunos();
-						foreach($alunos as $a){
-							echo '<tr>';
+						$p = new Professor();
+						$p->setIdProfessor($_SESSION['idProfessor']);
+						$p = $p->retornaProfessorPorId();
+						$alunos = $p->getAluno();
+						if(count($alunos) == 0){
+							echo '<tr><td colspan="4" class="text-center">Nenhum Aluno Cadastrado</td></tr>';
+						} else {
+							foreach($alunos as $a){
+								echo '<tr>';
 								echo '<td>'.$a->getNomeAluno().'</td>';
 								echo '<td>'.$a->getEmailAluno().'</td>';
 								$texto = $a->getIdAluno().","."'".$a->getNomeAluno()."','".$a->getEmailAluno()."'";
 								echo '<td class="text-center"><img src="img/editar.png" width="20" style="cursor: pointer;" onclick="completaEdicao('.$texto.')"></td>';
 								echo '<td class="text-center"><img src="img/boletim.png" style="cursor: pointer"></td>';
-							echo '</tr>';
+								echo '</tr>';
+							}	
 						}
 					?>
 				</tbody>

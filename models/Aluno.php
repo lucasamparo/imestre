@@ -11,7 +11,7 @@
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 class Aluno extends BaseAluno{
-public function getIdAluno() {
+	public function getIdAluno() {
 		return $this->idAluno;
 	}
 	public function setIdAluno($idAluno) {
@@ -44,6 +44,20 @@ public function getIdAluno() {
 	}
 	public function setResponde($Responde) {
 		$this->Responde = $Responde;
+		return $this;
+	}
+	public function getIdProfessor() {
+		return $this->idProfessor;
+	}
+	public function setIdProfessor($idProfessor) {
+		$this->idProfessor = $idProfessor;
+		return $this;
+	}
+	public function getProfessor() {
+		return $this->Professor;
+	}
+	public function setProfessor($Professor) {
+		$this->Professor = $Professor;
 		return $this;
 	}
 	

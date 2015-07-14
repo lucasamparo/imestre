@@ -26,8 +26,23 @@
 			<hr>
 		</div>
 		<div class="large-12 columns text-center">
-			<h4>Poderá ser necessário repetir seu usuário/senha nessa sessão!!</h4>
-			<iframe src="quixplorer/index.php" width="950px" height="600px"></iframe>
+			<?php 
+				$p = new Professor();
+				$p->setIdProfessor($_SESSION['idProfessor']);
+				$p = $p->retornaProfessorPorId();
+				$f = $p->getFuncionalidades();
+				if($f->getDisco() == 'S'){
+					?>
+					<h4>Poderá ser necessário repetir seu usuário/senha nessa sessão!!</h4>
+					<iframe src="quixplorer/index.php" width="950px" height="600px"></iframe>
+					<?
+				} else {
+					?>
+					<h4>Solicite o seu acesso ao Disco Virtual!</h4>
+					<?
+				}
+			?>
+			
 		</div>
 		<hr>
 	</div>
