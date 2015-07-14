@@ -147,7 +147,7 @@
 		<h3 class="large-12 columns text-center">Cadastro de Novo Usuário</h3>
 		<h5 class="large-12 columns text-center"><?= $mensagem?></h5> 
 		<div class="large-1 columns">&nbsp;</div>
-		<form method="post" action="cadProfessor.php" class="large-10 columns end">
+		<form method="post" action="cadProfessor.php" class="large-10 columns end" novalidate>
 			<fieldset>
 				<legend>Dados Pessoais</legend>
 				<div class="large-12 columns">
@@ -267,7 +267,8 @@
 				</div>
 				<div class="large-6 columns">
 					<label>Senha:</label>
-						<input type="password" name="senha" required>
+						<input type="password" pattern="[a-zA-Z0-9]+" name="senha" required>
+						<small id="msgSenha">Mínimo de 6 caracteres alfanuméricos</small>
 				</div>
 			</fieldset>
 			<div class="row collapse">

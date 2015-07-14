@@ -22,6 +22,7 @@
 <script language="JScript" src="js/vendor/modernizr.js"></script>
 <script language="JScript" src="js/foundation.min.js"></script>
 <script language="JScript" src='js/jquery.simplemodal.js'></script>
+<script language="JScript" src='js/jquery.dataTables.js'></script>
 <script language="JScript" src='js/imestre.js'></script>
 <script language="JScript">
 function completaEdicao(codigo,nome,email){
@@ -31,6 +32,35 @@ function completaEdicao(codigo,nome,email){
 	$('#legenda').html('Editando '+nome);
 	$('#edicao').css('display','inline');
 }
+</script>
+<script language="JScript">
+$(document).ready(function() {
+	$('#alunos').dataTable({
+		"bJQueryUI": true,
+		"sPaginationType": "full_numbers",
+		"sDom": '<"H"Tlfr>t<"F"ip>',
+		"oLanguage": {
+			"sLengthMenu": "Registros/Página _MENU_",
+			"sZeroRecords": "Nenhum registro encontrado",
+			"sInfo": "Mostrando _START_ / _END_ de _TOTAL_ registro(s)",
+			"sInfoEmpty": "Mostrando 0 / 0 de 0 registros",
+			"sInfoFiltered": "(filtrado de _MAX_ registros)",
+			"sSearch": "Pesquisar: ",
+			"oPaginate": {
+				"sFirst": " |< ",
+				"sPrevious": " << ",
+				"sNext": " >> ",
+				"sLast": " >| " }
+		},
+		"aaSorting": [[0, 'asc']],
+		"aoColumnDefs": [ {"sType": "num-html", "aTargets": [0]} ]
+	});
+	$('#alunos_info').addClass("large-12 medium-12 small-12 text-center");
+	$('#alunos_length').addClass("large-3 medium-3 small-3 columns");
+	$('#alunos_filter').addClass("large-9 medium-9 small-9 columns");
+	$('#alunos').addClass("large-12");
+	$('#alunos_paginate').addClass("large-12 medium-12 small-12 text-center"); 
+});
 </script>
 </head>
 <body onload="arrumaMenu('listaAluno')">
@@ -51,16 +81,15 @@ function completaEdicao(codigo,nome,email){
 		</div>
 		<div class="large-10 columns" style="border-left-style: solid; border-width: 1px;">
 			<h4 class="text-center">Listagem de Alunos Cadastrados</h4>
-			<table class="large-12">
+			<table class="large-12" id="alunos">
 				<thead>
 					<th width="50%" class="text-center">Nome Completo</th>
 					<th width="30%" class="text-center">Email</th>
-					<th width="10%" class="text-center"><img src="img/editar.png" width="20"></th>
+					<th width="10%" class="text-center">Edição</th>
 					<th width="10%" class="text-center">Boletim</th>
 				</thead>
 				<tbody>
 					<?php 
-						$a = new Aluno();
 						$p = new Professor();
 						$p->setIdProfessor($_SESSION['idProfessor']);
 						$p = $p->retornaProfessorPorId();
@@ -74,7 +103,7 @@ function completaEdicao(codigo,nome,email){
 								echo '<td>'.$a->getEmailAluno().'</td>';
 								$texto = $a->getIdAluno().","."'".$a->getNomeAluno()."','".$a->getEmailAluno()."'";
 								echo '<td class="text-center"><img src="img/editar.png" width="20" style="cursor: pointer;" onclick="completaEdicao('.$texto.')"></td>';
-								echo '<td class="text-center"><img src="img/boletim.png" style="cursor: pointer"></td>';
+								echo '<td class="text-center"><a href="boletimAluno.php?id='.$a->getIdAluno().'" target="_blank"><img src="img/boletim.png" style="cursor: pointer"></a></td>';
 								echo '</tr>';
 							}	
 						}
