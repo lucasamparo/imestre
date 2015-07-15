@@ -61,6 +61,13 @@ class Planejaementa extends BasePlanejaementa
 		$this->Frequencia = $Frequencia;
 		return $this;
 	}
+	public function getCargaHoraria() {
+		return $this->cargaHoraria;
+	}
+	public function setCargaHoraria($cargaHoraria) {
+		$this->cargaHoraria = $cargaHoraria;
+		return $this;
+	}
 	
 	public function inserirPlanejamento(){
 		try{
@@ -73,6 +80,27 @@ class Planejaementa extends BasePlanejaementa
 	public function retornaPlanejamentoPorIdTurma(){
 		try{
 			return $this->getTable()->findBy('idTurma', $this->getIdTurma());
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function alterarPlanejamento(){
+		try{
+			$tmp = $this->copy();
+			$plan = $this->getTable()->findOneBy('idPlanejaEmenta', $this->getIdPlanejaEmenta());
+			if($plan){
+				if($tmp->getPrevisto()!=null){
+					$plan->setPrevisto($tmp->getPrevisto());
+				}
+				if($tmp->getRealizado()!=null){
+					$plan->setRealizado($tmp->getRealizado());
+				}
+				if($tmp->getCargaHoraria()!=null){
+					$plan->setCargaHoraria($tmp->getCargaHoraria());
+				}
+				$plan->save();
+			}
 		} catch (Doctrine_Exception $e){
 			echo $e->getMessage();
 		}

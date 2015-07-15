@@ -77,9 +77,14 @@
 								?>
 							</tbody>
 						</table>
+						<div class="large-4 columns">
+							<a href="replanejarTurma.php?id=<?= $_GET['id'];?>" class="button large-12">Replanejar</a>
+						</div>
+						<div class="large-4 columns end">
+							<a href="listaTurmas.php" class="button large-12">Voltar</a>
+						</div>
 						<?
 					} else {
-					//Se não tiver planejamento
 					//Se não tiver planejamento
 						if(isset($_POST['anoEmenta'])){
 						?>
