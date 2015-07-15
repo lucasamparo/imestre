@@ -91,8 +91,11 @@ function abreEscolheAluno(){
 					}
 				echo '</table>';
 			?>
-			<div class="large-8 columns">
-				<a href="#" class="button large-6" onclick="abreEscolheAluno()">+ Aluno</a>
+			<div class="large-4 columns">
+				<a href="#" class="button large-12" onclick="abreEscolheAluno()">+ Aluno</a>
+			</div>
+			<div class="large-4 columns">
+				<a href="boletimTurma.php?id=<?= $_GET['id'];?>" target="_blank" class="button large-12">Boletim</a>
 			</div>
 			<form method="post" id="formAlunos" class="large-4 columns">
 				<input type="submit" class="button large-12" value="Salvar">
