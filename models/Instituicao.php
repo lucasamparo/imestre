@@ -88,6 +88,20 @@ class Instituicao extends BaseInstituicao{
 		$this->Turma = $Turma;
 		return $this;
 	}
+	public function getFuncionamento() {
+		return $this->funcionamento;
+	}
+	public function setFuncionamento($funcionamento) {
+		$this->funcionamento = $funcionamento;
+		return $this;
+	}
+	public function getDias() {
+		return $this->dias;
+	}
+	public function setDias($dias) {
+		$this->dias = $dias;
+		return $this;
+	}
 	
 	public function inserirInstituicao(){
 		try{
@@ -146,6 +160,12 @@ class Instituicao extends BaseInstituicao{
 				if(!is_null($this->getMedia())){
 					$instituicao->setMedia($this->getMedia());
 				}
+				if(!is_null($this->getFuncionamento())){
+					$instituicao->setFuncionamento($this->getFuncionamento());
+				}
+				if(!is_null($this->getDias())){
+					$instituicao->setDias($this->getDias());
+				}
 				$instituicao->save();
 				return true;
 			} else {
@@ -174,6 +194,8 @@ class Instituicao extends BaseInstituicao{
 		$array['cidade'] = utf8_encode($this->getCidade());
 		$array['telContato'] = utf8_encode($this->getTelContato());
 		$array['media'] = utf8_encode($this->getMedia());
+		$array['funcionamento'] = utf8_encode($this->getFuncionamento());
+		$array['dias'] = utf8_encode($this->getDias());
 		
 		return json_encode($array);
 	}

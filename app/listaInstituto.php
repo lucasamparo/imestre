@@ -16,6 +16,42 @@
 		$inst->setCidade($_POST['cidade']);
 		$inst->setTelContato($_POST['telContato']);
 		$inst->setIdInstituicao($_POST['idInstituicao']);
+		//Funcionamento
+		$obj = new stdClass();
+		$obj->manhaEntrada = $_POST['entradaManhaHora'].":".$_POST['entradaManhaMinuto'];
+		$obj->manhaSaida = $_POST['saidaManhaHora'].":".$_POST['saidaManhaMinuto'];
+		$obj->tardeEntrada = $_POST['entradaTardeHora'].":".$_POST['entradaTardeMinuto'];
+		$obj->tardeSaida = $_POST['saidaTardeHora'].":".$_POST['saidaTardeMinuto'];
+		$obj->noiteEntrada = $_POST['entradaNoiteHora'].":".$_POST['entradaNoiteMinuto'];
+		$obj->noiteSaida = $_POST['saidaNoiteHora'].":".$_POST['saidaNoiteMinuto'];
+		$json = json_encode($obj);
+		$inst->setFuncionamento($json);
+		//Dias de funcionamento
+		$dias = "0000000";
+		foreach($_POST['dias'] as $dia){
+			if($dia == 'dom'){
+				$dias[0] = '1';
+			}
+			if($dia == 'seg'){
+				$dias[1] = '1';
+			}
+			if($dia == 'ter'){
+				$dias[2] = '1';
+			}
+			if($dia == 'qua'){
+				$dias[3] = '1';
+			}
+			if($dia == 'qui'){
+				$dias[4] = '1';
+			}
+			if($dia == 'sex'){
+				$dias[5] = '1';
+			}
+			if($dia == 'sab'){
+				$dias[6] = '1';
+			}
+		}
+		$inst->setDias($dias);
 		$inst->atualizarInstituicao();
 		
 		if($_FILES['cabeca']['error'] != 4 ){
@@ -62,6 +98,42 @@ function completaEdicao(codigo){
 	$('#cidade').val(retorno.cidade);
 	$('#telContato').val(retorno.telContato);
 	$('#idInstituicao').val(retorno.idInstituicao);
+	//Mostrando os horários
+	var hora = JSON.parse(retorno.funcionamento);
+	$('#entradaManhaHora').val(hora.manhaEntrada.substring(0,2));
+	$('#entradaManhaMinuto').val(hora.manhaEntrada.substring(3,5));
+	$('#entradaTardeHora').val(hora.tardeEntrada.substring(0,2));
+	$('#entradaTardeMinuto').val(hora.tardeEntrada.substring(3,5));
+	$('#entradaNoiteHora').val(hora.noiteEntrada.substring(0,2));
+	$('#entradaNoiteMinuto').val(hora.noiteEntrada.substring(3,5));
+	$('#saidaManhaHora').val(hora.manhaSaida.substring(0,2));
+	$('#saidaManhaMinuto').val(hora.manhaSaida.substring(3,5));
+	$('#saidaTardeHora').val(hora.tardeSaida.substring(0,2));
+	$('#saidaTardeMinuto').val(hora.tardeSaida.substring(3,5));
+	$('#saidaNoiteHora').val(hora.noiteSaida.substring(0,2));
+	$('#saidaNoiteMinuto').val(hora.noiteSaida.substring(3,5));
+	//Mostrando Dias de funcionamento
+	if(retorno.dias[0] == 1){
+		$('#dom').prop('checked',true);
+	}
+	if(retorno.dias[1] == 1){
+		$('#seg').prop('checked',true);
+	}
+	if(retorno.dias[2] == 1){
+		$('#ter').prop('checked',true);
+	}
+	if(retorno.dias[3] == 1){
+		$('#qua').prop('checked',true);
+	}
+	if(retorno.dias[4] == 1){
+		$('#qui').prop('checked',true);
+	}
+	if(retorno.dias[5] == 1){
+		$('#sex').prop('checked',true);
+	}
+	if(retorno.dias[6] == 1){
+		$('#sab').prop('checked',true);
+	}
 }
 
 $(document).ready(function (){
@@ -111,7 +183,7 @@ $(document).ready(function (){
 									echo '<td>'.$it->getNomeInstituicao().'</td>';
 									echo '<td>'.$it->getTelContato().'</td>';
 									echo '<td>'.$it->getMedia().'</td>';
-									echo '<td class="text-center"><img src="img/editar.png" width="20" style="cursor: pointer;" onclick="completaEdicao('.$it->getIdInstituicao().')"></td>';
+									echo '<td class="text-center"><a href="#edicao"><img src="img/editar.png" width="20" style="cursor: pointer;" onclick="completaEdicao('.$it->getIdInstituicao().')"></a></td>';
 								echo '</tr>';
 							}
 						}						
@@ -149,6 +221,173 @@ $(document).ready(function (){
 						<div class="large-4 columns">
 							<label>Tel. Contato:</label>
 								<input type="tel" name="telContato" id="telContato">
+						</div>
+						<div class="large-12 columns">
+							<label>Horários de Funcionamento:</label>
+							<div class="row collapse">
+								<table>
+									<thead>
+										<th width="10%">&nbsp;</th>
+										<th width="30%" class="text-center">Manhã</th>
+										<th width="30%" class="text-center">Tarde</th>
+										<th width="30%" class="text-center">Noite</th>
+									</thead>
+									<tbody>
+										<tr>
+											<td><b>Entrada</b></td>
+											<td>
+												<select class="large-5 columns" name="entradaManhaHora" id="entradaManhaHora">
+													<option value="06">06</option>
+													<option value="07">07</option>
+													<option value="08">08</option>
+													<option value="09">09</option>
+													<option value="10">10</option>
+													<option value="11">11</option>
+													<option value="12">12</option>
+												</select>
+												<p class="large-2 columns"><b>:</b></p>
+												<select class="large-5 columns" name="entradaManhaMinuto" id="entradaManhaMinuto">
+													<option value="00">00</option>
+													<option value="05">05</option>
+													<?php 
+														for($i = 2; $i < 12; $i++){
+															echo '<option value="'.($i*5).'">'.($i*5).'</option>';
+														}
+													?>
+												</select>
+											</td>
+											<td>
+												<select class="large-5 columns" name="entradaTardeHora" id="entradaTardeHora">
+													<option value="13">13</option>
+													<option value="14">14</option>
+													<option value="15">15</option>
+													<option value="16">16</option>
+													<option value="17">17</option>
+													<option value="18">18</option>
+												</select>
+												<p class="large-2 columns"><b>:</b></p>
+												<select class="large-5 columns" name="entradaTardeMinuto" id="entradaTardeMinuto">
+													<option value="00">00</option>
+													<option value="05">05</option>
+													<?php 
+														for($i = 2; $i < 12; $i++){
+															echo '<option value="'.($i*5).'">'.($i*5).'</option>';
+														}
+													?>
+												</select>
+											</td>
+											<td>
+												<select class="large-5 columns" name="entradaNoiteHora" id="entradaNoiteHora">
+													<option value="18">18</option>
+													<option value="19">19</option>
+													<option value="20">20</option>
+													<option value="21">21</option>
+													<option value="22">22</option>
+												</select>
+												<p class="large-2 columns"><b>:</b></p>
+												<select class="large-5 columns" name="entradaNoiteMinuto" id="entradaNoiteMinuto">
+													<option value="00">00</option>
+													<option value="05">05</option>
+													<?php 
+														for($i = 2; $i < 12; $i++){
+															echo '<option value="'.($i*5).'">'.($i*5).'</option>';
+														}
+													?>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td><b>Saída</b></td>
+											<td>
+												<select class="large-5 columns" name="saidaManhaHora" id="saidaManhaHora">
+													<option value="06">06</option>
+													<option value="07">07</option>
+													<option value="08">08</option>
+													<option value="09">09</option>
+													<option value="10">10</option>
+													<option value="11">11</option>
+													<option value="12">12</option>
+												</select>
+												<p class="large-2 columns"><b>:</b></p>
+												<select class="large-5 columns" name="saidaManhaMinuto" id="saidaManhaMinuto">
+													<option value="00">00</option>
+													<option value="05">05</option>
+													<?php 
+														for($i = 2; $i < 12; $i++){
+															echo '<option value="'.($i*5).'">'.($i*5).'</option>';
+														}
+													?>
+												</select>
+											</td>
+											<td>
+												<select class="large-5 columns" name="saidaTardeHora" id="saidaTardeHora">
+													<option value="13">13</option>
+													<option value="14">14</option>
+													<option value="15">15</option>
+													<option value="16">16</option>
+													<option value="17">17</option>
+													<option value="18">18</option>
+												</select>
+												<p class="large-2 columns"><b>:</b></p>
+												<select class="large-5 columns" name="saidaTardeMinuto" id="saidaTardeMinuto">
+													<option value="00">00</option>
+													<option value="05">05</option>
+													<?php 
+														for($i = 2; $i < 12; $i++){
+															echo '<option value="'.($i*5).'">'.($i*5).'</option>';
+														}
+													?>
+												</select>
+											</td>
+											<td>
+												<select class="large-5 columns" name="saidaNoiteHora" id="saidaNoiteHora">
+													<option value="18">18</option>
+													<option value="19">19</option>
+													<option value="20">20</option>
+													<option value="21">21</option>
+													<option value="22">22</option>
+												</select>
+												<p class="large-2 columns"><b>:</b></p>
+												<select class="large-5 columns" name="saidaNoiteMinuto" id="saidaNoiteMinuto">
+													<option value="00">00</option>
+													<option value="05">05</option>
+													<?php 
+														for($i = 2; $i < 12; $i++){
+															echo '<option value="'.($i*5).'">'.($i*5).'</option>';
+														}
+													?>
+												</select>
+											</td>
+										</tr>
+									</tbody>								
+								</table>	
+							</div>
+						</div>
+						<div class="large-12 columns">
+						<label>Dias de funcionamento:</label>
+							<div class="row collapse">
+								<div class="large-3 columns">
+									<input type="checkbox" value="dom" id="dom" name="dias[]"><label for="dom">Domingo</label>
+								</div>
+								<div class="large-3 columns">
+									<input type="checkbox" value="seg" id="seg" name="dias[]"><label for="seg">Segunda</label>
+								</div>
+								<div class="large-3 columns">
+									<input type="checkbox" value="ter" id="ter" name="dias[]"><label for="ter">Terça</label>
+								</div>
+								<div class="large-3 columns">
+									<input type="checkbox" value="qua" id="qua" name="dias[]"><label for="qua">Quarta</label>
+								</div>
+								<div class="large-3 columns">
+									<input type="checkbox" value="qui" id="qui" name="dias[]"><label for="qui">Quinta</label>
+								</div>
+								<div class="large-3 columns">
+									<input type="checkbox" value="sex" id="sex" name="dias[]"><label for="sex">Sexta</label>
+								</div>
+								<div class="large-3 columns end">
+									<input type="checkbox" value="sab" id="sab" name="dias[]"><label for="sab">Sábado</label>
+								</div>
+							</div>
 						</div>
 						<div class="large-6 columns">
 							<label>Cabeçalho: <small>(Dimensões: 210mm X 30mm)</small></label>

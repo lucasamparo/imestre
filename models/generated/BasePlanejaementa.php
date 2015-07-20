@@ -94,5 +94,5 @@ abstract class BasePlanejaementa extends Doctrine_Record
         $this->hasMany('Frequencia', array(
              'local' => 'idPlanejaEmenta',
              'foreign' => 'idPlanejamento'));
-    }	
+    }
 }

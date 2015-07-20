@@ -31,3 +31,33 @@ function abrirJanela(url, largura, altura, topo, recuo){
 					'toolbar=no, location=no, directories=no, menubar=no, resizable=no,'+
 					'fullscreen=no');
 }
+
+function print_r( input, _indent ) {
+	// Recuo
+	 
+	var indent = ( typeof( _indent ) == 'string' ) ? _indent + '    ' : '    '
+	var parent_indent = ( typeof( _indent ) == 'string' ) ? _indent : '';
+	var output = '';
+	 
+	// Tipo de Elemento do Array
+	switch( typeof( input ) ) {
+	case 'string':
+	     output = "'" + input + "'n";
+	     break;
+	case 'number':
+	     output = input + "n";
+	     break;
+	case 'boolean':
+	     output = ( input ? 'true' : 'false' ) + "n";
+	     break;
+	case 'object':
+	     output = ( ( input.reverse ) ? 'Array' : 'Object' ) + "n";
+	     output += parent_indent + "(n";
+	     for( var i in input ) {
+	          output += indent + '[' + i + '] => ' + print_r( input[ i ], indent );
+	     }
+	     output += parent_indent + ")n"
+	     break;
+	  }
+	return output;
+}

@@ -8,6 +8,8 @@
  * @property integer $idInstituicao
  * @property integer $idProfessor
  * @property string $nomeInstituicao
+ * @property string $funcionamento
+ * @property string $dias
  * @property string $logradouro
  * @property string $numero
  * @property string $bairro
@@ -52,6 +54,24 @@ abstract class BaseInstituicao extends Doctrine_Record
              'unsigned' => false,
              'primary' => false,
              'notnull' => false,
+             'autoincrement' => false,
+             ));
+        $this->hasColumn('funcionamento', 'string', null, array(
+             'type' => 'string',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => true,
+             'autoincrement' => false,
+             ));
+        $this->hasColumn('dias', 'string', 7, array(
+             'type' => 'string',
+             'length' => 7,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'default' => '0111111',
+             'notnull' => true,
              'autoincrement' => false,
              ));
         $this->hasColumn('logradouro', 'string', 100, array(
@@ -123,5 +143,5 @@ abstract class BaseInstituicao extends Doctrine_Record
         $this->hasMany('Turma', array(
              'local' => 'idInstituicao',
              'foreign' => 'idInstituicao'));
-    }
+    }	
 }

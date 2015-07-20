@@ -5,6 +5,7 @@
 				<li><a href="perfilProfessor.php" id="perfil">Perfil</a></li>
 				<li><a href="cadCurriculo.php" id="curriculo">Currículo</a></li>
 				<li><a href="areaAtuacao.php" id="areas">Áreas de Atuação</a></li>
+				<li><a href="horarios.php" id="horario">Horários</a></li>
 			</ul>
 			<button href="#" data-dropdown="instituicao" aria-controls="instituicao" aria-expanded="false" class="button dropdown">Instituição</button>
 			<ul id="instituicao" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
