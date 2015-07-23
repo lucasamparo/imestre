@@ -8,6 +8,13 @@
 	$p->setIdProfessor($_SESSION['idProfessor']);
 	$professor = $p->retornaProfessorPorId();
 	$nome = explode(" ",$professor->getNomeProfessor());
+	
+	if(isset($_GET['e'])){
+		$l = new Lembrete();
+		$l->setIdLembrete($_GET['e']);
+		$l->excluirLembrete();
+		header('Location: inicio.php');
+	}
 ?>
 
 <html>
@@ -36,80 +43,86 @@
 			<?php include('sidebar.php');?>
 		</div>
 		<div class="large-10 columns" style="border-left-style: solid; border-width: 1px;">
-			<div class="row collapse">
-				<div class="large-6 columns">
-					&nbsp;
-					<!-- futuro ad -->
-				</div>
-				<div class="large-6 columns">
-					&nbsp;
-					<!-- futuro ad -->
-				</div>
+			<div class="large-12 columns">
+				<fieldset>
+					<legend class="text-center">Acesso Rápido</legend>
+					<div class="large-4 columns">
+						<a href="#" class="button large-12">Professor</a>
+					</div>
+					<div class="large-4 columns">
+						<a href="#" class="button large-12">Avaliações</a>
+					</div>
+					<div class="large-4 columns">
+						<a href="#" class="button large-12">Alunos</a>
+					</div>
+					<div class="large-12 columns">&nbsp;</div>
+					<div class="large-4 columns">
+						<a href="#" class="button large-12">Disco Virtual</a>
+					</div>
+					<div class="large-4 columns">
+						<a href="#" class="button large-12">Questões</a>
+					</div>
+					<div class="large-4 columns">
+						<a href="#" class="button large-12">Horários</a>
+					</div>
+				</fieldset>
 			</div>
-			<div class="row collapse">
-				<div class="large-6 columns text-center">
-					<h4>Próximas Avaliações</h4>
+			<div class="large-4 columns">
+				<fieldset>
+					<legend>Próximas Avaliações</legend>
 					<table class="large-12">
 						<thead>
 							<th>Data</th>
 							<th>Turma</th>
 						</thead>
 						<tbody>
-							<tr>
-								<td>01/01/2015</td>
-								<td>3º A</td>
-							</tr>
-							<tr>
-								<td>05/01/2015</td>
-								<td>1º A</td>
-							</tr>							
+							<?php 
+								$a = new Avaliacao();
+								$aval = $a->retornarTodasAvaliacoes(date('Y-m-d'), '>');
+								foreach($aval as $a){
+									if($a->getTurma()->getInstituicao()->getProfessor()->getIdProfessor() == $professor->getIdProfessor()){
+										echo '<tr>';
+											echo '<td>'.Util::arrumaData($a->getDataAvaliacao()).'</td>';
+											echo '<td>'.$a->getTurma()->getNomeTurma().'</td>';
+										echo '</tr>';
+									}									
+								}
+							?>
 						</tbody>
 					</table>
-				</div>
-				<div class="large-6 columns text-center">
-					<h4>Próximas Aulas</h4>
+				</fieldset>
+			</div>
+			<div class="large-8 columns">
+				<fieldset>
+					<legend>Lembretes</legend>
 					<table class="large-12">
 						<thead>
-							<th>Data</th>
-							<th>Turma</th>
-							<th>Horário</th>
+							<th width="25%">Data</th>
+							<th>Conteúdo</th>
+							<th width="10%" class="text-center"><img src="img/deletar.png" width="20px"></th>
 						</thead>
 						<tbody>
-							<tr>
-								<td>01/01/2015</td>
-								<td>3º A</td>
-								<td>1 e 2</td>
-							</tr>
-							<tr>
-								<td>01/01/2015</td>
-								<td>1º A</td>
-								<td>3 e 4</td>
-							</tr>							
+						<?php 
+							$l = new Lembrete();
+							$lemb = $l->retornarTodosLembretes();
+							foreach($lemb as $l){
+								if($l->getIdProfessor() == $professor->getIdProfessor()){
+									echo '<tr>';
+										echo '<td>'.Util::arrumaData($l->getDataLembrete()).'</td>';
+										echo '<td>'.$l->getConteudo().'</td>';
+										echo '<td width="10%" class="text-center"><a href="?e='.$l->getIdLembrete().'"><img src="img/deletar.png" width="20px"></a></td>';
+									echo '</tr>';
+								}
+							}
+						?>
 						</tbody>
 					</table>
-				</div>
-				<div class="large-12 columns">
-					<h4 class="text-center">Mensagens</h4>
-					<table class="large-12">
-						<thead>
-							<th>#</th>
-							<th>Assunto</th>
-							<th>Para</th>
-							<th>Data</th>
-						</thead>
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>Reunião de Pais</td>
-								<td>Pais do 3º Ano</td>
-								<td>01/01/2015</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>		
+					<a href="cadLembrete.php" class="large-3 button tiny">Novo</a>
+				</fieldset>
+			</div>
 		</div>
 		<div class="large-12 columns">
+		<hr>
 			<?php include('footer.php')?>
 		</div>		
 	</div>

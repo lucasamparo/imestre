@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 24-Jun-2015 às 19:29
+-- Generation Time: 22-Jul-2015 às 21:54
 -- Versão do servidor: 5.6.15-log
 -- PHP Version: 5.5.8
 
@@ -30,18 +30,13 @@ USE `imestre`;
 
 CREATE TABLE IF NOT EXISTS `aluno` (
   `idAluno` int(11) NOT NULL AUTO_INCREMENT,
+  `idProfessor` int(11) DEFAULT NULL,
   `nomeAluno` varchar(255) DEFAULT NULL,
   `emailAluno` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`idAluno`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
---
--- Extraindo dados da tabela `aluno`
---
-
-INSERT INTO `aluno` (`idAluno`, `nomeAluno`, `emailAluno`) VALUES
-(1, 'Fulano de Tal Silveira', 'fulaninho_1993@hotmail.com'),
-(2, 'Lucas Amparo Barbosa', 'lucasamparo.ti@gmail.com');
+  `parecer` text,
+  PRIMARY KEY (`idAluno`),
+  KEY `idProfessor` (`idProfessor`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -59,14 +54,6 @@ CREATE TABLE IF NOT EXISTS `alunoturma` (
   KEY `idTurmaAluno` (`idTurma`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
---
--- Extraindo dados da tabela `alunoturma`
---
-
-INSERT INTO `alunoturma` (`idAlunoTurma`, `idAluno`, `idTurma`, `ano`) VALUES
-(1, 1, 1, '2015'),
-(4, 2, 1, '2015');
-
 -- --------------------------------------------------------
 
 --
@@ -78,21 +65,6 @@ CREATE TABLE IF NOT EXISTS `areamaior` (
   `nomeArea` varchar(100) NOT NULL,
   PRIMARY KEY (`idAreaMaior`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
-
---
--- Extraindo dados da tabela `areamaior`
---
-
-INSERT INTO `areamaior` (`idAreaMaior`, `nomeArea`) VALUES
-(1, 'Ciências Exatas e da Terra'),
-(2, 'Ciências Biológicas'),
-(3, 'Engenharias'),
-(4, 'Ciências da Saúde'),
-(5, 'Ciências Agrárias'),
-(6, 'Ciências Sociais Aplicadas'),
-(7, 'Ciências Humanas'),
-(8, 'Linguística, Letras e Artes'),
-(9, 'Outros');
 
 -- --------------------------------------------------------
 
@@ -108,90 +80,6 @@ CREATE TABLE IF NOT EXISTS `areamenor` (
   KEY `idAreaMaior` (`idAreaMaior`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=79 ;
 
---
--- Extraindo dados da tabela `areamenor`
---
-
-INSERT INTO `areamenor` (`idAreaMenor`, `idAreaMaior`, `nomeArea`) VALUES
-(1, 1, 'Matemática'),
-(2, 2, 'Biologia Geral'),
-(3, 3, 'Engenharia Civil'),
-(4, 4, 'Medicina'),
-(5, 5, 'Agronomia'),
-(6, 6, 'Direito'),
-(7, 7, 'Filosofia'),
-(8, 8, 'Lingüística'),
-(9, 9, 'Bioética'),
-(10, 1, 'Probabilidade e Estatística'),
-(11, 1, 'Ciência da Computação'),
-(12, 1, 'Astronomia'),
-(13, 1, 'Física'),
-(14, 1, 'Química'),
-(15, 1, 'Geociências'),
-(16, 1, 'Oceanografia'),
-(17, 2, 'Genética'),
-(18, 2, 'Botânica'),
-(19, 2, 'Zoologia'),
-(20, 2, 'Ecologia'),
-(21, 2, 'Morfologia'),
-(22, 2, 'Fisiologia'),
-(23, 2, 'Bioquímica'),
-(24, 2, 'Biofísica'),
-(25, 2, 'Farmacologia'),
-(26, 2, 'Imunologia'),
-(27, 2, 'Microbiologia'),
-(28, 2, 'Parasitologia'),
-(29, 3, 'Engenharia de Minas'),
-(30, 3, 'Engenharia de Materiais e Metalúrgica'),
-(31, 3, 'Engenharia Elétrica'),
-(32, 3, 'Engenharia Mecânica'),
-(33, 3, 'Engenharia Química'),
-(34, 3, 'Engenharia Sanitária'),
-(35, 3, 'Engenharia de Produção'),
-(36, 3, 'Engenharia Nuclear'),
-(37, 3, 'Engenharia de Transportes'),
-(38, 3, 'Engenharia Naval e Oceânica'),
-(39, 3, 'Engenharia Aeroespacial'),
-(40, 3, 'Engenharia Biomédica'),
-(41, 4, 'Odontologia'),
-(42, 4, 'Farmácia'),
-(43, 4, 'Enfermagem'),
-(44, 4, 'Nutrição'),
-(45, 4, 'Saúde Coletiva'),
-(46, 4, 'Fonoaudiologia'),
-(47, 4, 'Fisioterapia e Terapia Ocupacional'),
-(48, 4, 'Educação Física'),
-(49, 5, 'Recursos Florestais e Engenharia Florestal'),
-(50, 5, 'Engenharia Agrícola'),
-(51, 5, 'Zootecnia'),
-(52, 5, 'Medicina Veterinária'),
-(53, 5, 'Recursos Pesqueiros e Engenharia de Pesca'),
-(54, 5, 'Ciência e Tecnologia de Alimentos'),
-(55, 6, 'Administração'),
-(56, 6, 'Economia'),
-(57, 6, 'Arquitetura e Urbanismo'),
-(58, 6, 'Planejamento Urbano e Regional'),
-(59, 6, 'Demografia'),
-(60, 6, 'Ciência da Informação'),
-(61, 6, 'Museologia'),
-(62, 6, 'Comunicação'),
-(63, 6, 'Serviço Social'),
-(64, 6, 'Economia Doméstica'),
-(65, 6, 'Desenho Industrial'),
-(66, 6, 'Turismo'),
-(67, 7, 'Sociologia'),
-(68, 7, 'Antropologia'),
-(69, 7, 'Arqueologia'),
-(70, 7, 'História'),
-(71, 7, 'Geografia'),
-(72, 7, 'Psicologia'),
-(73, 7, 'Educação'),
-(74, 7, 'Ciência Política'),
-(75, 7, 'Teologia'),
-(76, 8, 'Letras'),
-(77, 8, 'Artes'),
-(78, 9, 'Ciências Ambientais');
-
 -- --------------------------------------------------------
 
 --
@@ -204,16 +92,7 @@ CREATE TABLE IF NOT EXISTS `assunto` (
   `nomeAssunto` varchar(255) NOT NULL,
   PRIMARY KEY (`idAssunto`),
   KEY `idDisciplina` (`idDisciplina`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
-
---
--- Extraindo dados da tabela `assunto`
---
-
-INSERT INTO `assunto` (`idAssunto`, `idDisciplina`, `nomeAssunto`) VALUES
-(2, 3, 'Diagramas UML'),
-(3, 1, 'Acentuação'),
-(4, 1, 'Concordância Nominal');
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -228,14 +107,24 @@ CREATE TABLE IF NOT EXISTS `avaliacao` (
   `data` date DEFAULT NULL,
   PRIMARY KEY (`idAvaliacao`),
   KEY `idTurmaAvaliacao` (`idTurma`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `chamado`
+--
+
+CREATE TABLE IF NOT EXISTS `chamado` (
+  `idChamado` int(11) NOT NULL AUTO_INCREMENT,
+  `dataChamado` date NOT NULL,
+  `idProfessor` int(11) NOT NULL,
+  `conteudo` text NOT NULL,
+  `resposta` text NOT NULL,
+  `status` enum('A','E','R','F') NOT NULL,
+  PRIMARY KEY (`idChamado`),
+  KEY `idProfessor` (`idProfessor`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- Extraindo dados da tabela `avaliacao`
---
-
-INSERT INTO `avaliacao` (`idAvaliacao`, `idTurma`, `peso`, `data`) VALUES
-(3, 1, 10, '2015-06-20');
 
 -- --------------------------------------------------------
 
@@ -251,18 +140,7 @@ CREATE TABLE IF NOT EXISTS `disciplina` (
   PRIMARY KEY (`idDisciplina`),
   KEY `idAreaMenor` (`idAreaMenor`),
   KEY `idProfessor` (`idProfessor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
-
---
--- Extraindo dados da tabela `disciplina`
---
-
-INSERT INTO `disciplina` (`idDisciplina`, `idAreaMenor`, `idProfessor`, `nomeDisciplina`) VALUES
-(1, 8, 1, 'Português Instrumental'),
-(2, 1, 1, 'Matemática Financeira'),
-(3, 11, 1, 'Engenharia de Software'),
-(6, 2, 1, 'Ciências'),
-(7, 11, 1, 'Lógica de Programação');
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 -- --------------------------------------------------------
 
@@ -276,16 +154,7 @@ CREATE TABLE IF NOT EXISTS `ementa` (
   `ano` int(11) DEFAULT NULL,
   PRIMARY KEY (`idEmenta`),
   KEY `idDisciplinaEmenta` (`idDisciplina`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
-
---
--- Extraindo dados da tabela `ementa`
---
-
-INSERT INTO `ementa` (`idEmenta`, `idDisciplina`, `ano`) VALUES
-(1, 1, 2015),
-(22, 1, 2014),
-(23, 1, 2013);
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
 
 -- --------------------------------------------------------
 
@@ -303,15 +172,20 @@ CREATE TABLE IF NOT EXISTS `frequencia` (
   KEY `idPlanejamentoAluno_idx` (`idPlanejamento`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
+-- --------------------------------------------------------
+
 --
--- Extraindo dados da tabela `frequencia`
+-- Estrutura da tabela `funcionalidades`
 --
 
-INSERT INTO `frequencia` (`idFrequencia`, `idAluno`, `idPlanejamento`, `presenca`) VALUES
-(1, 1, 1, 'P'),
-(2, 1, 2, 'A'),
-(3, 2, 1, 'A'),
-(4, 2, 2, 'P');
+CREATE TABLE IF NOT EXISTS `funcionalidades` (
+  `idFuncionalidades` int(11) NOT NULL AUTO_INCREMENT,
+  `idProfessor` int(11) NOT NULL,
+  `disco` enum('S','N') NOT NULL DEFAULT 'N',
+  `blog` enum('S','N') NOT NULL DEFAULT 'N',
+  PRIMARY KEY (`idFuncionalidades`),
+  KEY `idProfessor` (`idProfessor`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -323,6 +197,8 @@ CREATE TABLE IF NOT EXISTS `instituicao` (
   `idInstituicao` int(11) NOT NULL AUTO_INCREMENT,
   `idProfessor` int(11) DEFAULT NULL,
   `nomeInstituicao` varchar(255) DEFAULT NULL,
+  `funcionamento` text NOT NULL,
+  `dias` varchar(7) NOT NULL DEFAULT '0111111',
   `logradouro` varchar(100) DEFAULT NULL,
   `numero` varchar(5) DEFAULT NULL,
   `bairro` varchar(20) DEFAULT NULL,
@@ -331,15 +207,7 @@ CREATE TABLE IF NOT EXISTS `instituicao` (
   `media` double DEFAULT NULL,
   PRIMARY KEY (`idInstituicao`),
   KEY `idProfessor` (`idProfessor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
---
--- Extraindo dados da tabela `instituicao`
---
-
-INSERT INTO `instituicao` (`idInstituicao`, `idProfessor`, `nomeInstituicao`, `logradouro`, `numero`, `bairro`, `cidade`, `telContato`, `media`) VALUES
-(1, 1, 'Instituto Federal de Educação, Ciência e Tecnologia da Bahia', 'av. amazonas', 's/n', 'zabele', 'Vitória da Conquista', '7788046634', 7),
-(2, 1, 'Anísio Teixeira', 'Av. da Integração', 's/n', 'Centro', 'Vitória da Conquista', '7734261144', 5);
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -355,15 +223,6 @@ CREATE TABLE IF NOT EXISTS `itemavaliacao` (
   KEY `idAvaliacaoQuestao` (`idQuestao`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Extraindo dados da tabela `itemavaliacao`
---
-
-INSERT INTO `itemavaliacao` (`idAvaliacao`, `idQuestao`, `indice`) VALUES
-(3, 6, 3),
-(3, 8, 1),
-(3, 9, 2);
-
 -- --------------------------------------------------------
 
 --
@@ -378,15 +237,7 @@ CREATE TABLE IF NOT EXISTS `itemcurriculo` (
   `ano` varchar(12) DEFAULT NULL,
   PRIMARY KEY (`idItemCurriculo`),
   KEY `idProfessorCurriculo` (`idProfessor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
---
--- Extraindo dados da tabela `itemcurriculo`
---
-
-INSERT INTO `itemcurriculo` (`idItemCurriculo`, `idProfessor`, `titulo`, `conteudo`, `ano`) VALUES
-(1, 1, 'Cadastro Teste', 'este é um cadastro de teste, para verificar a leitura do Doctrine.', '2015'),
-(2, 1, 'Cadastro Teste via GUI', 'Esse é um cadastro de teste feito pela GUI.', '2015');
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -401,19 +252,22 @@ CREATE TABLE IF NOT EXISTS `itemementa` (
   `conteudo` text,
   PRIMARY KEY (`idItemEmenta`),
   KEY `idItemEmenta` (`idEmenta`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+
+-- --------------------------------------------------------
 
 --
--- Extraindo dados da tabela `itemementa`
+-- Estrutura da tabela `lembrete`
 --
 
-INSERT INTO `itemementa` (`idItemEmenta`, `idEmenta`, `indice`, `conteudo`) VALUES
-(1, 1, 1, 'Teste de Lançamento'),
-(12, 22, 1, 'teste de conteudo'),
-(13, 22, 2, 'segundo teste de conteudo'),
-(17, 23, 1, 'Teste de cadastro'),
-(18, 23, 2, 'teste de cadastro'),
-(19, 23, 3, 'Novo Item de Cadastro');
+CREATE TABLE IF NOT EXISTS `lembrete` (
+  `idLembrete` int(11) NOT NULL AUTO_INCREMENT,
+  `dataLembrete` date NOT NULL,
+  `conteudo` varchar(300) NOT NULL,
+  `idProfessor` int(11) NOT NULL,
+  PRIMARY KEY (`idLembrete`),
+  KEY `idProfessor` (`idProfessor`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -447,16 +301,7 @@ CREATE TABLE IF NOT EXISTS `planejaementa` (
   PRIMARY KEY (`idPlanejaEmenta`),
   KEY `idItemPlanejamento` (`idItemEmenta`),
   KEY `idTurmaPlanejamento` (`idTurma`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- Extraindo dados da tabela `planejaementa`
---
-
-INSERT INTO `planejaementa` (`idPlanejaEmenta`, `idTurma`, `idItemEmenta`, `previsto`, `realizado`, `cargaHoraria`) VALUES
-(1, 1, 17, '2015-05-02', NULL, NULL),
-(2, 1, 18, '2015-05-03', NULL, NULL),
-(3, 1, 19, '2015-06-05', NULL, NULL);
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 
@@ -466,6 +311,7 @@ INSERT INTO `planejaementa` (`idPlanejaEmenta`, `idTurma`, `idItemEmenta`, `prev
 
 CREATE TABLE IF NOT EXISTS `professor` (
   `idProfessor` int(11) NOT NULL AUTO_INCREMENT,
+  `validador` varchar(20) NOT NULL,
   `nomeProfessor` varchar(100) DEFAULT NULL,
   `nascimento` date DEFAULT NULL,
   `tituloMax` int(11) DEFAULT NULL,
@@ -484,14 +330,7 @@ CREATE TABLE IF NOT EXISTS `professor` (
   `senha` varchar(32) NOT NULL,
   PRIMARY KEY (`idProfessor`),
   UNIQUE KEY `login` (`login`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Extraindo dados da tabela `professor`
---
-
-INSERT INTO `professor` (`idProfessor`, `nomeProfessor`, `nascimento`, `tituloMax`, `areaAtuacao`, `nivelAtuacao`, `logradouro`, `numero`, `bairro`, `cidade`, `estado`, `pais`, `cep`, `email`, `telCel`, `login`, `senha`) VALUES
-(1, 'Professor Pardal', '1960-01-01', 2, 'Engenharia Mecânica', 4, 'Rua 23 de Julho', '20', 'Ibirapuera', 'Vitória da Conquista', 'BA', 'Brasil', '45075420', 'pardal@gmail.com', '7788046634', 'pardal', 'd9febbbc5ba9dc18d580774804c437b9');
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -509,17 +348,7 @@ CREATE TABLE IF NOT EXISTS `questao` (
   `alternativas` text,
   PRIMARY KEY (`idQuestao`),
   KEY `idQuestaoDisciplina` (`idAssunto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
-
---
--- Extraindo dados da tabela `questao`
---
-
-INSERT INTO `questao` (`idQuestao`, `idAssunto`, `privacidade`, `enunciado`, `tipo`, `resposta`, `alternativas`) VALUES
-(6, 3, 0, 'Qual a função do ~ (til)?', 0, 'Aplicar som nasal em palavras que não o possuem.', NULL),
-(7, 2, 1, 'Qual diagrama apresenta os casos típicos que o sistema irá implementar?', 1, 'Caso de uso', 'Caso de uso; Sequência; Atividade; Implementação; Classes'),
-(8, 3, 0, 'Associe as colunas:', 2, NULL, '{"C1":"Til;\nAcento Agudo;\nAcento Circunflexo;\nCrase;","C2":"Aplicar som nasal;\nSílaba tônica aberta;\nSílaba tônica fechada;\nJunção de duas vogais idênticas;"}'),
-(9, 3, 0, 'Qual palavra o acento agudo está aplicado de forma ERRADA?', 1, 'publíca', 'publíca; pública; múltipla; está; mórbida');
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 -- --------------------------------------------------------
 
@@ -566,18 +395,17 @@ CREATE TABLE IF NOT EXISTS `turma` (
   PRIMARY KEY (`idTurma`),
   KEY `idTurmaInstituicao` (`idInstituicao`),
   KEY `idTurmaDisciplina` (`idDisciplina`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Extraindo dados da tabela `turma`
---
-
-INSERT INTO `turma` (`idTurma`, `idInstituicao`, `idDisciplina`, `nomeTurma`, `cargaHoraria`, `periodo`, `turno`) VALUES
-(1, 2, 1, 'PI1Sem', 60, 0, 1);
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Limitadores para a tabela `aluno`
+--
+ALTER TABLE `aluno`
+  ADD CONSTRAINT `aluno_ibfk_1` FOREIGN KEY (`idProfessor`) REFERENCES `professor` (`idProfessor`);
 
 --
 -- Limitadores para a tabela `alunoturma`
@@ -605,6 +433,12 @@ ALTER TABLE `avaliacao`
   ADD CONSTRAINT `idTurmaAvaliacao` FOREIGN KEY (`idTurma`) REFERENCES `turma` (`idTurma`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Limitadores para a tabela `chamado`
+--
+ALTER TABLE `chamado`
+  ADD CONSTRAINT `chamado_ibfk_1` FOREIGN KEY (`idProfessor`) REFERENCES `professor` (`idProfessor`);
+
+--
 -- Limitadores para a tabela `disciplina`
 --
 ALTER TABLE `disciplina`
@@ -623,6 +457,12 @@ ALTER TABLE `ementa`
 ALTER TABLE `frequencia`
   ADD CONSTRAINT `idFrequenciaAluno` FOREIGN KEY (`idAluno`) REFERENCES `aluno` (`idAluno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `idPlanejamentoAluno` FOREIGN KEY (`idPlanejamento`) REFERENCES `planejaementa` (`idPlanejaEmenta`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `funcionalidades`
+--
+ALTER TABLE `funcionalidades`
+  ADD CONSTRAINT `funcionalidades_ibfk_1` FOREIGN KEY (`idProfessor`) REFERENCES `professor` (`idProfessor`);
 
 --
 -- Limitadores para a tabela `instituicao`
@@ -648,6 +488,12 @@ ALTER TABLE `itemcurriculo`
 --
 ALTER TABLE `itemementa`
   ADD CONSTRAINT `idItemEmenta` FOREIGN KEY (`idEmenta`) REFERENCES `ementa` (`idEmenta`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `lembrete`
+--
+ALTER TABLE `lembrete`
+  ADD CONSTRAINT `lembrete_ibfk_1` FOREIGN KEY (`idProfessor`) REFERENCES `professor` (`idProfessor`);
 
 --
 -- Limitadores para a tabela `mensagem`

@@ -15,7 +15,7 @@
 					<label class="text-right">Bem Vindo Professor '.explode(" ",$_SESSION['nomeProfessor'])[1].'</label>
 				</div>
 				<div class="large-12 columns">
-					<label class="text-right">X Mensagens</label>
+					<label class="text-right"><a href="chamados.php">Chamados</a></label>
 				</div>
 				<div class="large-12 columns">
 					<label class="text-right"><a href="logout.php">Logout</a></label>

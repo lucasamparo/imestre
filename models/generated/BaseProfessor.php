@@ -24,10 +24,12 @@
  * @property string $login
  * @property string $senha
  * @property Doctrine_Collection $Aluno
+ * @property Doctrine_Collection $Chamado
  * @property Doctrine_Collection $Disciplina
  * @property Doctrine_Collection $Funcionalidades
  * @property Doctrine_Collection $Instituicao
  * @property Doctrine_Collection $Itemcurriculo
+ * @property Doctrine_Collection $Lembrete
  * @property Doctrine_Collection $Mensagem
  * @property Doctrine_Collection $Trabalha
  * 
@@ -210,6 +212,10 @@ abstract class BaseProfessor extends Doctrine_Record
              'local' => 'idProfessor',
              'foreign' => 'idProfessor'));
 
+        $this->hasMany('Chamado', array(
+             'local' => 'idProfessor',
+             'foreign' => 'idProfessor'));
+
         $this->hasMany('Disciplina', array(
              'local' => 'idProfessor',
              'foreign' => 'idProfessor'));
@@ -223,6 +229,10 @@ abstract class BaseProfessor extends Doctrine_Record
              'foreign' => 'idProfessor'));
 
         $this->hasMany('Itemcurriculo', array(
+             'local' => 'idProfessor',
+             'foreign' => 'idProfessor'));
+
+        $this->hasMany('Lembrete', array(
              'local' => 'idProfessor',
              'foreign' => 'idProfessor'));
 

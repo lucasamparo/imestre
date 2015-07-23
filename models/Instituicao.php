@@ -102,6 +102,13 @@ class Instituicao extends BaseInstituicao{
 		$this->dias = $dias;
 		return $this;
 	}
+	public function getProfessor() {
+		return $this->Professor;
+	}
+	public function setProfessor($Professor) {
+		$this->Professor = $Professor;
+		return $this;
+	}
 	
 	public function inserirInstituicao(){
 		try{

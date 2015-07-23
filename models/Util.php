@@ -18,6 +18,23 @@ class Util{
 		return $json;
 	}
 	
+	static public function retornarStatusChamado($status){
+		switch ($status){
+			case 'A':
+				return 'Aberto';
+				break;
+			case 'E':
+				return 'Em AnÃ¡lise';
+				break;
+			case 'R':
+				return 'Respondido';
+				break;
+			case 'F':
+				return 'Encerrado';
+				break;
+		}
+	}
+	
 	static public function arrumaData($data){
 		$dt = explode("-", $data);
 		return $dt[2]."/".$dt[1]."/".$dt[0];
@@ -35,9 +52,9 @@ class Util{
 			case 0:
 				return "Pai";
 			case 1:
-				return "Mãe";
+				return "MÄƒe";
 			case 2:
-				return "Irmã(o)";
+				return "IrmÄƒ(o)";
 			case 3:
 				return "Primo(a)";
 			case 4:
@@ -54,7 +71,7 @@ class Util{
 			case 0:
 				return "Dissertativa";
 			case 1:
-				return "Múltipla Escolha";
+				return "MÃºltipla Escolha";
 			case 2:
 				return "Associativa";
 		}
@@ -72,7 +89,7 @@ class Util{
 			case 2:
 				return "Fevereiro";
 			case 3:
-				return "Março";
+				return "MarÃ§o";
 			case 4:
 				return "Abril";
 			case 5:
