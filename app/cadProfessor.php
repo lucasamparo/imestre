@@ -30,6 +30,7 @@
 		$p->setSenha(md5($_POST['senha']));
 		$p->setTelCel($_POST['telCel']);
 		$p->setTituloMax($_POST['titulo']);
+		$p->setLattes($_POST['lattes']);
 		$r = $p->inserirProfessor();
 		if($r){
 			$_SESSION['cadastrado'] = true;
@@ -150,9 +151,13 @@
 		<form method="post" action="cadProfessor.php" class="large-10 columns end" novalidate>
 			<fieldset>
 				<legend>Dados Pessoais</legend>
-				<div class="large-12 columns">
+				<div class="large-9 columns">
 					<label>Nome Completo:</label>
 						<input type="text" name="nome" required>
+				</div>
+				<div class="large-3 columns">
+					<label>Id Lattes:</label>
+						<input type="text" name="lattes">
 				</div>
 				<div class="large-3 columns">
 					<label>Nascimento:</label>

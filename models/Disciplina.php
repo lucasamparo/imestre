@@ -11,7 +11,7 @@
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 class Disciplina extends BaseDisciplina{
-public function getIdDisciplina() {
+	public function getIdDisciplina() {
 		return $this->idDisciplina;
 	}
 	public function setIdDisciplina($idDisciplina) {
@@ -125,13 +125,16 @@ public function getIdDisciplina() {
 	
 	public function atualizarDisciplina(){
 		try{
-			$disciplina = $this->getTable('disciplina')->find($this->getIdDisciplina());
+			$disciplina = Doctrine_Core::getTable('disciplina')->findOneBy('idDisciplina', $this->getIdDisciplina());
 			if($disciplina){
 				if(!is_null($this->getNomeDisciplina())){
 					$disciplina->setNomeDisciplina($this->getNomeDisciplina());
 				}
 				if(!is_null($this->getIdDisciplina())){
 					$disciplina->setIdDisciplina($this->getIdDisciplina());
+				}
+				if(!is_null($this->getIdAreaMenor())){
+					$disciplina->setIdAreaMenor($this->getIdAreaMenor());
 				}
 				$disciplina->save();
 				return true;

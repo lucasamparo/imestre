@@ -14,6 +14,7 @@
 		$pAtual = new Professor();
 		$pAtual->setIdProfessor($_SESSION['idProfessor']);
 		$pAtual->setNome($_POST['nomeCompleto']);
+		$pAtual->setLattes($_POST['lattes']);
 		$pAtual->setNascimento($_POST['nascimento']);
 		$pAtual->setTituloMax($_POST['titulo']);
 		$pAtual->setAreaAtuacao($_POST['area']);
@@ -69,9 +70,13 @@
 			<form method="post" action="#">
 				<fieldset>
 					<legend>Dados Pessoais</legend>
-					<div class="large-12 columns">
+					<div class="large-9 columns">
 						<label>Nome Completo:</label>
 							<input type="text" name="nomeCompleto" value="<?php echo $professor->getNomeProfessor();?>">
+					</div>
+					<div class="large-3 columns">
+						<label>Id do Lattes:</label>
+							<input type="text" name="lattes" value="<?= $professor->getLattes()?>">
 					</div>
 					<div class="large-6 columns">
 						<label>Data Nascimento:</label>
@@ -177,7 +182,7 @@
 				</fieldset>
 				<div class="row collapse">
 					<div class="large-4 columns">
-						<a href="#" class="button large-12">Trocar Senha?</a>
+						<a href="novaSenha.php" class="button large-12">Trocar Senha?</a>
 					</div>
 					<div class="large-4 columns">&nbsp</div>
 					<div class="large-4 columns">

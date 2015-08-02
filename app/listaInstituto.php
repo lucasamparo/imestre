@@ -194,19 +194,19 @@ $(document).ready(function (){
 				<h4 class="text-center" id="tituloEdicao">Editando Insituição</h4>
 				<form method="post" enctype="multipart/form-data">
 					<fieldset>
-						<div class="large-10 columns">
+						<div class="large-9 columns">
 							<label>Nome da Instituição:</label>
 								<input type="text" name="nomeInstituicao" id="nomeInstituicao">
 						</div>
-						<div class="large-2 columns">
-							<label>Média:</label>
+						<div class="large-3 columns">
+							<label>Média (Aprovação):</label>
 								<input type="text" name="media" id="media">
 						</div>
-						<div class="large-10 columns">
+						<div class="large-9 columns">
 							<label>Logradouro:</label>
 								<input type="text" name="logradouro" id="logradouro">
 						</div>
-						<div class="large-2 columns">
+						<div class="large-3 columns">
 							<label>Número:</label>
 								<input type="text" name="numero" id="numero">
 						</div>

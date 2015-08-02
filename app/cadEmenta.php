@@ -99,7 +99,7 @@ $(document).ready(function (){
 					</table>
 						<div class="row collapse">
 							<div class="large-4 columns">
-								<a href="#" class="large-12 button" id="novoItem">Novo Item</a>
+								<a href="#divItem" class="large-12 button" id="novoItem">Novo Item</a>
 							</div>
 							<div class="large-8 columns text-right">
 								<input type="submit" value="Salvar" class="large-6 button">

@@ -47,23 +47,23 @@
 				<fieldset>
 					<legend class="text-center">Acesso Rápido</legend>
 					<div class="large-4 columns">
-						<a href="#" class="button large-12">Professor</a>
+						<a href="perfilProfessor.php" class="button large-12">Professor</a>
 					</div>
 					<div class="large-4 columns">
-						<a href="#" class="button large-12">Avaliações</a>
+						<a href="listaAvaliacoes.php" class="button large-12">Avaliações</a>
 					</div>
 					<div class="large-4 columns">
-						<a href="#" class="button large-12">Alunos</a>
+						<a href="listaAlunos.php" class="button large-12">Alunos</a>
 					</div>
 					<div class="large-12 columns">&nbsp;</div>
 					<div class="large-4 columns">
-						<a href="#" class="button large-12">Disco Virtual</a>
+						<a href="disco.php" class="button large-12">Disco Virtual</a>
 					</div>
 					<div class="large-4 columns">
-						<a href="#" class="button large-12">Questões</a>
+						<a href="bancoPublico.php" class="button large-12">Questões</a>
 					</div>
 					<div class="large-4 columns">
-						<a href="#" class="button large-12">Horários</a>
+						<a href="horarios.php" class="button large-12">Horários</a>
 					</div>
 				</fieldset>
 			</div>

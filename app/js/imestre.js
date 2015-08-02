@@ -3,6 +3,15 @@ function arrumaMenu(nome){
 	$('#'+nome).css('color', 'darkgrey');
 }
 
+function confirmacao(url) {
+    var resposta = confirm("Deseja remover esse registro?");
+
+    if (resposta == true) {
+        window.location.href = url;
+    	//alert(url);
+    }
+}
+
 
 function validaEmail(email){
     var exclude=/[^@\-\.\w]|^[_@\.\-]|[\._\-]{2}|[@\.]{2}|(@)[^@]*\1/;

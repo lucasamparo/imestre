@@ -33,23 +33,34 @@
 <script language="JScript" src='js/jquery.simplemodal.js'></script>
 <script language="JScript" src='js/imestre.js'></script>
 <script language="JScript">
-function insereAluno(codigo){
-	var retorno;
-	var req = $.ajax({
-	    url:    "wsAluno.php",
-	    type:   "get",
-	    dataType:"json",
-	    data:   "id="+codigo,
-	    async: false,
+var inseridos = [];
 
-	    success: function( data ){
-	        retorno = data;           
-	    }
-	});
-	$('#corpoAlunos').append('<tr><td>'+retorno.nomeAluno+'</td></tr>');
-	html = $('#formAlunos').html();
-	html += '<input type="hidden" value="'+retorno.idAluno+'" name="alunos[]">';
-	$('#formAlunos').html(html);
+function insereNoVetor(id){
+	inseridos[id] = true;
+}
+
+function insereAluno(codigo){
+	if(inseridos[codigo]){
+		alert('Este Aluno já está na turma');
+	} else {
+		var retorno;
+		var req = $.ajax({
+		    url:    "wsAluno.php",
+		    type:   "get",
+		    dataType:"json",
+		    data:   "id="+codigo,
+		    async: false,
+
+		    success: function( data ){
+		        retorno = data;           
+		    }
+		});
+		$('#corpoAlunos').append('<tr><td>'+retorno.nomeAluno+'</td></tr>');
+		html = $('#formAlunos').html();
+		html += '<input type="hidden" value="'+retorno.idAluno+'" name="alunos[]">';
+		$('#formAlunos').html(html);
+		inseridos[codigo] = true;
+	}	
 }
 
 function abreEscolheAluno(){
@@ -85,6 +96,7 @@ function abreEscolheAluno(){
 					echo '<th class="text-center" width="40px"><img src="img/deletar.png" style="cursor: pointer"></th>';
 					foreach($turma->getAlunoturma() as $alunos){
 						echo '<tr>';
+							echo "<script>insereNoVetor('".$alunos->getAluno()->getIdAluno()."')</script>";
 							echo '<td>'.$alunos->getAluno()->getNomeAluno().'</td>';
 							echo '<td class="text-center" width="40px"><a href="?id='.$id.'&e='.$alunos->getIdAlunoTurma().'"><img src="img/deletar.png" style="cursor: pointer"></a></td>';
 						echo '</tr>';

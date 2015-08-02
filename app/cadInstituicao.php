@@ -93,19 +93,19 @@
 			<h4 class="text-center">Cadastro de Instituição</h4>
 			<form method="post" enctype="multipart/form-data">
 				<fieldset>
-					<div class="large-10 columns">
+					<div class="large-9 columns">
 						<label>Nome da Instituição:</label>
 							<input type="text" name="nomeInstituicao" >
 					</div>
-					<div class="large-2 columns">
-						<label>Média:</label>
+					<div class="large-3 columns">
+						<label>Média (Aprovação):</label>
 							<input type="text" name="media">
 					</div>
-					<div class="large-10 columns">
+					<div class="large-9 columns">
 						<label>Logradouro:</label>
 							<input type="text" name="logradouro" >
 					</div>
-					<div class="large-2 columns">
+					<div class="large-3 columns">
 						<label>Número:</label>
 							<input type="text" name="numero">
 					</div>

@@ -17,6 +17,7 @@
 		$d = new Disciplina();
 		$d->setIdDisciplina($_POST['idDisciplina']);
 		$d->setNomeDisciplina($_POST['nomeDisciplinaEd']);
+		$d->setIdAreaMenor($_POST['areaMenorEd']);
 		$d->atualizarDisciplina();
 		header('Location: disciplinas.php');
 	}
@@ -32,9 +33,10 @@
 <script language="JScript" src='js/jquery.simplemodal.js'></script>
 <script language="JScript" src='js/imestre.js'></script>
 <script language="JScript">
-function completaEdicao(codigo, nome){
+function completaEdicao(codigo, nome, idArea){
 	$('#nomeDisciplinaEd').val(nome);
 	$('#idDisciplina').val(codigo);
+	$('#areaMenorEd').val(idArea);
 	$('#formEd').css('display','inline');
 }
 </script>
@@ -61,9 +63,11 @@ function completaEdicao(codigo, nome){
 				<fieldset>
 					<legend>Nova Disciplina</legend>
 					<div class="large-5 columns">
+						<label>Nome:</label>
 						<input type="text" name="nomeDisciplina" required>
 					</div>
 					<div class="large-5 columns">
+						<label>Área de Atuação:</label>
 						<select name="areaMenor" required>
 							<?php 
 								$a1 = new Areamaior();
@@ -84,6 +88,7 @@ function completaEdicao(codigo, nome){
 						</select>
 					</div>
 					<div class="large-2 columns">
+						<label>&nbsp;</label>
 						<input type="submit" name="submeter" value="Adicionar" class="button tiny">
 					</div>
 				</fieldset>
@@ -93,7 +98,7 @@ function completaEdicao(codigo, nome){
 					<legend>Disciplinas já Cadastradas</legend>
 						<table class="large-12">
 							<thead>
-								<th width="70%">Nome</th>
+								<th width="70%">Nome (Área de Atuação)</th>
 								<th width="10%">Assuntos</th>
 								<th width="10%">Ementas</th>
 								<th width="10%" class="text-center"><img src="img/editar.png" width="20"></th>					
@@ -106,10 +111,10 @@ function completaEdicao(codigo, nome){
 									$disciplinas = $p->getDisciplina();
 									foreach ($disciplinas as $d){
 										echo '<tr>';
-											echo '<td>'.$d->getNomeDisciplina().'</td>';
+											echo '<td>'.$d->getNomeDisciplina().' ('.$d->getAreaMenor()->getNomeArea().')</td>';
 											echo '<td><a href="assuntos.php?id='.$d->getIdDisciplina().'">Assuntos</a></td>';
 											echo '<td><a href="ementas.php?id='.$d->getIdDisciplina().'">Ementas</a></td>';
-											echo '<td class="text-center"><img src="img/editar.png" width="20" style="cursor: pointer;" onclick="'."completaEdicao('".$d->getIdDisciplina()."','".$d->getNomeDisciplina()."')".'"></td>';
+											echo '<td class="text-center"><img src="img/editar.png" width="20" style="cursor: pointer;" onclick="'."completaEdicao('".$d->getIdDisciplina()."','".$d->getNomeDisciplina()."','".$d->getAreaMenor()->getIdAreaMenor()."')".'"></td>';
 										echo '</tr>';
 									}
 								?>
@@ -120,13 +125,33 @@ function completaEdicao(codigo, nome){
 			<form method="post" action="disciplinas.php" style="display: none;" id="formEd">
 				<fieldset>
 					<legend>Editar Disciplina</legend>
-					<div class="large-9 columns">
+					<div class="large-4 columns">
+						<label>Nome:</label>
 						<input type="text" name="nomeDisciplinaEd" id="nomeDisciplinaEd">
 						<input type="hidden" name="idDisciplina" id="idDisciplina">
 					</div>
+					<div class="large-5 columns">
+						<label>Área de Atuação:</label>
+						<select name="areaMenorEd" id="areaMenorEd" required>
+							<?php 
+								$a1 = new Areamaior();
+								$a1 = $a1->retornaTodasAreas();
+								foreach($a1 as $a){
+									echo '<optgroup label="'.$a->getNomeArea().'">';
+									$a2 = $a->getAreamenor();
+									$selected = "";
+									foreach($a2 as $aa){
+										echo '<option value="'.$aa->getIdAreamenor().'">'.$aa->getNomeArea().'</option>';
+									}
+									echo '</optgroup>';
+								}
+							?>
+						</select>
+					</div>
 					<div class="large-1 columns">&nbsp;</div>
 					<div class="large-2 columns">
-						<input type="submit" name="submeterEd" value="Adicionar" class="button tiny">
+						<label>&nbsp;</label>
+						<input type="submit" name="submeterEd" value="Atualizar" class="button tiny">
 					</div>
 				</fieldset>
 			</form>

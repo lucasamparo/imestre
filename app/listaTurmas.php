@@ -28,6 +28,9 @@
 <script language="JScript" src='js/jquery.simplemodal.js'></script>
 <script language="JScript" src='js/imestre.js'></script>
 <script language="JScript">
+$(document).tooltip({
+	track: true	
+});
 function completaEdicao(codigo){
 	 var retorno;
 	 var req = $.ajax({
@@ -74,14 +77,14 @@ function completaEdicao(codigo){
 			<div class="large-12 columns">
 				<table class="large-12">
 					<thead>
-						<th class="text-center" width="13%">Nome</th>
-						<th class="text-center" width="10%">C. Horária</th>
-						<th class="text-center" width="10%">Turno</th>
+						<th class="text-center" width="20%">Nome (Disciplina)</th>
+						<th class="text-center" width="7%">C. Horária</th>
+						<th class="text-center" width="4%">Turno</th>
 						<th class="text-center" width="15%">Instituição</th>
-						<th class="text-center" width="5%"><img src="img/alunos.jpg" width="25px"></th>
-						<th class="text-center" width="5%"><img src="img/planejar.png" width="20"></th>
-						<th class="text-center" width="5%"><img src="img/frequencia.png" width="20"></th>
-						<th class="text-center" width="5%"><img src="img/editar.png" width="20"></th>
+						<th class="text-center" width="4%"><img src="img/alunos.jpg" width="25px" title="Inserir Alunos na Turma"></th>
+						<th class="text-center" width="4%"><img src="img/planejar.png" width="20" title="Planejar Aulas"></th>
+						<th class="text-center" width="4%"><img src="img/frequencia.png" width="20" title="Lançar Frequência"></th>
+						<th class="text-center" width="4%"><img src="img/editar.png" width="20" title="Editar Turma"></th>
 					</thead>
 					<tbody>
 						<?php 
@@ -104,7 +107,7 @@ function completaEdicao(codigo){
 								foreach($turmas as $t1){
 									foreach($t1 as $t){
 										echo '<tr>';
-										echo '<td>'.$t->getNomeTurma().'</td>';
+										echo '<td>'.$t->getNomeTurma().' ('.$t->getDisciplina()->getNomeDisciplina().')</td>';
 										echo '<td>'.$t->getCargaHoraria().' H</td>';
 										$turno = $t->getTurno();
 										if($turno == 0){

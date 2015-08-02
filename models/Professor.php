@@ -186,6 +186,13 @@ class Professor extends BaseProfessor{
 		$this->Funcionalidades = $Funcionalidades;
 		return $this;
 	}
+	public function getLattes() {
+		return $this->lattes;
+	}
+	public function setLattes($lattes) {
+		$this->lattes = $lattes;
+		return $this;
+	}
 		
 	public function inserirProfessor(){
 		try{
@@ -230,11 +237,12 @@ class Professor extends BaseProfessor{
 	
 	public function atualizaProfessor(){
 		try{
-			$professor = $this->getTable('professor')->find($this->getIdProfessor());
+			$professor = Doctrine_Core::getTable('professor')->findOneBy('idProfessor', $this->getIdProfessor());
+			//$professor = $this->getTable('professor')->find($this->getIdProfessor());
 			if($professor){
 				//Sobrepor os valores
-				if(!is_null($this->getNome())){
-					$professor->setNome($this->getNome());
+				if(!is_null($this->getNomeProfessor())){
+					$professor->setNomeProfessor($this->getNomeProfessor());
 				}				
 				if(!is_null($this->getNascimento())){
 					$professor->setNascimento($this->getNascimento());					
@@ -336,6 +344,14 @@ class Professor extends BaseProfessor{
 			} else {
 				return false;
 			}
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function retornarProfessorPorLogin(){
+		try{
+			return $this->getTable()->findOneBy('login', $this->getLogin());
 		} catch(Doctrine_Exception $e){
 			echo $e->getMessage();
 		}

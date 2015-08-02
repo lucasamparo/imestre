@@ -64,6 +64,20 @@ class Assunto extends BaseAssunto
 		}
 	}
 	
+	public function alterarAssunto(){
+		try{
+			$assunto = Doctrine_Core::getTable('Assunto')->findOneBy('idAssunto', $this->getIdAssunto());
+			if($assunto){
+				if(!is_null($this->getNomeAssunto())){
+					$assunto->setNomeAssunto($this->getNomeAssunto());
+				}
+				$assunto->save();
+			}
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
 	public function deletarAssunto(){
 		try{
 			$a = $this->getTable()->findBy('idAssunto', $this->getIdAssunto());
