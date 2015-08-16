@@ -156,6 +156,7 @@ if (!$core->error->flag())
 		'<tr>'.
 		'<th scope="col" class="nowrap">'.__('Blog id').'</th>'.
 		'<th scope="col">'.__('Blog name').'</th>'.
+		'<th scope="col" class="nowrap">'.__('URL').'</th>'.
 		'<th scope="col" class="nowrap">'.__('Entries (all types)').'</th>'.
 		'<th scope="col" class="nowrap">'.__('Last update').'</th>'.
 		'<th scope="col" class="nowrap">'.__('Status').'</th>'.
@@ -188,7 +189,7 @@ function blogLine($rs)
 		$edit_link = $blog_id;
 	}
 
-	$img_status = $rs->blog_status == 1 ? 'check-on' : 'check-off';
+	$img_status = $rs->blog_status == 1 ? 'check-on' : ($rs->blog_status == 0 ? 'check-off' : 'check-wrn');
 	$txt_status = $GLOBALS['core']->getBlogStatus($rs->blog_status);
 	$img_status = sprintf('<img src="images/%1$s.png" alt="%2$s" title="%2$s" />',$img_status,$txt_status);
 	$offset = dt::getTimeOffset($core->auth->getInfo('user_tz'));
@@ -200,6 +201,8 @@ function blogLine($rs)
 	'<td class="maximal"><a href="'.$core->adminurl->get("admin.home",array('switchblog' => $rs->blog_id)).'" '.
 	'title="'.sprintf(__('Switch to blog %s'),$rs->blog_id).'">'.
 	html::escapeHTML($rs->blog_name).'</a></td>'.
+	'<td class="nowrap"><a class="outgoing" href="'.html::escapeHTML($rs->blog_url).'">'.html::escapeHTML($rs->blog_url).
+	' <img src="images/outgoing-blue.png" alt="" /></a></td>'.
 	'<td class="nowrap count">'.$core->countBlogPosts($rs->blog_id).'</td>'.
 	'<td class="nowrap count">'.$blog_upddt.'</td>'.
 	'<td class="status">'.$img_status.'</td>'.

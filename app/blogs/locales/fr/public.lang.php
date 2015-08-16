@@ -91,3 +91,4 @@ $GLOBALS['__l10n']['You must give a password to access this area.'] = 'Vous deve
 $GLOBALS['__l10n']['Password:'] = 'Mot de passe :';
 $GLOBALS['__l10n']['You must provide a valid email address.'] = 'Vous devez indiquer une adresse e-mail valide.';
 $GLOBALS['__l10n']['Read'] = 'Lire';
+$GLOBALS['__l10n']['Page top'] = 'Haut de page';

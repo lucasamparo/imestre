@@ -3,7 +3,7 @@
 #
 # This file is part of Dotclear 2.
 #
-# Copyright (c) 2003-2014 Olivier Meunier & Association Dotclear
+# Copyright (c) 2003-2015 Olivier Meunier & Association Dotclear
 # Licensed under the GPL version 2.0 license.
 # See LICENSE file or
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -23,6 +23,13 @@ $extraPlugins = $__extraPlugins->getArrayCopy();
 ?>
 (function($) {
 	$.toolbarPopup = function toolbarPopup(url) {
+		if (dotclear.admin_base_url != '') {
+			var pos = url.indexOf(dotclear.admin_base_url);
+			if (pos == -1) {
+				url = dotclear.admin_base_url + url;
+			}
+		}
+
 		var args = Array.prototype.slice.call(arguments);
 		var width = 520, height = 420;
 		if (args[1]!==undefined) {
@@ -71,8 +78,14 @@ $(function() {
 	 */
 
 	CKEDITOR.timestamp = '';
+<?php if (!isset($dcckeditor_disable_native_spellchecker) || $dcckeditor_disable_native_spellchecker):?>
+	CKEDITOR.config.disableNativeSpellChecker = true;
+<?php else:?>
+	CKEDITOR.config.disableNativeSpellChecker = false;
+<?php endif;?>
 	CKEDITOR.config.skin = 'dotclear,'+dotclear.dcckeditor_plugin_url+'/js/ckeditor-skins/dotclear/';
-    CKEDITOR.config.baseHref = dotclear.base_url;
+	CKEDITOR.config.baseHref = dotclear.base_url;
+	CKEDITOR.config.height = '<?php echo $core->auth->getOption('edit_size') * 14;?>px';
 
 <?php if (!empty($dcckeditor_cancollapse_button)):?>
 	CKEDITOR.config.toolbarCanCollapse = true;
@@ -89,9 +102,9 @@ $(function() {
 	}
 }
 ?>
-    if (dotclear.ckeditor_context===undefined || dotclear.ckeditor_tags_context[dotclear.ckeditor_context]===undefined) {
-        return;
-    }
+	if (dotclear.ckeditor_context===undefined || dotclear.ckeditor_tags_context[dotclear.ckeditor_context]===undefined) {
+		return;
+	}
 	$(dotclear.ckeditor_tags_context[dotclear.ckeditor_context].join(',')).ckeditor({
 <?php
 $defautExtraPlugins = 'entrylink,dclink,media,justify,colorbutton,format,img';
@@ -105,8 +118,11 @@ if (!empty($extraPlugins) && count($extraPlugins)>0) {
 
 		<?php if (!empty($dcckeditor_format_select)):?>
 		// format tags
+<?php if (!empty($dcckeditor_format_tags)):?>
+        format_tags: '<?php echo $dcckeditor_format_tags;?>',
+<?php else:?>
 		format_tags: 'p;h1;h2;h3;h4;h5;h6;pre;address',
-
+<?php endif;?>
 		// following definition are needed to be specialized
 		format_p: { element: 'p' },
 		format_h1: { element: 'h1' },

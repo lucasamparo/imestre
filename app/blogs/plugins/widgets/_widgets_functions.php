@@ -18,6 +18,9 @@ class defaultWidgets
 	{
 		global $core;
 
+		if ($core->blog->settings->system->no_search)
+			return;
+
 		if ($w->offline)
 			return;
 
@@ -52,7 +55,7 @@ class defaultWidgets
 
 		$res =
 		($w->title ? $w->renderTitle(html::escapeHTML($w->title)) : '').
-		'<ul role="navigation">';
+		'<nav role="navigation"><ul>';
 
 		if ($core->url->type != 'default') {
 			$res .=
@@ -65,7 +68,7 @@ class defaultWidgets
 		'<li class="topnav-arch">'.
 		'<a href="'.$core->blog->url.$core->url->getURLFor("archive").'">'.
 		__('Archives').'</a></li>'.
-		'</ul>';
+		'</ul></nav>';
 
 		return $w->renderDiv($w->content_only,$w->class,'id="topnav"',$res);
 	}

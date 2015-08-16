@@ -45,7 +45,7 @@
 				$('#valores').val(val);
 			});
 			$('#inserirEvento').click(function (){
-				var event = new Object();	
+				var event = new Object(); 	
 				event.title = $('#slTurma').val();
 				var horaInicio = new Date($('#data').val()+' '+$('#horaInicio').val()+':00');
 				event.start = horaInicio;
@@ -63,11 +63,17 @@
 				val = val + json + "#$#";
 				$('#json').val(val);
 				if(horaInicio.getHours() > 18){
+					array = $('#noite').fullCalendar('clientEvents'); 
+					event.id = array.length;
 					$('#noite').fullCalendar('renderEvent',event);
 				} else{
 					if(horaInicio.getHours() > 13){
+						array = $('#tarde').fullCalendar('clientEvents'); 
+						event.id = array.length;
 						$('#tarde').fullCalendar('renderEvent',event);
 					} else {
+						array = $('#manha').fullCalendar('clientEvents'); 
+						event.id = array.length;
 						$('#manha').fullCalendar('renderEvent',event);
 					}
 				}
@@ -117,11 +123,13 @@
 							$tStamp = strtotime($data);
 							$diaAlvo = date('Y-m-d',strtotime(($x->dow - $diaAtual).' day',$tStamp));
 							$tmp = explode("T", $x->start);
-							$dataAlvo = $diaAlvo."T".$tmp[1];
+							$dataAlvo1 = $diaAlvo."T".$tmp[1];
+							$tmp = explode("T", $x->end);
+							$dataAlvo2 = $diaAlvo."T".$tmp[1];
 							if($i == ($count - 1)){
-								echo "{ title: '".$x->title."', start: '".$dataAlvo."', end: '".$x->end."'}";
+								echo "{ id: '".$i."', title: '".$x->title."', start: '".$dataAlvo1."', end: '".$dataAlvo2."'}";
 							} else {
-								echo "{ title: '".$x->title."', start: '".$dataAlvo."', end: '".$x->end."'},";
+								echo "{ id: '".$i."', title: '".$x->title."', start: '".$dataAlvo1."', end: '".$dataAlvo2."'},";
 							}							
 						}
 					?>
@@ -139,7 +147,18 @@
 					dow: "0123456"
 				},
 				eventClick: function (e){
-					
+					//alert(e.id);
+					$('#manha').fullCalendar('removeEvents',e.id);
+					array = $('#manha').fullCalendar('clientEvents');
+					$('#json').val("");
+					for(i = 0; i < array.length; i++){
+						horaInicio = new Date(array[i].start);
+						horaFim = new Date(array[i].end);
+						json = '{"title":"'+array[i].title+'","dow":"'+horaInicio.getDay()+'","start":"'+arrumaDataFullCalendar(new Date(array[i].start+10800000))+'","end":"'+arrumaDataFullCalendar(new Date(array[i].end+10800000))+'"}';
+						val = $('#json').val();
+						val = val + json + "#$#";
+						$('#json').val(val);	
+					}					
 				},
 				dayClick: function (e){
 					
@@ -170,10 +189,19 @@
 						$count = count($horarios);
 						for($i = 0; $i < $count; $i++){
 							$x = json_decode($horarios[$i]);
+							$data = date('Y-m-d');
+							$d = explode("-", $data);
+							$diaAtual = date('w',mktime(0,0,0,$d[1],$d[2],$d[0]));
+							$tStamp = strtotime($data);
+							$diaAlvo = date('Y-m-d',strtotime(($x->dow - $diaAtual).' day',$tStamp));
+							$tmp = explode("T", $x->start);
+							$dataAlvo1 = $diaAlvo."T".$tmp[1];
+							$tmp = explode("T", $x->end);
+							$dataAlvo2 = $diaAlvo."T".$tmp[1];
 							if($i == ($count - 1)){
-								echo "{ title: '".$x->title."', start: '".$x->start."', end: '".$x->end."'}";
+								echo "{ title: '".$x->title."', start: '".$dataAlvo1."', end: '".$dataAlvo2."'}";
 							} else {
-								echo "{ title: '".$x->title."', start: '".$x->start."', end: '".$x->end."'},";
+								echo "{ title: '".$x->title."', start: '".$dataAlvo1."', end: '".$dataAlvo2."'},";
 							}							
 						}
 					?>
@@ -191,7 +219,7 @@
 					dow: "0123456"
 				},
 				eventClick: function (e){
-					
+					alert(e.id);
 				},
 				dayClick: function (e){
 					
@@ -222,10 +250,19 @@
 						$count = count($horarios);
 						for($i = 0; $i < $count; $i++){
 							$x = json_decode($horarios[$i]);
+							$data = date('Y-m-d');
+							$d = explode("-", $data);
+							$diaAtual = date('w',mktime(0,0,0,$d[1],$d[2],$d[0]));
+							$tStamp = strtotime($data);
+							$diaAlvo = date('Y-m-d',strtotime(($x->dow - $diaAtual).' day',$tStamp));
+							$tmp = explode("T", $x->start);
+							$dataAlvo1 = $diaAlvo."T".$tmp[1];
+							$tmp = explode("T", $x->end);
+							$dataAlvo2 = $diaAlvo."T".$tmp[1];
 							if($i == ($count - 1)){
-								echo "{ title: '".$x->title."', start: '".$x->start."', end: '".$x->end."'}";
+								echo "{ title: '".$x->title."', start: '".$dataAlvo1."', end: '".$dataAlvo2."'}";
 							} else {
-								echo "{ title: '".$x->title."', start: '".$x->start."', end: '".$x->end."'},";
+								echo "{ title: '".$x->title."', start: '".$dataAlvo1."', end: '".$dataAlvo2."'},";
 							}							
 						}
 					?>
@@ -243,7 +280,7 @@
 					dow: "0123456"
 				},
 				eventClick: function (e){
-					
+					alert(e.id);
 				},
 				dayClick: function (e){
 					
@@ -312,7 +349,7 @@
 						<input type="submit" name="persistir" value="Persistir Horários" id="persistir" class="tiny button large-6">
 					</div>
 				</form>
-				<form method="post" action="imprimirHorario.php">
+				<form method="post" action="imprimirHorario.php" target="_blank">
 					<div class="large-4 columns">
 						<input type="radio" name="modo" value="completo" id="completo" checked><label for="completo">Imprimir Horário Completo</label>
 					</div>

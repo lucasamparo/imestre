@@ -4,6 +4,16 @@
 	if(!($_SESSION['logado'])){
 		header('Location: index.php');
 	}
+	
+	if(isset($_GET['a'])){
+		$c = new Chamado();
+		$c->setIdProfessor($_SESSION['idProfessor']);
+		$c->setConteudo('Solicitação de uso do blog');
+		$c->setStatus('A');
+		$c->setDataChamado(date('Y-m-d'));
+		$c->inserirChamado();
+		header('Location: blog.php');
+	}
 ?>
 <html>
 <head>
@@ -34,12 +44,28 @@
 				if($f->getBlog() == 'S'){
 					?>
 					<h4>Poderá ser necessário repetir seu usuário/senha nessa sessão!!</h4>
-					<iframe src="dotclear/admin" width="950px" height="600px"></iframe>
+					<iframe src="blogs/admin" width="950px" height="600px"></iframe>
 					<?
 				} else {
-					?>
-					<h4>Solicite o seu acesso ao seu Blog!</h4>
-					<?
+					$c = new Chamado();
+					$chamados = $c->retornarChamadosAbertos();
+					$blog = false;
+					foreach($chamados as $c){
+						if($c->getConteudo() == 'Solicitação de uso do blog'){
+							$blog = true;
+						}
+					}
+					if($blog){
+						?>
+						<h4>Solicitação de Acesso efetuada.</h4>
+						<h3>Acompanhe a solicitação <a href="chamados.php">clicando aqui</a></h3>
+						<?
+					} else {
+						?>
+						<h4>Solicite o seu acesso ao seu Blog!</h4>
+						<h3><a href="blog.php?a=1">Clique Aqui</a></h3>
+						<?
+					}
 				}
 			?>
 			

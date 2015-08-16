@@ -28,6 +28,10 @@ if (!empty($_GET['default_blog'])) {
 
 dcPage::check('usage,contentadmin');
 
+if ($core->plugins->disableDepModules($core->adminurl->get('admin.home',array()))) {
+	exit;
+}
+
 # Logout
 if (!empty($_GET['logout'])) {
 	$core->session->destroy();
@@ -176,7 +180,7 @@ if ($core->auth->user_prefs->dashboard->quickentry) {
 		$post_editor = $core->auth->getOption('editor');
 		if ($post_editor && !empty($post_editor[$post_format])) {
 			// context is not post because of tags not available
-			$admin_post_behavior = $core->callBehavior('adminPostEditor', $post_editor[$post_format], 'quickentry', array('#post_content'));
+			$admin_post_behavior = $core->callBehavior('adminPostEditor', $post_editor[$post_format], 'quickentry', array('#post_content'),$post_format);
 		}
 	}
 }

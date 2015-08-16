@@ -1,4 +1,4 @@
-<p id="gotop"><a href="#top">Haut de page</a></p>
+<p id="gotop"><a href="#top"><?php echo __('Page top'); ?></a></p>
 
 <div class="footer" id="footer" role="contentinfo">
 	<?php if(publicWidgets::ifWidgetsHandler('custom','')) : ?>

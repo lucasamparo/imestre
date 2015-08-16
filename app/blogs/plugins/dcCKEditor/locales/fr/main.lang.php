@@ -34,3 +34,4 @@ $GLOBALS['__l10n']['Advanced options'] = 'Options avancées';
 $GLOBALS['__l10n']['Text areas to be used by CKEditor'] = 'Liste des blocs où utiliser CKEditor';
 $GLOBALS['__l10n']['Comma separed list of textareas - jQuery selector. Defaut: '] = 'Listes d\'élements html à transformer avec CKEditor - C\'est une liste utilisée par jQuery. Défaut : ';
 $GLOBALS['__l10n']['URL field cannot be empty.'] = 'L\'URL ne peut pas être vide.';
+$GLOBALS['__l10n']['Disables the built-in spell checker if the browser provides one'] = 'Désactiver la correction orthographique fournie par le navigateur';

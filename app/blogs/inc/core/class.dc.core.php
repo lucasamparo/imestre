@@ -3,13 +3,12 @@
 #
 # This file is part of Dotclear 2.
 #
-# Copyright (c) 2003-2014 Olivier Meunier & Association Dotclear
+# Copyright (c) 2003-2015 Olivier Meunier & Association Dotclear
 # Licensed under the GPL version 2.0 license.
 # See LICENSE file or
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 #
 # -- END LICENSE BLOCK -----------------------------------------
-if (!defined('DC_RC_PATH')) { return; }
 
 /**
 @defgroup DC_CORE Dotclear Core Classes
@@ -185,7 +184,7 @@ class dcCore
 
 	public function getNonce()
 	{
-		return crypt::hmac(DC_MASTER_KEY,session_id());
+		return $this->auth->crypt(session_id());
 	}
 
 	public function checkNonce($secret)
@@ -194,7 +193,7 @@ class dcCore
 			return false;
 		}
 
-		return $secret == crypt::hmac(DC_MASTER_KEY,session_id());
+		return $secret == $this->auth->crypt(session_id());
 	}
 
 	public function formNonce()
@@ -572,7 +571,16 @@ class dcCore
 			'user_desc, user_lang,user_tz,user_post_status,user_options ';
 
 			if (!empty($params['order']) && !$count_only) {
-				$strReq .= 'ORDER BY '.$this->con->escape($params['order']).' ';
+				if (preg_match('`^([^. ]+) (?:asc|desc)`i',$params['order'],$matches)) {
+					if (in_array($matches[1],array('user_id','user_name','user_firstname','user_displayname'))) {
+						$table_prefix = 'U';
+					} else {
+						$table_prefix = 'P'; // order = nb_post (asc|desc)
+					}
+					$strReq .= 'ORDER BY '.$table_prefix.'.'.$this->con->escape($params['order']).' ';
+				} else {
+					$strReq .= 'ORDER BY '.$this->con->escape($params['order']).' ';
+				}
 			} else {
 				$strReq .= 'ORDER BY U.user_id ASC ';
 			}
@@ -837,7 +845,7 @@ class dcCore
 			if (strlen($cur->user_pwd) < 6) {
 				throw new Exception(__('Password must contain at least 6 characters.'));
 			}
-			$cur->user_pwd = crypt::hmac(DC_MASTER_KEY,$cur->user_pwd);
+			$cur->user_pwd = $this->auth->crypt($cur->user_pwd);
 		}
 
 		if ($cur->user_lang !== null && !preg_match('/^[a-z]{2}(-[a-z]{2})?$/',$cur->user_lang)) {
@@ -864,6 +872,7 @@ class dcCore
 		return array(
 			'edit_size' => 24,
 			'enable_wysiwyg' => true,
+			'toolbar_bottom' => false,
 			'editor' => array('xhtml' => 'dcCKEditor', 'wiki' => 'dcLegacyEditor'),
 			'post_format' => 'wiki'
 		);
@@ -1371,7 +1380,7 @@ class dcCore
 				'Enable XML/RPC interface'),
 				array('lang','string','en',
 				'Default blog language'),
-				array('media_exclusion','string','/\.php$/i',
+				array('media_exclusion','string','/\.php[0-9]*$/i',
 				'File name exclusion pattern in media manager. (PCRE value)'),
 				array('media_img_m_size','integer',448,
 				'Image medium size in media manager'),
@@ -1419,6 +1428,8 @@ class dcCore
 				'URL handle mode (path_info or query_string)'),
 				array('use_smilies','boolean',false,
 				'Show smilies on entries and comments'),
+				array('no_search','boolean',false,
+				'Disable search'),
 				array('inc_subcats','boolean',false,
 				'Include sub-categories in category page and category posts feed'),
 				array('wiki_comments','boolean',false,

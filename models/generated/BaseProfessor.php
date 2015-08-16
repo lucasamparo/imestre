@@ -238,7 +238,7 @@ abstract class BaseProfessor extends Doctrine_Record
              'local' => 'idProfessor',
              'foreign' => 'idProfessor'));
 
-        $this->hasMany('Funcionalidades', array(
+        $this->hasOne('Funcionalidades', array(
              'local' => 'idProfessor',
              'foreign' => 'idProfessor'));
 

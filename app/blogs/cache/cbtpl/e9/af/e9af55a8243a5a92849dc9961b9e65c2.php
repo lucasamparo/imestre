@@ -31,7 +31,7 @@
 				<meta property="dc.description" lang="<?php echo context::global_filter($core->blog->settings->system->lang,0,0,0,0,0,0,'BlogLanguage'); ?>" content="<?php echo context::global_filter($core->blog->desc,1,0,0,0,0,0,'BlogDescription'); ?>" />
 				<meta property="dc.language" content="<?php echo context::global_filter($core->blog->settings->system->lang,0,0,0,0,0,0,'BlogLanguage'); ?>" />
 				<meta property="dc.date" content="<?php echo context::global_filter(dt::iso8601($core->blog->upddt,$core->blog->settings->system->blog_timezone),0,0,0,0,0,0,'BlogUpdateDate'); ?>" />
-				<!-- dc-title-head -->
+				<!-- dc-entry -->
 			<!-- head-dc -->
 
 		
@@ -119,6 +119,9 @@ $_ctx->pagination = $core->blog->getPosts($params,true); unset($params);
 					
 						<div id="main" role="main">
 							
+								
+									<?php echo tplBreadcrumb::displayBreadcrumb(''); ?>
+								
 								<div id="content">
 									
 
@@ -181,7 +184,7 @@ $_ctx->posts = $core->blog->getPosts($params); unset($params);
 
 										<?php endwhile; $_ctx->posts = null; $_ctx->post_params = null; ?>
 
-										<!-- page-content -->
+										<!-- main-content -->
 								</div> <!-- End #content -->
 								<!-- wrapper-main -->
 						</div> <!-- End #main -->

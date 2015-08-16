@@ -3,13 +3,12 @@
 #
 # This file is part of Dotclear 2.
 #
-# Copyright (c) 2003-2013 Olivier Meunier & Association Dotclear
+# Copyright (c) 2003-2015 Olivier Meunier & Association Dotclear
 # Licensed under the GPL version 2.0 license.
 # See LICENSE file or
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 #
 # -- END LICENSE BLOCK -----------------------------------------
-if (!defined('DC_RC_PATH')) { return; }
 
 class dcTemplate extends template
 {
@@ -131,7 +130,6 @@ class dcTemplate extends template
 		$this->addBlock('Entries',array($this,'Entries'));
 		$this->addBlock('EntriesFooter',array($this,'EntriesFooter'));
 		$this->addBlock('EntriesHeader',array($this,'EntriesHeader'));
-		$this->addValue('EntryExcerpt',array($this,'EntryExcerpt'));
 		$this->addValue('EntryAuthorCommonName',array($this,'EntryAuthorCommonName'));
 		$this->addValue('EntryAuthorDisplayName',array($this,'EntryAuthorDisplayName'));
 		$this->addValue('EntryAuthorEmail',array($this,'EntryAuthorEmail'));
@@ -147,10 +145,12 @@ class dcTemplate extends template
 		$this->addValue('EntryCommentCount',array($this,'EntryCommentCount'));
 		$this->addValue('EntryContent',array($this,'EntryContent'));
 		$this->addValue('EntryDate',array($this,'EntryDate'));
+		$this->addValue('EntryExcerpt',array($this,'EntryExcerpt'));
 		$this->addValue('EntryFeedID',array($this,'EntryFeedID'));
 		$this->addValue('EntryFirstImage',array($this,'EntryFirstImage'));
 		$this->addValue('EntryID',array($this,'EntryID'));
 		$this->addBlock('EntryIf',array($this,'EntryIf'));
+		$this->addBlock('EntryIfContentCut',array($this,'EntryIfContentCut'));
 		$this->addValue('EntryIfFirst',array($this,'EntryIfFirst'));
 		$this->addValue('EntryIfOdd',array($this,'EntryIfOdd'));
 		$this->addValue('EntryIfSelected',array($this,'EntryIfSelected'));
@@ -343,7 +343,7 @@ class dcTemplate extends template
 				if (!is_array($v)) {
 					$alias[$k] = array();
 				}
-				if (!is_array($v)) {
+				if (!isset($default_alias[$k]) || !is_array($default_alias[$k])) {
 					$default_alias[$k] = array();
 				}
 				$default_alias[$k] = array_merge($default_alias[$k],$alias[$k]);
@@ -1433,7 +1433,7 @@ class dcTemplate extends template
 	}
 
 	/*dtd
-	<!ELEMENT tpl:EntryContent - O -- Entry content -->
+	<!ELEMENT tpl:EntryContent -  -- Entry content -->
 	<!ATTLIST tpl:EntryContent
 	absolute_urls	CDATA	#IMPLIED -- transforms local URLs to absolute one
 	full			(1|0)	#IMPLIED -- returns full content with excerpt
@@ -1454,6 +1454,36 @@ class dcTemplate extends template
 		} else {
 			return '<?php echo '.sprintf($f,'$_ctx->posts->getContent('.$urls.')').'; ?>';
 		}
+	}
+
+	/*dtd
+	<!ELEMENT tpl:EntryIfContentCut - - -- Test if Entry content has been cut -->
+	<!ATTLIST tpl:EntryIfContentCut
+	absolute_urls	CDATA	#IMPLIED -- transforms local URLs to absolute one
+	full			(1|0)	#IMPLIED -- test with full content and excerpt
+	>
+	*/
+	public function EntryIfContentCut($attr,$content)
+	{
+		if (empty($attr['cut_string']) || !empty($attr['full'])) {
+			return '';
+		}
+
+		$urls = '0';
+		if (!empty($attr['absolute_urls'])) {
+			$urls = '1';
+		}
+
+		$short = $this->getFilters($attr);
+		$cut = $attr['cut_string'];
+		$attr['cut_string'] = 0;
+		$full = $this->getFilters($attr);
+		$attr['cut_string'] = $cut;
+
+		return '<?php if (strlen('.sprintf($full,'$_ctx->posts->getContent('.$urls.')').') > '.
+			'strlen('.sprintf($short,'$_ctx->posts->getContent('.$urls.')').')) : ?>'.
+			$content.
+			'<?php endif; ?>';
 	}
 
 	/*dtd
@@ -2986,130 +3016,5 @@ class dcTemplate extends template
 	public function GenericElse($attr)
 	{
 		return '<?php else: ?>';
-	}
-}
-
-# Template nodes, for parsing purposes
-
-# Generic list node, this one may only be instanciated
-# once for root element
-class tplNode
-{
-	# Basic tree structure : links to parent, children forrest
-	protected $parentNode;
-	protected $children;
-
-	public function __construct() {
-		$this->children = array();
-		$this->parentNode = null;
-	}
-
-	// Returns compiled block
-	public function compile($tpl) {
-		$res='';
-		foreach ($this->children as $child) {
-			$res .= $child->compile($tpl);
-		}
-		return $res;
-	}
-
-	# Add a children to current node
-	public function addChild ($child) {
-		$this->children[] = $child;
-		$child->setParent($this);
-	}
-
-	# Defines parent for current node
-	protected function setParent($parent) {
-		$this->parentNode = $parent;
-	}
-
-	# Retrieves current node parent.
-	# If parent is root node, null is returned
-	public function getParent() {
-		return $this->parentNode;
-	}
-
-	# Current node tag
-	public function getTag() {
-		return "ROOT";
-	}
-}
-
-// Text node, for any non-tpl content
-class tplNodeText extends tplNode
-{
-	// Simple text node, only holds its content
-	protected $content;
-
-	public function __construct($text) {
-		parent::__construct();
-		$this->content=$text;
-	}
-
-	public function compile($tpl) {
-		return $this->content;
-	}
-
-	public function getTag() {
-		return "TEXT";
-	}
-}
-
-// Block node, for all <tpl:Tag>...</tpl:Tag>
-class tplNodeBlock extends tplNode
-{
-	protected $attr;
-	protected $tag;
-	protected $closed;
-
-	public function __construct($tag,$attr) {
-		parent::__construct();
-		$this->content='';
-		$this->tag = $tag;
-		$this->attr = $attr;
-		$this->closed=false;
-	}
-	public function setClosing() {
-		$this->closed = true;
-	}
-	public function isClosed() {
-		return $this->closed;
-	}
-	public function compile($tpl) {
-		if ($this->closed) {
-			$content = parent::compile($tpl);
-			return $tpl->compileBlockNode($this->tag,$this->attr,$content);
-		} else {
-			// if tag has not been closed, silently ignore its content...
-			return '';
-		}
-	}
-	public function getTag() {
-		return $this->tag;
-	}
-}
-
-// Value node, for all {{tpl:Tag}}
-class tplNodeValue extends tplNode
-{
-	protected $attr;
-	protected $str_attr;
-	protected $tag;
-
-	public function __construct($tag,$attr,$str_attr) {
-		parent::__construct();
-		$this->content='';
-		$this->tag = $tag;
-		$this->attr = $attr;
-		$this->str_attr = $str_attr;
-	}
-
-	public function compile($tpl) {
-		return $tpl->compileValueNode($this->tag,$this->attr,$this->str_attr);
-	}
-
-	public function getTag() {
-		return $this->tag;
 	}
 }

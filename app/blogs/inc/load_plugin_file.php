@@ -46,6 +46,13 @@ if (empty($_GET['pf'])) {
 	exit;
 }
 
+// $_GET['v'] : version in url to bypass cache in case of dotclear upgrade or in dev mode
+// but don't care of value
+if (isset($_GET['v']))
+{
+    unset($_GET['v']);
+}
+
 // Only $_GET['pf'] is allowed in URL
 if (count($_GET) > 1)
 {
@@ -54,7 +61,7 @@ if (count($_GET) > 1)
     exit;
 }
 
-$allow_types = array('png','jpg','jpeg','gif','css','js','swf');
+$allow_types = array('png','jpg','jpeg','gif','css','js','swf','svg');
 
 $pf = path::clean($_GET['pf']);
 
@@ -87,7 +94,7 @@ if (!in_array(files::getExtension($PF),$allow_types)) {
 	exit;
 }
 
-http::$cache_max_age = 7200;
+http::$cache_max_age = 7 * 24 * 60 * 60;	// One week cache for plugin's files served by ?pf=… is better than old 2 hours
 http::cache(array_merge(array($PF),get_included_files()));
 
 header('Content-Type: '.files::getMimeType($PF));

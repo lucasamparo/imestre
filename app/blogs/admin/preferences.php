@@ -101,7 +101,7 @@ if (isset($_POST['user_name']))
 {
 	try
 	{
-		$pwd_check = !empty($_POST['cur_pwd']) && $core->auth->checkPassword(crypt::hmac(DC_MASTER_KEY,$_POST['cur_pwd']));
+		$pwd_check = !empty($_POST['cur_pwd']) && $core->auth->checkPassword($core->auth->crypt($_POST['cur_pwd']));
 
 		if ($core->auth->allowPassChange() && !$pwd_check && $user_email != $_POST['user_email']) {
 			throw new Exception(__('If you want to change your email or password you must provide your current password.'));
@@ -175,6 +175,7 @@ if (isset($_POST['user_editor']))
 		$user_options['post_format'] = $_POST['user_post_format'];
 		$user_options['editor'] = $_POST['user_editor'];
 		$user_options['enable_wysiwyg'] = !empty($_POST['user_wysiwyg']);
+		$user_options['toolbar_bottom'] = !empty($_POST['user_toolbar_bottom']);
 
 		$cur->user_options = new ArrayObject($user_options);
 
@@ -351,28 +352,6 @@ dcPage::open($page_title,
 	))
 );
 
-if (!empty($_GET['upd'])) {
-	dcPage::success(__('Personal information has been successfully updated.'));
-}
-if (!empty($_GET['updated'])) {
-	dcPage::success(__('Personal options has been successfully updated.'));
-}
-if (!empty($_GET['db-updated'])) {
-	dcPage::success(__('Dashboard options has been successfully updated.'));
-}
-if (!empty($_GET['append'])) {
-	dcPage::success(__('Favorites have been successfully added.'));
-}
-if (!empty($_GET['neworder'])) {
-	dcPage::success(__('Favorites have been successfully updated.'));
-}
-if (!empty($_GET['removed'])) {
-	dcPage::success(__('Favorites have been successfully removed.'));
-}
-if (!empty($_GET['replaced'])) {
-	dcPage::success(__('Default favorites have been successfully updated.'));
-}
-
 # User profile
 echo '<div class="multi-part" id="user-profile" title="'.__('My profile').'">';
 
@@ -497,6 +476,10 @@ form::field('user_edit_size',5,4,(integer) $user_options['edit_size']).'</p>'.
 '<p><label for="user_wysiwyg" class="classic">'.
 form::checkbox('user_wysiwyg',1,$user_options['enable_wysiwyg']).' '.
 __('Enable WYSIWYG mode').'</label></p>'.
+
+'<p><label for="user_toolbar_bottom" class="classic">'.
+form::checkbox('user_toolbar_bottom',1,$user_options['toolbar_bottom']).' '.
+__('Display editor\'s toolbar at bottom of textarea (if possible)').'</label></p>'.
 
 '</div>';
 

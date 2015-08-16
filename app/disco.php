@@ -4,6 +4,16 @@
 	if(!($_SESSION['logado'])){
 		header('Location: index.php');
 	}
+	
+	if(isset($_GET['a'])){
+		$c = new Chamado();
+		$c->setIdProfessor($_SESSION['idProfessor']);
+		$c->setConteudo('Solicitação de uso do disco');
+		$c->setStatus('A');
+		$c->setDataChamado(date('Y-m-d'));
+		$c->inserirChamado();
+		header('Location: disco.php');
+	}
 ?>
 <html>
 <head>
@@ -37,9 +47,25 @@
 					<iframe src="quixplorer/index.php" width="950px" height="600px"></iframe>
 					<?
 				} else {
-					?>
-					<h4>Solicite o seu acesso ao Disco Virtual!</h4>
-					<?
+				$c = new Chamado();
+					$chamados = $c->retornarChamadosAbertos();
+					$blog = false;
+					foreach($chamados as $c){
+						if($c->getConteudo() == 'Solicitação de uso do disco'){
+							$blog = true;
+						}
+					}
+					if($blog){
+						?>
+						<h4>Solicitação de Acesso efetuada.</h4>
+						<h3>Acompanhe a solicitação <a href="chamados.php">clicando aqui</a></h3>
+						<?
+					} else {
+						?>
+						<h4>Solicite o seu acesso ao seu Blog!</h4>
+						<h3><a href="disco.php?a=1">Clique Aqui</a></h3>
+						<?
+					}
 				}
 			?>
 			

@@ -25,7 +25,7 @@ function dotclearUpgrade($core)
 		try
 		{
 			if ($core->con->driver() == 'sqlite') {
-				throw new Exception(__('SQLite Database Schema cannot be upgraded.'));
+				return false; // Need to find a way to upgrade sqlite database
 			}
 
 			# Database upgrade
@@ -429,6 +429,29 @@ function dotclearUpgrade($core)
 					$strReq = sprintf($strReqFormat,'nb_post_for_home',$rs->f(0),'Nb of posts on home (first page only)');
 					$core->con->execute($strReq);
 				}
+			}
+
+			if (version_compare($version,'2.8','<'))
+			{
+				# switch from jQuery 1.11.1 to 1.11.2
+				$strReq = 'UPDATE '.$core->prefix.'setting '.
+						" SET setting_value = '1.11.3' ".
+						" WHERE setting_id = 'jquery_version' ".
+						" AND setting_ns = 'system' ".
+						" AND setting_value = '1.11.1' ";
+				$core->con->execute($strReq);
+				# setup media_exclusion (cope with php, php5, php7, … rather than only .php)
+				$strReq = 'UPDATE '.$core->prefix.'setting '.
+						" SET setting_value = '/\\.php[0-9]*\$/i' ".
+						" WHERE setting_id = 'media_exclusion' ".
+						" AND setting_ns = 'system' ".
+						" AND setting_value = '/\\.php\$/i' ";
+				$core->con->execute($strReq);
+				# Some new settings should be initialized, prepare db queries
+				$strReq = 'INSERT INTO '.$core->prefix.'setting'.
+						' (setting_id,setting_ns,setting_value,setting_type,setting_label)'.
+						' VALUES(\'%s\',\'system\',\'%s\',\'boolean\',\'%s\')';
+				$core->con->execute(sprintf($strReq,'no_search','0','Disable internal search system'));
 			}
 
 			$core->setVersion('core',DC_VERSION);

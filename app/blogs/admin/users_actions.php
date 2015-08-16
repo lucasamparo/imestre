@@ -96,7 +96,7 @@ if (!empty($_POST['action']) && !empty($_POST['users']))
 	{
 		try
 		{
-			if (empty($_POST['your_pwd']) || !$core->auth->checkPassword(crypt::hmac(DC_MASTER_KEY,$_POST['your_pwd']))) {
+			if (empty($_POST['your_pwd']) || !$core->auth->checkPassword($core->auth->crypt($_POST['your_pwd']))) {
 				throw new Exception(__('Password verification failed'));
 			}
 
@@ -216,13 +216,14 @@ if (!empty($users) && empty($blogs) && $action == 'blogs')
 		'<table><tr>'.
 		'<th class="nowrap" colspan="2">'.__('Blog ID').'</th>'.
 		'<th class="nowrap">'.__('Blog name').'</th>'.
+		'<th class="nowrap">'.__('URL').'</th>'.
 		'<th class="nowrap">'.__('Entries').'</th>'.
 		'<th class="nowrap">'.__('Status').'</th>'.
 		'</tr>';
 
 		while ($rs->fetch())
 		{
-			$img_status = $rs->blog_status == 1 ? 'check-on' : 'check-off';
+			$img_status = $rs->blog_status == 1 ? 'check-on' : ($rs->blog_status == 0 ? 'check-off' : 'check-wrn');
 			$txt_status = $core->getBlogStatus($rs->blog_status);
 			$img_status = sprintf('<img src="images/%1$s.png" alt="%2$s" title="%2$s" />',$img_status,$txt_status);
 
@@ -232,6 +233,8 @@ if (!empty($users) && empty($blogs) && $action == 'blogs')
 			form::checkbox(array('blogs[]'),$rs->blog_id,'','','',false,'title="'.__('select').' '.$rs->blog_id.'"').'</td>'.
 			'<td class="nowrap">'.$rs->blog_id.'</td>'.
 			'<td class="maximal">'.html::escapeHTML($rs->blog_name).'</td>'.
+			'<td class="nowrap"><a class="outgoing" href="'.html::escapeHTML($rs->blog_url).'">'.html::escapeHTML($rs->blog_url).
+				' <img src="images/outgoing-blue.png" alt="" /></a></td>'.
 			'<td class="nowrap">'.$core->countBlogPosts($rs->blog_id).'</td>'.
 			'<td class="status">'.$img_status.'</td>'.
 			'</tr>';
