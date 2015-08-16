@@ -13,6 +13,7 @@
  * @property integer $tituloMax
  * @property string $areaAtuacao
  * @property integer $nivelAtuacao
+ * @property string $horarios
  * @property string $logradouro
  * @property string $numero
  * @property string $bairro
@@ -111,6 +112,14 @@ abstract class BaseProfessor extends Doctrine_Record
              'unsigned' => false,
              'primary' => false,
              'notnull' => false,
+             'autoincrement' => false,
+             ));
+        $this->hasColumn('horarios', 'string', null, array(
+             'type' => 'string',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => true,
              'autoincrement' => false,
              ));
         $this->hasColumn('logradouro', 'string', 100, array(

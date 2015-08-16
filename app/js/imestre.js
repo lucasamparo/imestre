@@ -12,6 +12,28 @@ function confirmacao(url) {
     }
 }
 
+function arrumaDataFullCalendar(data){
+	//Modelo 2015-08-13T11:00:00.000Z
+	mes = data.getMonth()+1;
+	if(mes < 10){
+		mes = '0'+mes;
+	}
+	dia = data.getDate();
+	if(dia < 10){
+		dia = '0'+dia;
+	}
+	hora = data.getHours();
+	if(hora < 10){
+		hora = '0'+hora;
+	}
+	minuto = data.getMinutes();
+	if(minuto < 10){
+		minuto = '0'+minuto;
+	}
+	saida = data.getFullYear()+'-'+mes+'-'+dia+'T'+hora+':'+minuto+':00.000Z';
+	return saida;
+}
+
 
 function validaEmail(email){
     var exclude=/[^@\-\.\w]|^[_@\.\-]|[\._\-]{2}|[@\.]{2}|(@)[^@]*\1/;

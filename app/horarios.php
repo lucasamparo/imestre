@@ -7,16 +7,22 @@
 	$p = new Professor();
 	$p->setIdProfessor($_SESSION['idProfessor']);
 	$professor = $p->retornaProfessorPorId();
-	$nome = explode(" ",$professor->getNomeProfessor());
 	
-	if(isset($_GET['id'])){
-		$i = new Instituicao();
-		$i->setIdInstituicao($_GET['id']);
-		$i = $i->retornaInstituicaoPorId();
-		$turmas = $i->getTurma();
-	} else {
-		header('Location: inicio.php');
+	if(isset($_POST['json'])){
+		$json = $_POST['json'];
+		$json = str_replace("'", '"', $json);
+		$array = explode("#$#",$json);
+		$a = array();
+		for($i = 0; $i < (count($array)-1); $i++){
+			$a[] = $array[$i];
+		}
+		$stringJson = json_encode($a);
+		$professor->setHorarios($stringJson);
+		$professor->alterarHorarios();
 	}
+	
+	$t = new Turma();
+	$turmas = $t->retornarTurmasDeProfessor($professor->getIdProfessor());
 ?>
 
 <html>
@@ -27,32 +33,16 @@
 <script language="JScript" src="js/vendor/modernizr.js"></script>
 <script language="JScript" src="js/foundation.min.js"></script>
 <script language="JScript" src='js/jquery.simplemodal.js'></script>
+<script language="JScript" src='js/imestre.js'></script>
 <link rel="stylesheet" href="js/fullcalendar/fullcalendar.css" />
 <script src='js/fullcalendar/lib/moment.min.js' charset="utf-8"></script>
 <script src='js/fullcalendar/fullcalendar.js' charset="utf-8"></script>
 <script src='js/fullcalendar/lang/pt-br.js'></script>
 	<script language="Javascript">
 		$(document).ready(function() {
-			var codigo = <?= $_GET['id']?>; 
-			var retorno;
-			var horas;
-			var DoW = [];
-			 var req = $.ajax({
-			    url:    "wsInstituicao.php",
-			    type:   "get",
-			    dataType:"json",
-			    data:   "id="+codigo,
-			    async: false,
-
-			    success: function( data ){
-			        retorno = data;
-			        horas = JSON.parse(data.funcionamento);
-			        for(i = 0; i < 7; i++){
-						if(data.dias[i] == 1){
-							DoW.push(i);
-						}
-			        }    
-			    }
+			$('#imprimir').click(function (){
+				val = $('#json').val();
+				$('#valores').val(val);
 			});
 			$('#inserirEvento').click(function (){
 				var event = new Object();	
@@ -67,6 +57,11 @@
 				tempo = horaInicio.getTime()+($('#ch').val()*minutos);
 				var horaFinal = new Date(tempo);
 				event.end = horaFinal;
+				//json = JSON.stringify(event);
+				json = '{"title":"'+event.title+'","dow":"'+horaInicio.getDay()+'","start":"'+arrumaDataFullCalendar(event.start)+'","end":"'+arrumaDataFullCalendar(event.end)+'"}';
+				val = $('#json').val();
+				val = val + json + "#$#";
+				$('#json').val(val);
 				if(horaInicio.getHours() > 18){
 					$('#noite').fullCalendar('renderEvent',event);
 				} else{
@@ -81,16 +76,22 @@
 				$('#warpManha').css('display','inline');
 				$('#warpTarde').css('display','none');
 				$('#warpNoite').css('display','none');
+				$('#turno').attr('checked',true);
+				$('#turno').val('manha');
 			});
 			$('#btTarde').click(function (){
 				$('#warpManha').css('display','none');
 				$('#warpTarde').css('display','inline');
 				$('#warpNoite').css('display','none');
+				$('#turno').attr('checked',true);
+				$('#turno').val('tarde');
 			});
 			$('#btNoite').click(function (){
 				$('#warpManha').css('display','none');
 				$('#warpTarde').css('display','none');
 				$('#warpNoite').css('display','inline');
+				$('#turno').attr('checked',true);
+				$('#turno').val('noite');
 			});
 			$('#manha').fullCalendar({
 				header: {
@@ -102,21 +103,40 @@
 				},
 				defaultView: 'agendaWeek',
 				eventLimit: true,
-				events: {
+				events: [
 					//Aqui é onde você irá inserir os dados que irão aparecer no caledário
-					//Nesse caso, ele importa um json que vem da página json.php
-				},
+					<?php 
+						$horarios = $professor->getHorarios();
+						$horarios = json_decode($horarios);
+						$count = count($horarios);
+						for($i = 0; $i < $count; $i++){
+							$x = json_decode($horarios[$i]);
+							$data = date('Y-m-d');
+							$d = explode("-", $data);
+							$diaAtual = date('w',mktime(0,0,0,$d[1],$d[2],$d[0]));
+							$tStamp = strtotime($data);
+							$diaAlvo = date('Y-m-d',strtotime(($x->dow - $diaAtual).' day',$tStamp));
+							$tmp = explode("T", $x->start);
+							$dataAlvo = $diaAlvo."T".$tmp[1];
+							if($i == ($count - 1)){
+								echo "{ title: '".$x->title."', start: '".$dataAlvo."', end: '".$x->end."'}";
+							} else {
+								echo "{ title: '".$x->title."', start: '".$dataAlvo."', end: '".$x->end."'},";
+							}							
+						}
+					?>
+				],
 				//Aqui habilita a edição em tempo de execução, com Drag&Drop.
-				editable: true,
+				editable: false,
 				eventDurationEditable: false,
 				eventDrop: function (event) {
 					//Evendo disparado quando solta o horário
 				},
 				//Aqui configura o horário que o calendário "funcionará"
 				businessHours: {
-					start: horas.manhaEntrada,
-					end: horas.manhaSaida,
-					dow: DoW
+					start: "07:00:00",
+					end: "12:30:00",
+					dow: "0123456"
 				},
 				eventClick: function (e){
 					
@@ -127,9 +147,9 @@
 				//Aqui configura a divisão de espaços do calendário
 				slotDuration: '00:20:00',
 				//Aqui configura o primeiro horário que aparecerá no calendário
-				minTime: horas.manhaEntrada,
+				minTime: "07:00:00",
 				//Aqui configura o último horário que aparecerá no calendário
-				maxTime: horas.manhaSaida,
+				maxTime: "12:30:00",
 				contentHeight: 450
 			});
 			$('#tarde').fullCalendar({
@@ -142,10 +162,22 @@
 				},
 				defaultView: 'agendaWeek',
 				eventLimit: true,
-				events: {
+				events:  [
 					//Aqui é onde você irá inserir os dados que irão aparecer no caledário
-					//Nesse caso, ele importa um json que vem da página json.php
-				},
+					<?php 
+						$horarios = $professor->getHorarios();
+						$horarios = json_decode($horarios);
+						$count = count($horarios);
+						for($i = 0; $i < $count; $i++){
+							$x = json_decode($horarios[$i]);
+							if($i == ($count - 1)){
+								echo "{ title: '".$x->title."', start: '".$x->start."', end: '".$x->end."'}";
+							} else {
+								echo "{ title: '".$x->title."', start: '".$x->start."', end: '".$x->end."'},";
+							}							
+						}
+					?>
+				],
 				//Aqui habilita a edição em tempo de execução, com Drag&Drop.
 				editable: true,
 				eventDurationEditable: false,
@@ -154,9 +186,9 @@
 				},
 				//Aqui configura o horário que o calendário "funcionará"
 				businessHours: {
-					start: horas.tardeEntrada,
-					end: horas.tardeSaida,
-					dow: DoW
+					start: "13:00:00",
+					end: "18:30:00",
+					dow: "0123456"
 				},
 				eventClick: function (e){
 					
@@ -182,10 +214,22 @@
 				},
 				defaultView: 'agendaWeek',
 				eventLimit: true,
-				events: {
+				events:  [
 					//Aqui é onde você irá inserir os dados que irão aparecer no caledário
-					//Nesse caso, ele importa um json que vem da página json.php
-				},
+					<?php 
+						$horarios = $professor->getHorarios();
+						$horarios = json_decode($horarios);
+						$count = count($horarios);
+						for($i = 0; $i < $count; $i++){
+							$x = json_decode($horarios[$i]);
+							if($i == ($count - 1)){
+								echo "{ title: '".$x->title."', start: '".$x->start."', end: '".$x->end."'}";
+							} else {
+								echo "{ title: '".$x->title."', start: '".$x->start."', end: '".$x->end."'},";
+							}							
+						}
+					?>
+				],
 				//Aqui habilita a edição em tempo de execução, com Drag&Drop.
 				editable: true,
 				eventDurationEditable: false,
@@ -194,9 +238,9 @@
 				},
 				//Aqui configura o horário que o calendário "funcionará"
 				businessHours: {
-					start: horas.noiteEntrada,
-					end: horas.noiteSaida,
-					dow: DoW
+					start: "18:00:00",
+					end: "22:00:00",
+					dow: "0123456"
 				},
 				eventClick: function (e){
 					
@@ -249,6 +293,38 @@
 			<div id="warpManha"><div id="manha"></div></div>
 			<div id="warpTarde"><div id="tarde"></div></div>
 			<div id="warpNoite"><div id="noite"></div></div>
+			<fieldset>
+				<?php 
+					//Criando conteúdo da persistência;
+					$h = json_decode($professor->getHorarios());
+					$paraJson = "";
+					if(!is_null($h)){
+						foreach($h as $a){
+							$paraJson .= $a."#$#";
+						}
+						$paraJson = str_replace('"', "'", $paraJson);
+					}					
+				?>
+				<legend>Configurações</legend>
+				<form method="post" action="horarios.php">
+					<input type="hidden" name="json" id="json" value="<?= $paraJson?>">
+					<div class="large-4 columns">
+						<input type="submit" name="persistir" value="Persistir Horários" id="persistir" class="tiny button large-6">
+					</div>
+				</form>
+				<form method="post" action="imprimirHorario.php">
+					<div class="large-4 columns">
+						<input type="radio" name="modo" value="completo" id="completo" checked><label for="completo">Imprimir Horário Completo</label>
+					</div>
+					<div class="large-3 columns">
+						<input type="radio" name="modo" id="turno"><label for="completo">Imprimir Turno Atual</label>
+					</div>
+					<div class="large-1 columns">
+						<input type="hidden" name="valores" id="valores">
+						<input type="submit" value="Imprimir" class="tiny button" id="imprimir">
+					</div>
+				</form>
+			</fieldset>
 			<fieldset>
 				<legend>Novo Evento</legend>
 				<div class="large-3 columns">

@@ -193,6 +193,13 @@ class Professor extends BaseProfessor{
 		$this->lattes = $lattes;
 		return $this;
 	}
+	public function getHorarios() {
+		return $this->horarios;
+	}
+	public function setHorarios($horarios) {
+		$this->horarios = $horarios;
+		return $this;
+	}
 		
 	public function inserirProfessor(){
 		try{
@@ -352,6 +359,21 @@ class Professor extends BaseProfessor{
 	public function retornarProfessorPorLogin(){
 		try{
 			return $this->getTable()->findOneBy('login', $this->getLogin());
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function alterarHorarios(){
+		try{
+			$tmp = $this->copy();
+			$p = $this->getTable()->findOneBy('idProfessor', $this->getIdProfessor());
+			if($p){
+				if(!is_null($tmp->getHorarios())){
+					$p->setHorarios($tmp->getHorarios());
+				}
+				$p->save();
+			}
 		} catch(Doctrine_Exception $e){
 			echo $e->getMessage();
 		}

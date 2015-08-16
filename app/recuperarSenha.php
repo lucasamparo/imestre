@@ -4,7 +4,6 @@
 	$mensagem = "";
 	$enviado = "";
 	
-	
 ?>
 <html>
 <head>

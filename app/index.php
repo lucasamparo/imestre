@@ -48,6 +48,7 @@
 						<div class="large-3 columns">&nbsp;</div>
 						<div class="large-6 columns end">
 							<input type="submit" name="logar" value="Conectar" class="large-12 button"/>
+							<p class="text-center"><a href="recuperarSenha.php">Recuperar Acesso</a></p>
 						</div>
 						<div class="large-12 columns text-center" style="color: red">
 							<?php 

@@ -204,7 +204,13 @@ public function getIdTurma() {
 	
 	public function retornarTurmasDeProfessor($id){
 		try{
-			$rs = null;
+			$tb = Doctrine_Core::getTable('Instituicao')->findBy('idProfessor', $id);
+			$rs = new Doctrine_Collection('Turma');
+			foreach($tb as $t){
+				foreach($t->getTurma() as $t1){
+					$rs->add($t1);
+				}
+			}
 			return $rs;
 		} catch (Doctrine_Exception $e){
 			echo $e->getMessage();
