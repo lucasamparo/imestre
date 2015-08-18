@@ -10,6 +10,7 @@
 		$aluno->setIdAluno($_POST['idAluno']);
 		$aluno->setNomeAluno($_POST['nomeAluno']);
 		$aluno->setEmailAluno($_POST['emailAluno']);
+		$aluno->setParecer($_POST['parecer']);
 		$aluno->atualizarAluno();
 	}
 ?>
@@ -25,10 +26,11 @@
 <script language="JScript" src='js/jquery.dataTables.js'></script>
 <script language="JScript" src='js/imestre.js'></script>
 <script language="JScript">
-function completaEdicao(codigo,nome,email){
+function completaEdicao(codigo,nome,email,parecer){
 	$('#nomeAluno').val(nome);
 	$('#emailAluno').val(email);
 	$('#idAluno').val(codigo);
+	$('#parecer').val(parecer);
 	$('#legenda').html('Editando '+nome);
 	$('#edicao').css('display','inline');
 }
@@ -101,7 +103,7 @@ $(document).ready(function() {
 								echo '<tr>';
 								echo '<td>'.$a->getNomeAluno().'</td>';
 								echo '<td>'.$a->getEmailAluno().'</td>';
-								$texto = $a->getIdAluno().","."'".$a->getNomeAluno()."','".$a->getEmailAluno()."'";
+								$texto = $a->getIdAluno().","."'".$a->getNomeAluno()."','".$a->getEmailAluno()."','".$a->getParecer()."'";
 								echo '<td class="text-center"><img src="img/editar.png" width="20" style="cursor: pointer;" onclick="completaEdicao('.$texto.')"></td>';
 								echo '<td class="text-center"><a href="boletimAluno.php?id='.$a->getIdAluno().'" target="_blank"><img src="img/boletim.png" style="cursor: pointer"></a></td>';
 								echo '</tr>';
@@ -121,6 +123,10 @@ $(document).ready(function() {
 						<div class="large-12 columns">
 							<label>Email Válido:</label>
 								<input type="email" name="emailAluno" id="emailAluno">
+						</div>
+						<div class="large-12 columns">
+							<label>Parecer Individual:</label>
+								<textarea name="parecer" id="parecer" rows="4"></textarea>
 						</div>
 						<div class="large-4 columns">&nbsp;</div>
 						<div class="large-4 columns">&nbsp;</div>
