@@ -11,8 +11,8 @@
 		$turma = $t->retornaTurmaPorId();
 		
 		$alunos = $turma->getAlunoTurma();
-		if(isset($_POST['meses'])){
-			$aulas = $turma->retornaAulasPorMes($_POST['meses']);
+		if(isset($_POST['mesesEd'])){
+			$aulas = $turma->retornaAulasPorMes($_POST['mesesEd']);
 		} else {
 			$mes = date('m');
 			$aulas = $turma->retornaAulasPorMes($mes);
@@ -24,10 +24,12 @@
 			for($i = 0; $i < $qtd_alunos; $i++){
 				for($x = 0; $x < $qtd_aulas; $x++){
 					$f = new Frequencia();
-					$f->setIdAluno($alunos[$i]->getAluno()->getIdAluno());
-					$f->setIdPlanejamento($aulas[$x]->getIdPlanejaementa());
+					$a = $alunos[$i]->getAluno()->getIdAluno();
+					$b = $aulas[$x]->getIdPlanejaementa();
+					$f->setIdAluno($a);
+					$f->setIdPlanejamento($b);
 					$presenca = 'NULL';
-					if(isset($_POST['presenca'.$x.$i])){
+					if(isset($_POST['presenca'.$a.$b])){
 						$presenca = 'P';
 					} else {
 						$presenca = 'A';
@@ -35,13 +37,14 @@
 					$f->setPresenca($presenca);
 					$f->lancarFrequencia();
 				}
-			}	
+			}
+			header('Location: lancarFrequencia.php?id='.$_GET['id']);	
 		}		
 	}
 ?>
 <html>
 <head>
-<title>iMestre :: Listagem de Turmas - Professor <?php echo $_SESSION['nomeProfessor'];?></title>
+<title>iMestre :: Lançamento de Frequências - Professor <?php echo $_SESSION['nomeProfessor'];?></title>
 <link rel="stylesheet" type="text/css" href="css/foundation.css">
 <link rel="stylesheet" type="text/css" href="css/basic_simplemodal.css">
 <script language="JScript" src="js/vendor/jquery.js"></script>
@@ -49,6 +52,13 @@
 <script language="JScript" src="js/foundation.min.js"></script>
 <script language="JScript" src='js/jquery.simplemodal.js'></script>
 <script language="JScript" src='js/imestre.js'></script>
+<script language="JScript">
+	$(document).ready(function(){
+		$('#meses').change(function (){
+			$('#mesesEd').val($('#meses').val());
+		});
+	});
+</script>
 </head>
 <body>
 	<div class="row"><!-- Linha do header -->
@@ -98,10 +108,19 @@
 					<thead>
 						<th>Aluno</th>
 						<?php
+							$planos = array();
+							if(isset($_POST['meses'])){
+								$aulas = $turma->retornaAulasPorMes($_POST['meses']);
+							} else {
+								$mes = date('m');
+								$aulas = $turma->retornaAulasPorMes($mes);
+							}
 							foreach($aulas as $a){
+								$planos[] = $a->getIdPlanejaEmenta();
 								$data = explode("-",$a->getPrevisto());
 								echo '<th>'.$data[2].'/'.$data[1].'</th>';
 							}
+							$qtd_aulas = count($aulas);
 						?>
 					</thead>
 					<tbody>
@@ -109,13 +128,15 @@
 							$j = 0;
 							foreach($alunos as $a){
 								echo '<tr>';
+									$idAluno = $a->getAluno()->getIdAluno();
 									echo '<td>'.$a->getAluno()->getNomeAluno().'</td>';
 									for($i = 0; $i < $qtd_aulas; $i++){
+										$idPlan = $planos[$i];
 										$checked = '';
 										if(Frequencia::verificarFrequencia($a->getAluno()->getIdAluno(), $aulas[$i]->getIdPlanejaEmenta()) == 'P'){
 											$checked = 'checked';
 										}
-										echo '<td><input type="checkbox" '.$checked.' name="presenca'.$i.$j.'"></td>';										
+										echo '<td><input type="checkbox" '.$checked.' name="presenca'.$idAluno.$idPlan.'"></td>';					
 									}
 								echo '</tr>';
 								$j++;
@@ -124,6 +145,13 @@
 					</tbody>
 				</table>
 					<input type="hidden" name="valida" value="0">
+					<?php 
+						$mes = date('m');
+						if(isset($_POST['meses'])){
+							$mes = $_POST['meses'];
+						}
+					?>
+					<input type="hidden" name="mesesEd" id="mesesEd" value="<?= $mes?>">
 					<input type="submit" value="Salvar" class="large-4 button">
 				</form>
 			</div>

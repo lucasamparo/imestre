@@ -61,11 +61,10 @@ class Frequencia extends BaseFrequencia
 			$q = Doctrine_Query::create()
 							->select("*")
 							->from('Frequencia')
-							->from('Frequencia')
 							->where('idAluno = '.$this->getIdAluno())
 							->andWhere('idPlanejamento = '.$this->getIdPlanejamento());
 			$f = $q->execute()[0];
-			if($f){
+			if($f->idFrequencia){
 				$f->setPresenca($tmp->getPresenca());
 				$f->save();
 			} else {

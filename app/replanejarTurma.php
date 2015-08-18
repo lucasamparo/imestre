@@ -73,7 +73,7 @@
 									echo '<td>'.$t->getItemEmenta()->getIndice().'</td>';
 									echo '<td>'.$t->getItemEmenta()->getConteudo().'</td>';
 									echo '<td>'.Util::arrumaData($t->getPrevisto()).'</td>';
-									echo '<td><input type="date" name="nova[]"></td>';
+									echo '<td><input type="date" name="nova[]" value="'.$t->getPrevisto().'"></td>';
 								echo '</tr>';
 							}
 						?>

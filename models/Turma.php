@@ -195,6 +195,7 @@ public function getIdTurma() {
 			$table = Doctrine_Core::getTable('Planejaementa');
 			$query = $table->createQuery()->addWhere("previsto like '".date('Y')."-".$mes."%'")
 											->andWhere('idTurma = '.$this->getIdTurma());
+			//echo $query->getSqlQuery();
 			$rs = $query->execute();
 			return $rs;
 		} catch (Doctrine_Exception $e){
