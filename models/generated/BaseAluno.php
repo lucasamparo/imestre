@@ -88,5 +88,6 @@ abstract class BaseAluno extends Doctrine_Record
         $this->hasMany('Responde', array(
              'local' => 'idAluno',
              'foreign' => 'idAluno'));
-    }	
+    }
+		
 }

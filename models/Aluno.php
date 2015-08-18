@@ -60,6 +60,13 @@ class Aluno extends BaseAluno{
 		$this->Professor = $Professor;
 		return $this;
 	}
+	public function getParecer() {
+		return $this->parecer;
+	}
+	public function setParecer($parecer) {
+		$this->parecer = $parecer;
+		return $this;
+	}
 	
 	public function inserirAluno(){
 		try{
@@ -105,6 +112,9 @@ class Aluno extends BaseAluno{
 				}
 				if(!is_null($this->getEmailAluno())){
 					$aluno->setEmailAluno($this->getEmailAluno());
+				}
+				if(!is_null($this->getParecer())){
+					$aluno->setParecer($this->getParecer());
 				}
 				$aluno->save();
 				return true;
