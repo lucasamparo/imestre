@@ -152,7 +152,8 @@
 						}
 					?>
 					<input type="hidden" name="mesesEd" id="mesesEd" value="<?= $mes?>">
-					<input type="submit" value="Salvar" class="large-4 button">
+					<input type="submit" value="Salvar" class="large-3 button">
+					<a href="imprimirFrequencia.php?id=<?= $_GET['id']?>" target="_blank" class="large-3 button">Imprimir</a>
 				</form>
 			</div>
 		</div>

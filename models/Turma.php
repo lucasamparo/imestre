@@ -218,6 +218,37 @@ public function getIdTurma() {
 		}
 	}
 	
+	public function retornarAulasPlanejadas(){
+		try{
+			$tb = Doctrine_Core::getTable('Planejaementa')->createQuery()
+									->where("idTurma = ".$this->getIdTurma())
+									->orderBy("previsto")
+									->execute();
+			return $tb;
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
+	public function retornarAlunosEmOrdem(){
+		try{
+			$tb = $this->getAlunoturma();
+			$c = count($tb);
+			for($i = 0; $i < $c; $i++){
+				for($j = ($i+1); $j < $c; $j++){
+					if($tb[$i]->getAluno()->getNomeAluno() > $tb[$j]->getAluno()->getNomeAluno()){
+						$tmp = $tb[$i]->copy();
+						$tb[$i] = $tb[$j];
+						$tb[$j] = $tmp;
+					}
+				}
+			}
+			return $tb;
+		} catch (Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
 	public function getJson(){
 		$array = Array();
 		$array['idTurma'] = utf8_encode($this->idTurma);

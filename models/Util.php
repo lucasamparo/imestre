@@ -47,25 +47,6 @@ class Util{
 		echo $interval->format('%Y');
 	}
 	
-	static public function retornaParentesco($codigo){
-		switch ($codigo){
-			case 0:
-				return "Pai";
-			case 1:
-				return "Măe";
-			case 2:
-				return "Irmă(o)";
-			case 3:
-				return "Primo(a)";
-			case 4:
-				return "Tio(a)";
-			case 5:
-				return "Esposo(a)";
-			case 6:
-				return "Filho(a)";
-		}
-	}
-	
 	static public function retornaTipoQuestao($codigo){
 		switch($codigo){
 			case 0:
@@ -108,6 +89,26 @@ class Util{
 				return "Novembro";
 			case 12:
 				return "Dezembro";
+		}
+	}
+	
+	static public function ordenarObjeto($objeto, $ordenador, $operador){
+		//TODO
+		$c = count($objeto);
+		for($i = 0; $i < $c; $i++){
+			for($j = 1; $j < $i; $j++){
+				$tmp = null;
+				switch ($operador){
+					case "<":
+						if($objeto[$i]->$ordenador < $objeto[$j]->$ordenador){
+	
+						}
+						break;
+					case ">":
+							
+						break;
+				}
+			}
 		}
 	}
 }

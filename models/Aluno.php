@@ -134,6 +134,19 @@ class Aluno extends BaseAluno{
 		}
 	}
 	
+	public function retornarPresencasEmTurma($idTurma){
+		try{
+			$tb = Doctrine_Core::getTable('Frequencia')->createQuery()
+								->select('f.presenca')
+								->from('frequencia f, aluno a, planejaementa p, turma t')
+								->where('f.idAluno = a.idAluno AND f.idPlanejamento = p.idPlanejaEmenta AND p.idTurma = t.idTurma AND p.idTurma = '.$idTurma.' AND f.idAluno = '.$this->getIdAluno())
+								->orderBy('p.previsto');
+			return $tb->execute();
+		} catch(Doctrine_Exception $e){
+			echo $e->getMessage();
+		}
+	}
+	
 	function getJson(){
 		$array = Array();
 		$array['idAluno'] = utf8_encode($this->idAluno);
