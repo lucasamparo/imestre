@@ -77,14 +77,18 @@
 											}
 										}
 									}
-									echo '<td><input type="number" step="0.01" name="notas[]" value="'.$conceito.'"></td>';
+									echo '<td><input type="number" step="0.01" min="0" max="10" name="notas[]" value="'.$conceito.'"></td>';
 								echo "</tr>";
 							}
 						?>
 					</tbody>
 				</table>
-				<div class="large-12 columns text-right">
-					<input type="submit" value="Salvar" class="button large-4">
+				<div class="large-4 columns">
+					<a href="avaliacoesTurma.php?id=<?= $turma->getIdTurma()?>" class="button large-12">Voltar</a>
+				</div>
+				<div class="large-4 columns">&nbsp;</div>
+				<div class="large-4 columns">
+					<input type="submit" value="Salvar" class="button large-12">
 				</div>
 			</form>
 		</div>

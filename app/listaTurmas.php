@@ -78,9 +78,11 @@ function completaEdicao(codigo){
 				<table class="large-12">
 					<thead>
 						<th class="text-center" width="20%">Nome (Disciplina)</th>
-						<th class="text-center" width="7%">C. Horária</th>
+						<th class="text-center" width="5%">C.H.</th>
 						<th class="text-center" width="4%">Turno</th>
 						<th class="text-center" width="15%">Instituição</th>
+						<th class="text-center" width="4%"><img src="img/avaliacao_turma.png" width="25px" title="Avaliações da turma"></th>
+						<th class="text-center" width="4%"><img src="img/boletim.png" width="25px" title="Boletim da Turma"></th>
 						<th class="text-center" width="4%"><img src="img/alunos.jpg" width="25px" title="Inserir Alunos na Turma"></th>
 						<th class="text-center" width="4%"><img src="img/planejar.png" width="20" title="Planejar Aulas"></th>
 						<th class="text-center" width="4%"><img src="img/frequencia.png" width="20" title="Lançar Frequência"></th>
@@ -111,17 +113,19 @@ function completaEdicao(codigo){
 										echo '<td>'.$t->getCargaHoraria().' H</td>';
 										$turno = $t->getTurno();
 										if($turno == 0){
-											$turno = 'Matutino';
+											$turno = 'Mat.';
 										}
 										if($turno == 1){
-											$turno = 'Vespertino';
+											$turno = 'Ves.';
 										}
 										if($turno == 2){
-											$turno = 'Noturno';
+											$turno = 'Not.';
 										}
 										echo '<td>'.$turno.'</td>';
 										$ia->setIdInstituicao($t->getIdInstituicao());
 										echo '<td>'.$ia->retornaInstituicaoPorId()->getNomeInstituicao().'</td>';
+										echo '<td class="text-center"><a href="avaliacoesTurma.php?id='.$t->getIdTurma().'"><img src="img/avaliacao_turma.png" width="25px"></a></td>';
+										echo '<td class="text-center"><a href="boletimTurma.php?id='.$t->getIdTurma().'" target="_blank"><img src="img/boletim.png" width="25px"></a></td>';
 										echo '<td class="text-center"><a href="alunosEmTurmas.php?id='.$t->getIdTurma().'"><img src="img/alunos.jpg" width="25px"></a></td>';
 										echo '<td class="text-center"><a href="planejarTurma.php?id='.$t->getIdTurma().'"><img src="img/planejar.png" width="20"></a></td>';
 										echo '<td class="text-center"><a href="lancarFrequencia.php?id='.$t->getIdTurma().'"><img src="img/frequencia.png" width="20"></a></td>';
