@@ -93,13 +93,15 @@ $(document).ready(function(){
 						$a = new Avaliacao();
 						$avaliacoes = $a->retornarTodasAvaliacoes(date('Y-m-d'),'>=');
 						foreach($avaliacoes as $a){
-							echo '<tr>';
-								echo '<td>'.Util::arrumaData($a->getDataAvaliacao()).'</td>';
-								echo '<td>'.$a->getTurma()->getNomeTurma().'</td>';
-								echo '<td>'.count($a->getItemAvaliacao()).' Questões</td>';
-								echo '<td class="text-center"><a href="inserirQuestoes.php?id='.$a->getIdAvaliacao().'"><img src="img/questoes.jpg" width="20px"></a></td>';
-								echo '<td class="text-center"><a href="verAvaliacao.php?id='.$a->getIdAvaliacao().'" target="_blank"><img src="img/visualizar.png" width="20px"></a></td>';
-							echo '</tr>';
+							if($a->getTurma()->getInstituicao()->getProfessor()->getIdProfessor() != $_SESSION['idProfessor']){
+								echo '<tr>';
+									echo '<td>'.Util::arrumaData($a->getDataAvaliacao()).'</td>';
+									echo '<td>'.$a->getTurma()->getNomeTurma().'</td>';
+									echo '<td>'.count($a->getItemAvaliacao()).' Questões</td>';
+									echo '<td class="text-center"><a href="inserirQuestoes.php?id='.$a->getIdAvaliacao().'"><img src="img/questoes.jpg" width="20px"></a></td>';
+									echo '<td class="text-center"><a href="verAvaliacao.php?id='.$a->getIdAvaliacao().'" target="_blank"><img src="img/visualizar.png" width="20px"></a></td>';
+								echo '</tr>';
+							}							
 						}
 					?>
 				</tbody>
