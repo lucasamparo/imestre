@@ -13,7 +13,7 @@
 	if(isset($_POST['nomeCompleto'])){
 		$pAtual = new Professor();
 		$pAtual->setIdProfessor($_SESSION['idProfessor']);
-		$pAtual->setNome($_POST['nomeCompleto']);
+		$pAtual->setNomeProfessor($_POST['nomeCompleto']);
 		$pAtual->setLattes($_POST['lattes']);
 		$pAtual->setNascimento($_POST['nascimento']);
 		$pAtual->setTituloMax($_POST['titulo']);

@@ -67,7 +67,7 @@
 					
 					//Conteúdo do email
 					$mensagem = " Professor ".$prof->getNomeProfessor()."<br>";
-					$mensagem .= 'Clique <a href="http://imestre.com/app/recuperarAcesso.php?id='.$prof->getIdProfessor().'">aqui</a> para cadastrar uma nova senha';
+					$mensagem .= 'Clique <a href="http://imestre-lucasamparo.rhcloud.com/app/recuperarAcesso.php?id='.$prof->getIdProfessor().'">aqui</a> para cadastrar uma nova senha';
 					$mensagem .= '<br><br>Equipe iMestre.';
 					
 					

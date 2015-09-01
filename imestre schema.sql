@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 02-Ago-2015 às 17:41
+-- Generation Time: 01-Set-2015 às 17:34
 -- Versão do servidor: 5.6.15-log
 -- PHP Version: 5.5.8
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `imestre`
 --
-CREATE DATABASE IF NOT EXISTS `imestre` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `imestre`;
 
 -- --------------------------------------------------------
 
@@ -35,8 +33,8 @@ CREATE TABLE IF NOT EXISTS `aluno` (
   `emailAluno` varchar(255) DEFAULT NULL,
   `parecer` text,
   PRIMARY KEY (`idAluno`),
-  KEY `idProfessor` (`idProfessor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+  UNIQUE KEY `idProfessor` (`idProfessor`,`emailAluno`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -52,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `alunoturma` (
   PRIMARY KEY (`idAlunoTurma`),
   UNIQUE KEY `idAluno` (`idAluno`,`idTurma`,`ano`),
   KEY `idTurmaAluno` (`idTurma`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 -- --------------------------------------------------------
 
@@ -107,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `avaliacao` (
   `data` date DEFAULT NULL,
   PRIMARY KEY (`idAvaliacao`),
   KEY `idTurmaAvaliacao` (`idTurma`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 
@@ -124,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `chamado` (
   `status` enum('A','E','R','F') NOT NULL,
   PRIMARY KEY (`idChamado`),
   KEY `idProfessor` (`idProfessor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -170,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `frequencia` (
   PRIMARY KEY (`idFrequencia`),
   KEY `idFrequenciaAluno_idx` (`idAluno`),
   KEY `idPlanejamentoAluno_idx` (`idPlanejamento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 -- --------------------------------------------------------
 
@@ -251,7 +249,7 @@ CREATE TABLE IF NOT EXISTS `itemementa` (
   `indice` int(11) DEFAULT NULL,
   `conteudo` text,
   PRIMARY KEY (`idItemEmenta`),
-  KEY `idItemEmenta` (`idEmenta`)
+  UNIQUE KEY `idEmenta` (`idEmenta`,`indice`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 -- --------------------------------------------------------
@@ -267,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `lembrete` (
   `idProfessor` int(11) NOT NULL,
   PRIMARY KEY (`idLembrete`),
   KEY `idProfessor` (`idProfessor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -318,6 +316,7 @@ CREATE TABLE IF NOT EXISTS `professor` (
   `tituloMax` int(11) DEFAULT NULL,
   `areaAtuacao` varchar(50) DEFAULT NULL,
   `nivelAtuacao` int(11) DEFAULT NULL,
+  `horarios` text NOT NULL,
   `logradouro` varchar(100) DEFAULT NULL,
   `numero` varchar(5) DEFAULT NULL,
   `bairro` varchar(20) DEFAULT NULL,
@@ -349,7 +348,7 @@ CREATE TABLE IF NOT EXISTS `questao` (
   `alternativas` text,
   PRIMARY KEY (`idQuestao`),
   KEY `idQuestaoDisciplina` (`idAssunto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 -- --------------------------------------------------------
 

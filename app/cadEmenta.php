@@ -114,7 +114,7 @@ $(document).ready(function (){
 						<legend>Novo Item de Ementa</legend>
 						<div class="large-2 columns">
 							<label>Índice:</label>
-							<input type="number" step="1" id="indice">
+							<input type="number" step="1" id="indice" min="1">
 						</div>
 						<div class="large-10 columns">
 							<label>Conteúdo:</label>

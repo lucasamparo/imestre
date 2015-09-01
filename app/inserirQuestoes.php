@@ -1,3 +1,4 @@
+
 <?php
 	require_once('../models/bootstrap.php');
 	session_start();
@@ -160,7 +161,11 @@ $(document).ready(function (){
 				</div>
 				<div class="large-12 columns">
 					<form method="post" id="formQuestoes">
-						<input type="submit" value="Salvar Questões" class="large-4 button">
+						<div class="large-4 columns"><a href="listaAvaliacoes.php" class="large-12 button">Voltar</a></div>
+						<div class="large-4 columns">&nbsp;</div>
+						<div class="large-4 columns">
+							<input type="submit" value="Salvar Questões" class="large-12 button">
+						</div>						
 						<input type="hidden" value="<?= count($questoesAnt)?>" name="indice">
 					</form>			
 				</div>

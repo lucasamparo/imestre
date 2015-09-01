@@ -1,6 +1,7 @@
 <?php
 	require_once('../models/bootstrap.php');
 	session_start();
+	$mensagem = "";
 	if(!($_SESSION['logado'])){
 		header('Location: index.php');
 	}
@@ -11,6 +12,9 @@
 		$a->setPeso($_POST['peso']);
 		$a->setDataAvaliacao($_POST['data']);
 		$a->inserirAvaliacao();
+		if(!is_null($a->getIdAvaliacao())){
+			$mensagem = "Avaliação Inserida com sucesso!";
+		}
 	}
 ?>
 <html>
@@ -43,6 +47,7 @@
 		<div class="large-10 columns" style="border-left-style: solid; border-width: 1px;">
 			<form method="post" action="cadAvaliacao.php">
 				<h4 class="text-center">Cadastro de Avaliação</h4>
+				<div id="retorno"><?= $mensagem?></div>
 				<fieldset>
 					<legend>Nova Avaliação</legend>
 					<div class="large-4 columns">
