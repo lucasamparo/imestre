@@ -86,7 +86,7 @@ class Aluno extends BaseAluno{
 		}
 	}
 	
-	public function excluirDisciplina(){
+	public function excluirAluno(){
 		try{
 			$aluno = $this->getTable('aluno')->find($this->getIdAluno());
 			if($aluno){
