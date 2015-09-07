@@ -5,31 +5,45 @@
 	if(!($_SESSION['logado'])){
 		header('Location: index.php');
 	}
+	$mensagem = "";
 	
 	if(isset($_POST['email'])){
 		$mail = new PHPMailer();
 		$mail->IsSMTP();
+		$mail->Port = '465';
+		$mail->Host = 'beta-hospedandosites.com.br';
+		$mail->isHTML(true);
+		$mail->Mailer = 'smtp';
+		$mail->SMTPSecure = 'ssl';
 		$mail->SMTPAuth = true;
-		$mail->Username = "lucasamparo.ti@gmail.com";
-		$mail->Password = "Lucas1993";
-		$mail->Host = "smtp.gmail.com";
-		$mail->Port = 465;
-		$mail->From = "lucasamparo.ti@gmail.com";
-		$mail->SMTPSecure = "ssl";
-		$mail->FromName = "Lucas Amparo";
-		$mail->AddAddress($_POST['email']);
-		$mail->IsHTML(true);
-		$mail->Subject = "Teste de Envio";
-		$mail->Body = $_POST['conteudo'];
+		$mail->Username = 'no-reply@imestre.com';
+		$mail->Password = 'n0r3ply';
+		$mail->SingleTo = true;
 		
-		$enviado = $mail->Send();
+		$assunto = $_POST['titulo'];
 		
-		if($enviado){
-			echo "Email Enviado";
-		} else {
-			echo "Não foi possível enviar o email<br>";
-			echo "Informações: ".$mail->ErrorInfo;
+		//Conteúdo do email
+		$mensagem = $_POST['conteudo'];
+			
+		
+		$prof = new Professor();
+		$prof->setIdProfessor($_SESSION['idProfessor']);
+		$prof = $prof->retornaProfessorPorId();
+		$mail->From = $prof->getEmail();
+		$mail->FromName = $prof->getNomeProfessor();
+		$emails = explode(",", $_POST['email']);
+		foreach($emails as $e){
+			$mail->addAddress($e);
 		}
+		$mail->Subject = $assunto;
+		$mail->msgHTML($mensagem);
+		
+		if(!$mail->Send()){
+			$mensagem = "Não foi possível enviar o email<br>";
+			$mensagem .= "Informações: ".$mail->ErrorInfo;
+		} else {
+			$mensagem = "Email Enviado";
+		}			
 	}
 ?>
 <html>
@@ -61,11 +75,16 @@
 		</div>
 		<div class="large-10 columns" style="border-left-style: solid; border-width: 1px;">
 			<h4 class="text-center">Mensagens</h4>
+			<h5><?= $mensagem?></h5>
 			<form method="post">
 				<fieldset>
 					<div class="large-12 columns">
-						<label>Destinatário</label>
-							<input type="email" name="email">
+						<label>Título</label>
+							<input type="text" name="titulo">
+					</div>
+					<div class="large-12 columns">
+						<label>Destinatário(s)<small>&nbsp;&nbsp;Use vírgulas para separar os e-mails</small></label>
+							<input type="text" name="email">
 					</div>
 					<div class="large-12 columns">
 						<label>Conteúdo</label>
