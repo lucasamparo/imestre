@@ -67,7 +67,7 @@ $(document).ready(function(){
 						$a = new Avaliacao();
 						$avaliacoes = $a->retornarTodasAvaliacoes(date('Y-m-d'),'<=');
 						foreach($avaliacoes as $a){
-							if($a->getTurma()->getInstituicao()->getProfessor()->getIdProfessor() != $_SESSION['idProfessor']){
+							if($a->getTurma()->getInstituicao()->getProfessor()->getIdProfessor() == $_SESSION['idProfessor']){
 								echo '<tr>';
 									echo '<td>'.Util::arrumaData($a->getDataAvaliacao()).'</td>';
 									echo '<td>'.$a->getTurma()->getNomeTurma().'</td>';
@@ -93,7 +93,7 @@ $(document).ready(function(){
 						$a = new Avaliacao();
 						$avaliacoes = $a->retornarTodasAvaliacoes(date('Y-m-d'),'>=');
 						foreach($avaliacoes as $a){
-							if($a->getTurma()->getInstituicao()->getProfessor()->getIdProfessor() != $_SESSION['idProfessor']){
+							if($a->getTurma()->getInstituicao()->getProfessor()->getIdProfessor() == $_SESSION['idProfessor']){
 								echo '<tr>';
 									echo '<td>'.Util::arrumaData($a->getDataAvaliacao()).'</td>';
 									echo '<td>'.$a->getTurma()->getNomeTurma().'</td>';

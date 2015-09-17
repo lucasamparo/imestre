@@ -74,6 +74,7 @@ class Avaliacao extends BaseAvaliacao
 		try{
 			$table = Doctrine_Core::getTable('Avaliacao');
 			$query = $table->createQuery()->where('data '.$operador." '".$data."'");
+			//echo $query->getSqlQuery();
 			$rs = $query->execute();
 			return $rs;
 		} catch (Doctrine_Exception $e){
