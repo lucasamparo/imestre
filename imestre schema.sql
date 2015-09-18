@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 01-Set-2015 às 17:34
+-- Generation Time: 17-Set-2015 às 21:32
 -- Versão do servidor: 5.6.15-log
 -- PHP Version: 5.5.8
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `imestre`
 --
+CREATE DATABASE IF NOT EXISTS `imestre` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `imestre`;
 
 -- --------------------------------------------------------
 
@@ -89,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `assunto` (
   `idDisciplina` int(11) NOT NULL,
   `nomeAssunto` varchar(255) NOT NULL,
   PRIMARY KEY (`idAssunto`),
-  KEY `idDisciplina` (`idDisciplina`)
+  UNIQUE KEY `idDisciplina` (`idDisciplina`,`nomeAssunto`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
@@ -104,8 +106,8 @@ CREATE TABLE IF NOT EXISTS `avaliacao` (
   `peso` int(11) DEFAULT NULL,
   `data` date DEFAULT NULL,
   PRIMARY KEY (`idAvaliacao`),
-  KEY `idTurmaAvaliacao` (`idTurma`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+  UNIQUE KEY `idTurma` (`idTurma`,`data`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 -- --------------------------------------------------------
 
@@ -136,8 +138,8 @@ CREATE TABLE IF NOT EXISTS `disciplina` (
   `idProfessor` int(11) DEFAULT NULL,
   `nomeDisciplina` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`idDisciplina`),
-  KEY `idAreaMenor` (`idAreaMenor`),
-  KEY `idProfessor` (`idProfessor`)
+  UNIQUE KEY `idProfessor` (`idProfessor`,`nomeDisciplina`),
+  KEY `idAreaMenor` (`idAreaMenor`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 -- --------------------------------------------------------
@@ -149,10 +151,10 @@ CREATE TABLE IF NOT EXISTS `disciplina` (
 CREATE TABLE IF NOT EXISTS `ementa` (
   `idEmenta` int(11) NOT NULL AUTO_INCREMENT,
   `idDisciplina` int(11) DEFAULT NULL,
-  `ano` int(11) DEFAULT NULL,
+  `ano` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`idEmenta`),
-  KEY `idDisciplinaEmenta` (`idDisciplina`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+  UNIQUE KEY `idDisciplina` (`idDisciplina`,`ano`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
 
 -- --------------------------------------------------------
 
@@ -166,6 +168,7 @@ CREATE TABLE IF NOT EXISTS `frequencia` (
   `idPlanejamento` int(11) DEFAULT NULL,
   `presenca` enum('P','A') DEFAULT NULL,
   PRIMARY KEY (`idFrequencia`),
+  UNIQUE KEY `idAluno` (`idAluno`,`idPlanejamento`),
   KEY `idFrequenciaAluno_idx` (`idAluno`),
   KEY `idPlanejamentoAluno_idx` (`idPlanejamento`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
@@ -218,6 +221,7 @@ CREATE TABLE IF NOT EXISTS `itemavaliacao` (
   `idQuestao` int(11) NOT NULL DEFAULT '0',
   `indice` int(11) DEFAULT NULL,
   PRIMARY KEY (`idAvaliacao`,`idQuestao`),
+  UNIQUE KEY `idAvaliacao` (`idAvaliacao`,`indice`),
   KEY `idAvaliacaoQuestao` (`idQuestao`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -249,8 +253,9 @@ CREATE TABLE IF NOT EXISTS `itemementa` (
   `indice` int(11) DEFAULT NULL,
   `conteudo` text,
   PRIMARY KEY (`idItemEmenta`),
-  UNIQUE KEY `idEmenta` (`idEmenta`,`indice`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+  UNIQUE KEY `idEmenta` (`idEmenta`,`indice`),
+  UNIQUE KEY `idEmenta_2` (`idEmenta`,`indice`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
 
 -- --------------------------------------------------------
 
@@ -348,7 +353,7 @@ CREATE TABLE IF NOT EXISTS `questao` (
   `alternativas` text,
   PRIMARY KEY (`idQuestao`),
   KEY `idQuestaoDisciplina` (`idAssunto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 -- --------------------------------------------------------
 
@@ -393,6 +398,7 @@ CREATE TABLE IF NOT EXISTS `turma` (
   `periodo` int(11) DEFAULT NULL,
   `turno` int(11) DEFAULT NULL,
   PRIMARY KEY (`idTurma`),
+  UNIQUE KEY `nomeTurma` (`nomeTurma`),
   KEY `idTurmaInstituicao` (`idInstituicao`),
   KEY `idTurmaDisciplina` (`idDisciplina`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;

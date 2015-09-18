@@ -56,7 +56,8 @@ $(document).ready(function (){
 		var form = '<input type="hidden" name="indice[]" value="'+indice+'">'
 					+'<input type="hidden" name="conteudo[]" value="'+conteudo+'">';
 		$('#formItens').append(form);
-		$('#indice').val("");
+		$('#indice').attr("min",""+(parseInt(indice)+1));
+		$('#indice').val(""+(parseInt(indice)+1));
 		$('#conteudo').val("");
 	});
 });
@@ -85,7 +86,7 @@ $(document).ready(function (){
 				<legend>Nova Ementa</legend>
 				<div class="large-12 columns">
 					<label>Ano:</label>
-					<input type="text" name="ano" maxlength="5">
+					<input type="text" name="ano" maxlength="5" value="<?= date('Y')?>">
 				</div>
 				<fieldset>
 					<legend>Itens da Ementa</legend>
@@ -114,7 +115,7 @@ $(document).ready(function (){
 						<legend>Novo Item de Ementa</legend>
 						<div class="large-2 columns">
 							<label>Índice:</label>
-							<input type="number" step="1" id="indice" min="1">
+							<input type="number" step="1" id="indice" min="1" value="1">
 						</div>
 						<div class="large-10 columns">
 							<label>Conteúdo:</label>

@@ -4,12 +4,7 @@
 	if(!($_SESSION['logado'])){
 		header('Location: index.php');
 	}
-	$p = new Professor();
-	$p->setIdProfessor($_SESSION['idProfessor']);
-	$professor = $p->retornaProfessorPorId();
-	$nome = explode(" ",$professor->getNomeProfessor());
 	$salvo = false;
-	
 	if(isset($_POST['nomeCompleto'])){
 		$pAtual = new Professor();
 		$pAtual->setIdProfessor($_SESSION['idProfessor']);
@@ -31,6 +26,11 @@
 		$pAtual->atualizaProfessor();
 		$salvo = true;
 	}
+	
+	$p = new Professor();
+	$p->setIdProfessor($_SESSION['idProfessor']);
+	$professor = $p->retornaProfessorPorId();
+	$nome = explode(" ",$professor->getNomeProfessor());
 ?>
 <html>
 <head>
